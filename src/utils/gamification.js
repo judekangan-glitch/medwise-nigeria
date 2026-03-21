@@ -82,7 +82,8 @@ export const awardPoints = (action, amount = 0) => {
       achievementToCheck = 'KNOWLEDGE_SEEKER'
       break
     case 'quiz_perfect':
-      pointsToAdd = 40
+      // If amount is provided, use it; otherwise default to 40
+      pointsToAdd = amount > 0 ? amount : 40
       achievementToCheck = 'QUIZ_MASTER'
       break
     case 'verify_medication':
