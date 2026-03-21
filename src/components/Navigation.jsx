@@ -9,17 +9,23 @@ export default function Navigation({ theme = 'light', setTheme: setThemeApp }) {
   const location = useLocation()
 
   useEffect(() => {
-    const savedUser = localStorage.getItem('medwise-user')
-    setUser(savedUser ? JSON.parse(savedUser) : null)
-
-    // Listen for storage changes
-    const handleStorageChange = () => {
-      const newUser = localStorage.getItem('medwise-user')
-      setUser(newUser ? JSON.parse(newUser) : null)
+    const updateUser = () => {
+      const savedUser = localStorage.getItem('medwise-user')
+      setUser(savedUser ? JSON.parse(savedUser) : null)
     }
 
-    window.addEventListener('storage', handleStorageChange)
-    return () => window.removeEventListener('storage', handleStorageChange)
+    updateUser()
+
+    // Listen for storage changes from other tabs
+    window.addEventListener('storage', updateUser)
+    
+    // Poll for changes every second (for same-tab updates)
+    const interval = setInterval(updateUser, 1000)
+
+    return () => {
+      window.removeEventListener('storage', updateUser)
+      clearInterval(interval)
+    }
   }, [])
 
   const navItems = [
@@ -38,8 +44,7 @@ export default function Navigation({ theme = 'light', setTheme: setThemeApp }) {
   }
 
   return (
-    <>
-      <nav className={`${theme === 'dark' ? 'bg-gray-800 border-gray-700' : 'bg-white'} shadow-md sticky top-0 z-50 border-b`}>
+    <nav className={`${theme === 'dark' ? 'bg-gray-800 border-gray-700' : 'bg-white'} shadow-md sticky top-0 z-50 border-b`}>
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
@@ -76,8 +81,25 @@ export default function Navigation({ theme = 'light', setTheme: setThemeApp }) {
           </div>
 
           {/* Theme & Mobile Menu */}
-          <div className="flex items-center space-x-2">
-            <button
+          <div className="flex items-center space-x-4">
+            {/* Profile Widget - Inline */}
+            {user && (
+              <div className="hidden sm:flex items-center space-x-2 px-3 py-2 rounded-lg" style={{
+                backgroundColor: theme === 'dark' ? '#374151' : '#f3f4f6'
+              }}>
+                <User size={16} className="text-primary" />
+                <div className="text-left text-sm">
+                  <p style={{color: theme === 'dark' ? '#e5e7eb' : '#111827'}} className="font-semibold leading-tight">
+                    {user.username}
+                  </p>
+                  <p style={{color: theme === 'dark' ? '#9ca3af' : '#6b7280'}} className="text-xs leading-tight">
+                    Lv {user.level} • ⭐ {user.points}
+                  </p>
+                </div>
+              </div>
+            )}
+
+            {/* Theme Toggle */}
               onClick={toggleTheme}
               className={`p-2 rounded-lg transition ${
                 theme === 'dark'
@@ -126,28 +148,6 @@ export default function Navigation({ theme = 'light', setTheme: setThemeApp }) {
         )}
       </div>
     </nav>
-
-    {/* Profile Widget */}
-    {user && (
-      <div className="fixed top-4 right-4 z-50">
-        <div className={`${theme === 'dark' ? 'bg-gray-800 border border-gray-700' : 'bg-white'} rounded-lg shadow-lg p-4`}>
-          <div className="flex items-center space-x-3 mb-3">
-            <User size={20} className="text-primary" />
-            <div>
-              <p className="font-semibold text-gray-900 dark:text-white">{user.username}</p>
-              <p className="text-xs text-gray-500">Level {user.level}</p>
-            </div>
-          </div>
-
-          <div className={`border-t ${theme === 'dark' ? 'border-gray-700' : 'border-gray-200'} pt-3`}>
-            <p className={`text-sm ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'} mb-3`}>
-              ⭐ {user.points} points
-            </p>
-          </div>
-        </div>
-      </div>
-    )}
-    </>
   )
 }
 
