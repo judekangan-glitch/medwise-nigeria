@@ -14,12 +14,12 @@ import { getTheme } from './utils/localStorage'
 
 function App() {
   const [theme, setTheme] = useState(getTheme())
-  const [user, setUser] = useState(null)
+  const [user, setUser] = useState(() => {
+    const savedUser = localStorage.getItem('medwise-user')
+    return savedUser ? JSON.parse(savedUser) : null
+  })
 
   useEffect(() => {
-    const savedUser = localStorage.getItem('medwise-user')
-    setUser(savedUser ? JSON.parse(savedUser) : null)
-
     // Apply theme
     if (theme === 'dark') {
       document.documentElement.classList.add('dark')
@@ -27,6 +27,33 @@ function App() {
       document.documentElement.classList.remove('dark')
     }
   }, [theme])
+
+  useEffect(() => {
+    // Listen for storage changes (when Auth component logs in)
+    const handleStorageChange = () => {
+      const savedUser = localStorage.getItem('medwise-user')
+      setUser(savedUser ? JSON.parse(savedUser) : null)
+    }
+
+    window.addEventListener('storage', handleStorageChange)
+    
+    // Also check on a timer in case storage event doesn't fire
+    const checkInterval = setInterval(() => {
+      const savedUser = localStorage.getItem('medwise-user')
+      setUser((prevUser) => {
+        const newUser = savedUser ? JSON.parse(savedUser) : null
+        if (JSON.stringify(prevUser) !== JSON.stringify(newUser)) {
+          return newUser
+        }
+        return prevUser
+      })
+    }, 500)
+
+    return () => {
+      window.removeEventListener('storage', handleStorageChange)
+      clearInterval(checkInterval)
+    }
+  }, [])
 
   if (!user) {
     return <Auth />
