@@ -105,8 +105,6 @@ export default function Navigation({ theme = 'light', setTheme: setThemeApp }) {
                   <span className="font-medium">{item.label}</span>
                 </Link>
               )
-                </Link>
-              )
             })}
           </div>
         )}
