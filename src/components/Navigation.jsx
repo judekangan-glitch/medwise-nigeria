@@ -100,6 +100,7 @@ export default function Navigation({ theme = 'light', setTheme: setThemeApp }) {
             )}
 
             {/* Theme Toggle */}
+            <button
               onClick={toggleTheme}
               className={`p-2 rounded-lg transition ${
                 theme === 'dark'
