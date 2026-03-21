@@ -500,19 +500,3 @@ export default function SymptomChecker() {
     </div>
   )
 }
-            >
-              <ArrowLeft size={18} className="mr-2" />
-              Previous Question
-            </button>
-          )}
-        </div>
-
-        <div className="mt-6 bg-blue-50 p-4 rounded-lg">
-          <p className="text-sm text-gray-700">
-            <strong>Disclaimer:</strong> This tool provides general guidance only and does not replace professional medical advice.
-          </p>
-        </div>
-      </div>
-    </div>
-  )
-}
