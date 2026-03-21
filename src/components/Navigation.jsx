@@ -1,11 +1,26 @@
 import { Link, useLocation } from 'react-router-dom'
-import { Menu, X, GraduationCap, Shield, Clock, Bell, Moon, Sun } from 'lucide-react'
-import { useState } from 'react'
+import { Menu, X, GraduationCap, Shield, Clock, Bell, Moon, Sun, User, LogOut } from 'lucide-react'
+import { useState, useEffect } from 'react'
 import { setTheme } from '../utils/localStorage'
 
 export default function Navigation({ theme = 'light', setTheme: setThemeApp }) {
   const [isOpen, setIsOpen] = useState(false)
+  const [user, setUser] = useState(null)
   const location = useLocation()
+
+  useEffect(() => {
+    const savedUser = localStorage.getItem('medwise-user')
+    setUser(savedUser ? JSON.parse(savedUser) : null)
+
+    // Listen for storage changes
+    const handleStorageChange = () => {
+      const newUser = localStorage.getItem('medwise-user')
+      setUser(newUser ? JSON.parse(newUser) : null)
+    }
+
+    window.addEventListener('storage', handleStorageChange)
+    return () => window.removeEventListener('storage', handleStorageChange)
+  }, [])
 
   const navItems = [
     { path: '/learn', label: 'Learn', icon: GraduationCap },
@@ -23,7 +38,8 @@ export default function Navigation({ theme = 'light', setTheme: setThemeApp }) {
   }
 
   return (
-    <nav className={`${theme === 'dark' ? 'bg-gray-800 border-gray-700' : 'bg-white'} shadow-md sticky top-0 z-50 border-b`}>
+    <>
+      <nav className={`${theme === 'dark' ? 'bg-gray-800 border-gray-700' : 'bg-white'} shadow-md sticky top-0 z-50 border-b`}>
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
@@ -110,6 +126,29 @@ export default function Navigation({ theme = 'light', setTheme: setThemeApp }) {
         )}
       </div>
     </nav>
+
+    {/* Profile Widget */}
+    {user && (
+      <div className="fixed top-4 right-4 z-50">
+        <div className={`${theme === 'dark' ? 'bg-gray-800 border border-gray-700' : 'bg-white'} rounded-lg shadow-lg p-4`}>
+          <div className="flex items-center space-x-3 mb-3">
+            <User size={20} className="text-primary" />
+            <div>
+              <p className="font-semibold text-gray-900 dark:text-white">{user.username}</p>
+              <p className="text-xs text-gray-500">Level {user.level}</p>
+            </div>
+          </div>
+
+          <div className={`border-t ${theme === 'dark' ? 'border-gray-700' : 'border-gray-200'} pt-3`}>
+            <p className={`text-sm ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'} mb-3`}>
+              ⭐ {user.points} points
+            </p>
+          </div>
+        </div>
+      </div>
+    )}
+    </>
   )
 }
+
 
