@@ -1,46 +1,35 @@
+
 import { useState } from 'react'
 import { Search, AlertTriangle, CheckCircle, Camera, FileText } from 'lucide-react'
 import FakeDrugAlerts from '../components/FakeDrugAlerts'
+import { verifyNafdac } from '../utils/verifyNafdac'
 
 export default function Verify() {
   const [nafdacCode, setNafdacCode] = useState('')
   const [verificationResult, setVerificationResult] = useState(null)
   const [isVerifying, setIsVerifying] = useState(false)
 
-  // Mock database of verified medications
-  const verifiedMedications = {
-    'A7-1234': {
-      name: 'Amoxicillin 500mg',
-      manufacturer: 'Example Pharma Ltd',
-      status: 'verified',
-      nafdacNumber: 'A7-1234',
-      expiryCheck: 'Check expiry date on package'
-    },
-    'A7-5678': {
-      name: 'Ciprofloxacin 500mg',
-      manufacturer: 'Trusted Meds Inc',
-      status: 'verified',
-      nafdacNumber: 'A7-5678',
-      expiryCheck: 'Check expiry date on package'
-    },
-    'FAKE-001': {
-      name: 'Unknown Product',
-      status: 'unverified',
-      warning: 'This NAFDAC number is not in our database. Exercise extreme caution.'
-    }
-  }
 
   const handleVerify = (e) => {
     e.preventDefault()
     setIsVerifying(true)
 
-    // Simulate verification delay
     setTimeout(() => {
-      const result = verifiedMedications[nafdacCode] || {
-        status: 'not_found',
-        warning: 'NAFDAC number not found in database. This could indicate a counterfeit product.'
+      const found = verifyNafdac(nafdacCode)
+      if (found) {
+        setVerificationResult({
+          status: 'verified',
+          name: found.name,
+          nafdacNumber: found.nrn,
+          manufacturer: found.manufacturer || 'N/A',
+          expiryCheck: 'Check expiry date on package'
+        })
+      } else {
+        setVerificationResult({
+          status: 'not_found',
+          warning: 'NAFDAC number not found in database. This could indicate a counterfeit product.'
+        })
       }
-      setVerificationResult(result)
       setIsVerifying(false)
     }, 1000)
   }

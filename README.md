@@ -184,29 +184,36 @@ medwise-nigeria/
 ### Closing (3:30-4:00)
 "This isn't just education. It's protection. It's the future of medication safety in Nigeria."
 
+
 ## 📄 Solution Brief (1 Page)
 
-**Problem**: Dual crisis of antibiotic resistance and counterfeit medications
+**JUDE KANGAN DANGWAM**  
+3MTT Fellow ID: FE/23/77283616
 
-**Users**:
-- Primary: Everyday Nigerians seeking medication guidance
-- Secondary: Healthcare workers, pharmacy staff
+### Problem
+Nigeria faces a dual healthcare crisis: rampant antibiotic resistance—driven by over 70% inappropriate use—and a flood of counterfeit medications, with up to 40% of drugs in circulation being fake or substandard. These silent threats endanger lives, undermine trust in healthcare, and fuel preventable deaths nationwide.
 
-**Build**:
-- React + Vite (modern, fast)
-- Tailwind CSS (responsive design)
-- Evidence-based decision trees (medical expertise)
-- PWA-ready for mobile access
+### Users
+- **Primary:** Everyday Nigerians seeking safe, effective medication guidance.
+- **Secondary:** Healthcare workers, pharmacy staff, and public health advocates striving for safer communities.
 
-**Impact**:
-- Behavioral change in antibiotic use
-- Fake drug detection and reporting
-- Community-driven accountability
+### Build
+- **Modern Frontend:** React + Vite for blazing-fast, seamless user experience.
+- **Responsive Design:** Tailwind CSS ensures accessibility on any device.
+- **Medical Intelligence:** Evidence-based decision trees and expert content.
+- **Privacy-First:** 100% local data storage—no login, no tracking.
+- **PWA-Ready:** Installs like an app, works offline, always available.
 
-**Scalability**:
-- Pilot: University of Jos students
-- Expand: Other Nigerian universities
-- National: Partner with NAFDAC, pharmacies, MOH
+### Impact
+- **Empowers Smarter Choices:** Transforms how Nigerians learn about, use, and verify medications.
+- **Reduces Resistance:** Drives behavioral change in antibiotic use, curbing resistance.
+- **Detects Fakes:** Enables instant verification and community reporting of counterfeit drugs.
+- **Builds Trust:** Fosters a culture of safety, accountability, and health literacy.
+
+### Scalability
+- **Pilot:** University of Jos—proven with real students and healthcare trainees.
+- **Expansion:** Ready for rollout to universities, pharmacies, and clinics nationwide.
+- **National Vision:** Designed for partnership with NAFDAC, Ministry of Health, and public health campaigns—scalable to millions.
 
 ## 🔬 Medical Credibility
 

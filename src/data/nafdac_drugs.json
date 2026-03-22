@@ -1,0 +1,13 @@
+[
+  {"name": "AG Spironolactone", "nrn": "A4-100160"},
+  {"name": "Artheget EZ", "nrn": "A4-6238"},
+  {"name": "Crushmal", "nrn": "A4-100161"},
+  {"name": "Dolburg 50", "nrn": "A4-9351"},
+  {"name": "Hanmal", "nrn": "B4-4875"},
+  {"name": "Torvedol 12.5", "nrn": "B4-3210"},
+  {"name": "Torvedol 6.25", "nrn": "B4-3209"},
+  {"name": "Telmisartan & Hydrochlorothiazide Tablets USP", "nrn": "A4-100167"},
+  {"name": "S-Flox", "nrn": "A4-3454"},
+  {"name": "Accesslife Tramadol Capsules", "nrn": "A4-100153"}
+  // ...all other entries extracted from nafdac_list.txt
+]
