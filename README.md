@@ -3,9 +3,10 @@
 
 [![Live Demo](https://img.shields.io/badge/Live%20Demo-medwise--nigeria.vercel.app-brightgreen)](https://medwise-nigeria.vercel.app/)
 
+
 **Quick Start:**
 - Visit [https://medwise-nigeria.vercel.app/](https://medwise-nigeria.vercel.app/) and click "Get Started".
-- No login required. Works on desktop and mobile.
+- Simple login with username (email optional). Works on desktop and mobile.
 
 **From Education to Verification - Your Complete Medication Safety Companion**
 
