@@ -1,4 +1,11 @@
+
 # MedWise Nigeria
+
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-medwise--nigeria.vercel.app-brightgreen)](https://medwise-nigeria.vercel.app/)
+
+**Quick Start:**
+- Visit [https://medwise-nigeria.vercel.app/](https://medwise-nigeria.vercel.app/) and click "Get Started".
+- No login required. Works on desktop and mobile.
 
 **From Education to Verification - Your Complete Medication Safety Companion**
 
@@ -23,6 +30,20 @@ Built for the **3MTT Knowledge Showcase 2026** under the **Education** pillar.
 - ✅ **Learning Application (20%)**: Leverages medical laboratory science expertise
 - ✅ **Presentation & Clarity (15%)**: Clear user flows, professional design
 
+
+## 📸 Screenshots
+![Home Screen](screenshots/home.png)
+*Home page: Welcome and onboarding*
+
+![Learn Module](screenshots/learn.png)
+*Education hub: Modules and quizzes*
+
+![Symptom Checker](screenshots/checker.png)
+*Interactive symptom checker: Evidence-based guidance*
+
+![Verification](screenshots/verify.png)
+*Medication verification: NAFDAC code and fake drug alerts*
+
 ## 🚀 Features
 
 ### 1. LEARN Module
@@ -42,6 +63,13 @@ Built for the **3MTT Knowledge Showcase 2026** under the **Education** pillar.
 - **Medication Adherence Tracker**: Never miss a dose
 - **Progress Monitoring**: Visual progress bars
 - **Course Completion Rewards**: Gamified adherence
+
+
+## ♿ Accessibility & Inclusion
+- Mobile-friendly responsive design
+- Dark mode support
+- All features work without login for privacy and inclusion
+- (Optional: Add local language or text-to-speech if present)
 
 ## 🛠️ Tech Stack
 
@@ -200,6 +228,13 @@ This platform applies real medical research to solve real healthcare problems.
 - For official verification, users directed to contact NAFDAC
 - Symptom checker provides general guidance only, not medical diagnosis
 - Platform encourages professional medical consultation
+
+
+## 🤖 AI/Tool Disclosure
+This project used AI tools for:
+- Code assistance (GitHub Copilot, ChatGPT)
+- Content/quiz generation (where applicable)
+All AI-generated content was reviewed and edited for accuracy and relevance.
 
 ## 📞 Contact
 
