@@ -45,6 +45,14 @@ export default function Verify() {
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
             Check NAFDAC registration numbers to help identify counterfeit medications
           </p>
+          <div className="mt-4">
+            <span className="inline-block bg-blue-100 text-blue-800 text-sm font-semibold px-4 py-2 rounded-full">
+              <strong>Currently verifying:</strong> 10,076 NAFDAC-registered drugs
+            </span>
+            <p className="text-xs text-gray-500 mt-2 max-w-xl mx-auto">
+              <strong>Note:</strong> This tool does <u>not</u> cover every drug registered by NAFDAC. The limitation is due to lack of access to the official NAFDAC API. Only drugs for which we could obtain public data are included.
+            </p>
+          </div>
         </div>
 
         {/* Warning Banner */}
@@ -218,7 +226,7 @@ export default function Verify() {
         {/* Disclaimer */}
         <div className="mt-8 bg-yellow-50 p-4 rounded-lg border-l-4 border-yellow-500">
           <p className="text-sm text-gray-700">
-            <strong>Disclaimer:</strong> This verification tool uses a limited database for demonstration purposes. For official verification, contact NAFDAC directly or visit a licensed pharmacy.
+            <strong>Disclaimer:</strong> This verification tool uses a limited database of 10,076 drugs. For official and complete verification, contact NAFDAC directly or visit a licensed pharmacy. We do not have access to the full NAFDAC registry or API.
           </p>
         </div>
       </div>
