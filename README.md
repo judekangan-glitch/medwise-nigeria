@@ -32,16 +32,16 @@ Built for the **3MTT Knowledge Showcase 2026** under the **Education** pillar.
 
 
 ## 📸 Screenshots
-![Home Screen](screenshots/home.png)
+![Home Screen](Screenshots%20for%20organisation/home.png)
 *Home page: Welcome and onboarding*
 
-![Learn Module](screenshots/learn.png)
+![Learn Module](Screenshots%20for%20organisation/learn.png)
 *Education hub: Modules and quizzes*
 
-![Symptom Checker](screenshots/checker.png)
+![Symptom Checker](Screenshots%20for%20organisation/checker.png)
 *Interactive symptom checker: Evidence-based guidance*
 
-![Verification](screenshots/verify.png)
+![Verification](Screenshots%20for%20organisation/verify.png)
 *Medication verification: NAFDAC code and fake drug alerts*
 
 ## 🚀 Features
