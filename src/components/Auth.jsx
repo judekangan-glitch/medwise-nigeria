@@ -1,12 +1,22 @@
-import { useState } from 'react'
+
+import { useState, useEffect } from 'react'
 import { User, LogOut, LogIn, Mail } from 'lucide-react'
-import { getUserProfile, initializeUser, saveUserProfile } from '../utils/localStorage'
+import { getUserProfile, initializeUser, saveUserProfile, getAchievements } from '../utils/localStorage'
+import { ACHIEVEMENTS } from '../utils/gamification'
+
 
 export default function Auth() {
   const [user, setUser] = useState(getUserProfile())
   const [showAuth, setShowAuth] = useState(!user)
   const [authMode, setAuthMode] = useState('login')
   const [formData, setFormData] = useState({ username: '', email: '' })
+  const [achievements, setAchievements] = useState([])
+
+  useEffect(() => {
+    if (user) {
+      setAchievements(getAchievements())
+    }
+  }, [user])
 
   const handleLogin = (e) => {
     e.preventDefault()
@@ -117,6 +127,28 @@ export default function Auth() {
           <p className="text-sm text-gray-600 mb-3">
             ⭐ {user.points} points
           </p>
+
+          {/* Achievements Section */}
+          <div className="mb-3">
+            <p className="text-xs text-gray-500 font-semibold mb-1">Achievements:</p>
+            {achievements.length === 0 ? (
+              <span className="text-xs text-gray-400">No achievements yet</span>
+            ) : (
+              <div className="flex flex-wrap gap-2">
+                {achievements.map(a => {
+                  // Find the achievement details from ACHIEVEMENTS
+                  const details = Object.values(ACHIEVEMENTS).find(ach => ach.id === a.id)
+                  return details ? (
+                    <span key={a.id} title={details.description} className="flex items-center px-2 py-1 bg-blue-50 rounded text-xs">
+                      <span className="mr-1">{details.name.split(' ')[0]}</span>
+                      <span>{details.name.split(' ').slice(1).join(' ')}</span>
+                    </span>
+                  ) : null
+                })}
+              </div>
+            )}
+          </div>
+
           <button
             onClick={handleLogout}
             className="text-red-500 hover:bg-red-50 px-3 py-2 rounded w-full text-sm font-semibold transition flex items-center justify-center"

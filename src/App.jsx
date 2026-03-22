@@ -10,6 +10,7 @@ import Track from './pages/Track'
 import Reminders from './pages/Reminders'
 import SymptomChecker from './pages/SymptomChecker'
 import EducationModule from './pages/EducationModule'
+
 import { getTheme } from './utils/localStorage'
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
       document.documentElement.classList.remove('dark')
     }
   }, [theme])
+
 
   useEffect(() => {
     // Listen for storage changes (when Auth component logs in)
