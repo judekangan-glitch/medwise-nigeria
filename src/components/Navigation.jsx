@@ -1,6 +1,6 @@
 import { Link, useLocation } from 'react-router-dom'
-import { Menu, X, GraduationCap, Shield, Clock, Bell, Moon, Sun, User, LogOut } from 'lucide-react'
-import { useState } from 'react'
+import { Menu, X, GraduationCap, Shield, Clock, Bell, Moon, Sun, User, LogOut, Globe, ChevronDown } from 'lucide-react'
+import { useState, useRef, useEffect } from 'react'
 import { useMedwise } from '../context/MedwiseContext'
 
 export default function Navigation() {
@@ -9,12 +9,28 @@ export default function Navigation() {
   
   // Consume Context deeply directly! No more polling localStorage
   const { user, theme, setTheme, language, setLanguage } = useMedwise()
+  const [isLangOpen, setIsLangOpen] = useState(false)
+  const langDropdownRef = useRef(null)
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (langDropdownRef.current && !langDropdownRef.current.contains(event.target)) {
+        setIsLangOpen(false)
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [])
+
+  const lang = (map) => map[language] ?? map['en']
+
+  const LANG_LABELS = { en: 'English', pidgin: 'Pidgin', ha: 'Hausa', yo: 'Yoruba', ig: 'Igbo' }
 
   const navItems = [
-    { path: '/learn', label: 'Learn', icon: GraduationCap },
-    { path: '/verify', label: 'Verify', icon: Shield },
-    { path: '/track', label: 'Track', icon: Clock },
-    { path: '/reminders', label: 'Reminders', icon: Bell },
+    { path: '/learn', label: lang({en:'Learn',pidgin:'Learn',ha:'Koyo',yo:'Kọ́',ig:'Mụta'}), icon: GraduationCap },
+    { path: '/verify', label: lang({en:'Verify',pidgin:'Check Am',ha:'Tabbatar',yo:'Ṣàyẹ̀wò',ig:'Nwalee'}), icon: Shield },
+    { path: '/track', label: lang({en:'Track',pidgin:'Follow Am',ha:'Bibiye',yo:'Tọpinpin',ig:'Soro ya'}), icon: Clock },
+    { path: '/reminders', label: lang({en:'Reminders',pidgin:'Reminders',ha:'Tunatarwa',yo:'Olùránnilétí',ig:'Ihe ncheta'}), icon: Bell },
   ]
 
   const isActive = (path) => location.pathname.startsWith(path)
@@ -79,17 +95,45 @@ export default function Navigation() {
               </div>
             )}
 
-            {/* Language Toggle */}
-            <button
-              onClick={() => setLanguage(language === 'en' ? 'pidgin' : 'en')}
-              className={`px-3 py-1 text-sm font-bold rounded-lg transition-all border-2 ${
-                theme === 'dark' 
-                  ? 'border-white/10 text-white hover:bg-white/10' 
-                  : 'border-primary/10 text-primary hover:bg-primary/10'
-              }`}
-            >
-              {language === 'en' ? 'PIDGIN' : 'ENGLISH'}
-            </button>
+            {/* Language Dropdown */}
+            <div className="relative" ref={langDropdownRef}>
+              <button
+                onClick={() => setIsLangOpen(!isLangOpen)}
+                className={`flex items-center space-x-1 px-3 py-1.5 text-sm font-semibold rounded-lg transition-all border ${
+                  theme === 'dark' 
+                    ? 'border-white/10 text-white hover:bg-white/10 bg-deep-surface' 
+                    : 'border-gray-200 text-gray-700 hover:bg-gray-50 bg-white'
+                }`}
+              >
+                <Globe size={16} className={theme === 'dark' ? 'text-blue-400' : 'text-primary'} />
+                <span>{LANG_LABELS[language] || 'English'}</span>
+                <ChevronDown size={14} className={`transition-transform ${isLangOpen ? 'rotate-180' : ''}`} />
+              </button>
+
+              {/* Dropdown Menu */}
+              {isLangOpen && (
+                <div className={`absolute top-full right-0 mt-2 w-36 rounded-xl shadow-lg border overflow-hidden z-50 ${
+                  theme === 'dark' ? 'bg-[#0d2818] border-white/10' : 'bg-white border-gray-100'
+                }`}>
+                  {Object.entries(LANG_LABELS).map(([code, label]) => (
+                    <button
+                      key={code}
+                      onClick={() => {
+                        setLanguage(code)
+                        setIsLangOpen(false)
+                      }}
+                      className={`w-full text-left px-4 py-2.5 text-sm transition-colors ${
+                        language === code
+                          ? (theme === 'dark' ? 'bg-primary/20 text-white font-bold' : 'bg-blue-50 text-primary font-bold')
+                          : (theme === 'dark' ? 'text-gray-300 hover:bg-white/5' : 'text-gray-700 hover:bg-gray-50')
+                      }`}
+                    >
+                      {label}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
 
             {/* Theme Toggle */}
             <button

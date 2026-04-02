@@ -7,7 +7,7 @@ import { useMedwise } from '../context/MedwiseContext'
 export default function Pitch() {
   const [currentSlide, setCurrentSlide] = useState(0)
   const { theme } = useMedwise()
-  const totalSlides = 8
+  const totalSlides = 9
 
   // Keyboard navigation
   useEffect(() => {
@@ -223,6 +223,37 @@ export default function Pitch() {
     </div>
   )
 
+  // SLIDE 5.5: Language Support
+  const SlideLanguage = () => (
+    <div className="flex flex-col items-center justify-center h-full w-full">
+      <motion.div variants={staggerContainer} initial="hidden" animate="show" className="w-full max-w-6xl text-center">
+        <motion.h2 variants={childVariant} className="text-5xl font-bold text-white mb-6">Bridging the Language Barrier</motion.h2>
+        <motion.p variants={childVariant} className="text-2xl text-gray-400 mb-16 max-w-3xl mx-auto">
+          Built natively from the ground up to support Nigeria's diverse linguistic landscape, ensuring healthcare literacy for everyone.
+        </motion.p>
+        
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-6">
+          {[
+            { tag: "EN", name: "English", desc: "Standard medical terminology", color: "text-blue-400", border: "border-blue-500/30" },
+            { tag: "NG", name: "Pidgin", desc: "Urban Nigerian street reliability", color: "text-green-400", border: "border-green-500/30" },
+            { tag: "HA", name: "Hausa", desc: "Northern healthcare access", color: "text-yellow-400", border: "border-yellow-500/30" },
+            { tag: "YO", name: "Yoruba", desc: "South-West community reach", color: "text-orange-400", border: "border-orange-500/30" },
+            { tag: "IG", name: "Igbo", desc: "South-East indigenous access", color: "text-red-400", border: "border-red-500/30" }
+          ].map((lang, i) => (
+            <motion.div key={i} variants={childVariant} whileHover={{ y: -10 }} className={`glass-panel p-8 rounded-2xl border ${lang.border} bg-white/5 flex flex-col items-center`}>
+              <div className={`w-16 h-16 rounded-full flex items-center justify-center text-2xl font-bold mb-4 bg-white/5 ${lang.color}`}>
+                {lang.tag}
+              </div>
+              <h3 className={`text-2xl font-bold mb-2 ${lang.color}`}>{lang.name}</h3>
+              <p className="text-sm text-gray-400 text-center">{lang.desc}</p>
+            </motion.div>
+          ))}
+        </div>
+      </motion.div>
+    </div>
+  )
+
+
   // SLIDE 6: The Innovation (FIRE)
   const Slide6 = () => (
     <div className="flex flex-col items-center justify-center h-full w-full relative overflow-hidden">
@@ -320,7 +351,7 @@ export default function Pitch() {
     </div>
   )
 
-  const slides = [<Slide1 />, <Slide2 />, <Slide3 />, <Slide4 />, <Slide5 />, <Slide6 />, <Slide7 />, <Slide8 />]
+  const slides = [<Slide1 />, <Slide2 />, <Slide3 />, <Slide4 />, <Slide5 />, <SlideLanguage />, <Slide6 />, <Slide7 />, <Slide8 />]
 
   return (
     // We override global theme background here to enforce the Deep Forest theme for the presentation exclusively

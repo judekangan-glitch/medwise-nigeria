@@ -2,6 +2,25 @@ import { useState, useEffect } from 'react'
 import { Bell, Plus, Trash2, Clock, Pill, AlertCircle, CheckCircle, Zap } from 'lucide-react'
 import { useMedwise } from '../context/MedwiseContext'
 import PageWrapper from '../components/PageWrapper'
+import { lang } from '../utils/translations'
+
+// Mobile-compatible notification: prefers Service Worker (Android/PWA),
+// falls back to new Notification() for desktop browsers.
+const swNotify = async (title, options = {}) => {
+  if (!('Notification' in window) || Notification.permission !== 'granted') return
+  if ('serviceWorker' in navigator) {
+    try {
+      const reg = await navigator.serviceWorker.ready
+      if (reg && reg.showNotification) {
+        await reg.showNotification(title, options)
+        return
+      }
+    } catch (e) {
+      console.warn('SW notification failed, using fallback:', e)
+    }
+  }
+  new Notification(title, options)
+}
 
 export default function Reminders() {
   const { medications, reminders, updateReminders } = useMedwise()
@@ -53,38 +72,47 @@ export default function Reminders() {
       
       if (permission === 'granted') {
         // Send test notification immediately
-        new Notification('MedWise - Success!', {
-          body: 'Notifications are now enabled! You will receive medication reminders.',
-          icon: '/icon-192x192.png',
-          requireInteraction: false
-        })
+        await swNotify(
+          lang({en:'MedWise - Success!',pidgin:'MedWise - As E Dey Hot!',ha:'MedWise - Anyi Nasara!',yo:'MedWise - Ọdún Dá!',ig:'MedWise - Eji Ya Tụọ Ntụpọ!'}), 
+          {
+            body: lang({en:'Notifications are now enabled! You will receive medication reminders.',pidgin:'Alarm don on! You go dey receive drug reminder.',ha:'An kunna tunatarwa! Za a rika tunatar da kai shan maganinka.',yo:'Aago ti ṣí sílẹ̀ gbayì! Wàá gba ìrántí ògùn.',ig:'Amụma emepela! Ị ga-enweta ozi mgbe ihe ncheta ruru.'}),
+            icon: '/icon-192x192.png',
+            requireInteraction: false
+          }
+        )
       }
     }
   }
 
-  const sendTestNotification = () => {
+  const sendTestNotification = async () => {
     if (notificationPermission === 'granted') {
-      new Notification('MedWise - Test Notification', {
-        body: 'This is a test! Your notifications are working correctly. 🎉',
-        icon: '/icon-192x192.png',
-        requireInteraction: false
-      })
+      await swNotify(
+        lang({en:'MedWise - Test Notification',pidgin:'MedWise - Test Alarm',ha:'MedWise - Gwajin Tunatarwa',yo:'MedWise - Aago Dídánwò',ig:'MedWise - Nnwale Ihe Ncheta'}), 
+        {
+          body: lang({en:'This is a test! Your notifications are working correctly. 🎉',pidgin:'Dis na test! Your alarm dey work very well. 🎉',ha:'Wannan gwaji ne! Kararrawar ka na aiki yadda ya kamata. 🎉',yo:'Eleyi jẹ́ àbáwò! Aago rẹ ń ṣiṣẹ́ fín-ní-fín-ní. 🎉',ig:'Nke a bụ nnwale! Ozi uge gị na-arụ ọrụ nke ọma. 🎉'}),
+          icon: '/icon-192x192.png',
+          requireInteraction: false
+        }
+      )
     } else {
-      alert('Please enable notifications first!')
+      alert(lang({en:'Please enable notifications first!',pidgin:'Abeg allow alarm first!',ha:'Don Allah kunna tunatarwa tukuna!',yo:'Ẹ jọ̀ọ́, gba aago láàyè kọ́kọ́!',ig:'Biko nwuu amụma tupu nwa oge!'}) + '')
     }
   }
 
-  const sendNotification = (reminder) => {
+  const sendNotification = async (reminder) => {
     if (notificationPermission === 'granted') {
       console.log('Sending notification for:', reminder.medication)
-      new Notification('MedWise - Medication Reminder 💊', {
-        body: `Time to take your ${reminder.medication}`,
-        icon: '/icon-192x192.png',
-        badge: '/icon-72x72.png',
-        tag: reminder.id,
-        requireInteraction: true,
-        vibrate: [200, 100, 200]
-      })
+      await swNotify(
+        lang({en:'MedWise - Medication Reminder 💊',pidgin:'MedWise - Time for drug 💊',ha:'MedWise - Tunatarwan Magani 💊',yo:'MedWise - Aago Ògùn Rẹ 💊',ig:'MedWise - Ihe Ncheta Ọgwụ 💊'}), 
+        {
+          body: lang({en:`Time to take your ${reminder.medication}`,pidgin:`E don reach to take your ${reminder.medication}`,ha:`Lokaci ya yi na shan maganin ${reminder.medication}`,yo:`O ti to asiko lati lo oogun ${reminder.medication}`,ig:`Oge e rula inweta ọgwụ ${reminder.medication}`}),
+          icon: '/icon-192x192.png',
+          badge: '/icon-72x72.png',
+          tag: reminder.id,
+          requireInteraction: true,
+          vibrate: [200, 100, 200]
+        }
+      )
     } else {
       console.log('Cannot send notification - permission:', notificationPermission)
     }
@@ -156,21 +184,21 @@ export default function Reminders() {
         {/* Header */}
         <div className="text-center mb-12">
           <h1 className="font-display font-bold text-4xl md:text-5xl mb-4 text-gray-900">
-            Medication Reminders
+            {lang({en:'Medication Reminders',pidgin:'Drug Alarm',ha:'Tunatarwan Magani',yo:'Àwọn Aago Ògùn',ig:'Ihe Ncheta Ọgwụ'})}
           </h1>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Never miss a dose! Set up reminders for your medications and get browser notifications.
+            {lang({en:'Never miss a dose! Set up reminders for your medications and get browser notifications.',pidgin:'No miss your drug! Set alarm make your phone/computer remind you.',ha:'Kada ku taba karanci adadi! Kafa tunatarwa don maganganun ku kuma sami sanarwar mai bincike.',yo:'Bọ́ ògùn sí àkókò! Ṣe aago ìwé ògùn rẹ kí o sì gba ìránníyè lọ́wọ́ ẹ̀rọ-iṣẹ́ rẹ.',ig:'Enwetakwa ọnụma ọgwụ! Tọọ ihe nchetele kwesịrị oge gị niile ma natakwa amụma na mgbasa ozi nweta.'})}
           </p>
         </div>
 
         {/* Debug Info */}
         <div className="bg-gray-100 border-2 border-gray-300 p-4 rounded-lg mb-8">
-          <h3 className="font-bold text-gray-900 mb-2">System Status</h3>
+          <h3 className="font-bold text-gray-900 mb-2">{lang({en:'System Status',pidgin:'System Status',ha:'Matsayin Tsarin',yo:'Ipò Ètò',ig:'Ọnọdụ Sistemụ'})}</h3>
           <div className="text-sm text-gray-700 space-y-1">
-            <p><strong>Current Time:</strong> {getCurrentTime()} ({new Date().toLocaleTimeString()})</p>
-            <p><strong>Permission:</strong> {notificationPermission}</p>
-            <p><strong>Last Check:</strong> {lastCheck || 'Not checked yet'}</p>
-            <p><strong>Active Reminders:</strong> {reminders.filter(r => r.enabled).length}</p>
+            <p><strong>{lang({en:'Current Time:',pidgin:'Time Now:',ha:'Lokacin Yanzu:',yo:'Àkókò Lọ́wọ́lọ́wọ́:',ig:'Oge Ugbu a:'})}</strong> {getCurrentTime()} ({new Date().toLocaleTimeString()})</p>
+            <p><strong>{lang({en:'Permission:',pidgin:'Allowance:',ha:'Izini:',yo:'Ìyọ̀nda:',ig:'Ikike:'})}</strong> {notificationPermission}</p>
+            <p><strong>{lang({en:'Last Check:',pidgin:'Last Check:',ha:'Bincike Na Qarshe:',yo:'Àyẹ̀wò Ìkẹyìn:',ig:'Nnyocha Azụ:'})}</strong> {lastCheck || lang({en:'Not checked yet',pidgin:'We never check',ha:'Ba a duba tukunna ba',yo:'Kò tíì ṣàyẹ̀wò',ig:'A nwabeghị okwu'})}</p>
+            <p><strong>{lang({en:'Active Reminders:',pidgin:'Active Alarm:',ha:'Tunatarwa Masu Aiki:',yo:'Aago Tí Ń Ṣiṣẹ́:',ig:'Amụma Na-arụ Ọrụ:'})}</strong> {reminders.filter(r => r.enabled).length}</p>
           </div>
         </div>
 
@@ -181,17 +209,17 @@ export default function Reminders() {
               <AlertCircle className="text-yellow-600 mr-3 flex-shrink-0 mt-1" size={24} />
               <div className="flex-1">
                 <h3 className="font-bold text-lg mb-2 text-gray-900">
-                  Enable Notifications
+                  {lang({en:'Enable Notifications',pidgin:'Allow Alarm Complete',ha:'Bada Damar Tunatarwa',yo:'Gba Aago Laaye',ig:'Hazié Amụma'})}
                 </h3>
                 <p className="text-gray-700 mb-4">
-                  To receive medication reminders, you need to enable browser notifications.
+                  {lang({en:'To receive medication reminders, you need to enable browser notifications.',pidgin:'To receive your drug reminder, abeg allow the notification.',ha:'Kafin ka sami sanarwar tunatarwa, kana buƙatar bada izini sanarwa daga na\'ura mai bincike.',yo:'Lati rí ìrántí oogun, o níláti fi ààyè gba ìránníyè amúlò.',ig:'Iji nweta amụma maka ọgwụ gị, ị ghaghị ịhazi nchọgharị.'})}
                 </p>
                 <button
                   onClick={requestNotificationPermission}
                   className="btn-primary"
                 >
                   <Bell size={20} className="inline mr-2" />
-                  Enable Notifications
+                  {lang({en:'Enable Notifications',pidgin:'On Di Alarm',ha:'Kunna Tunatarwa',yo:'Ta Aago Laaye',ig:'Hazié Amụma'})}
                 </button>
               </div>
             </div>
@@ -204,7 +232,7 @@ export default function Reminders() {
               <div className="flex items-center">
                 <CheckCircle className="text-green-600 mr-3" size={24} />
                 <p className="text-green-800 font-semibold">
-                  Notifications enabled! You'll receive reminders at scheduled times.
+                  {lang({en:'Notifications enabled! You\'ll receive reminders at scheduled times.',pidgin:'Alarm dey work! You go hear am when time reach.',ha:'An kunna tunatarwa! Za ku ji shi a lokacin da aka tsara.',yo:'Aago ń dún bayii! O ma gbo ọ nigbati o ba tọ.',ig:'Amụma na arụ ọrụ! Ị ga anụ ya na oge atọrọ.'})}
                 </p>
               </div>
               <button
@@ -212,7 +240,7 @@ export default function Reminders() {
                 className="btn-primary ml-4"
               >
                 <Zap size={18} className="inline mr-2" />
-                Test Now
+                {lang({en:'Test Now',pidgin:'Test Am Now',ha:'Gwada Yanzu',yo:'Idánwò Bayìí',ig:'Nwaa Ugbu a'})}
               </button>
             </div>
           </div>
@@ -229,7 +257,7 @@ export default function Reminders() {
             {medications.length > 0 && (
               <div className="bg-blue-50 border border-blue-200 p-4 rounded-lg mb-6">
                 <p className="text-sm text-blue-800 font-semibold">
-                  💾 Link to a tracked medication (optional)
+                  ≡ƒÆ╛ Link to a tracked medication (optional)
                 </p>
               </div>
             )}
@@ -238,7 +266,7 @@ export default function Reminders() {
               {medications.length > 0 && (
                 <div>
                   <label className="block text-sm font-semibold mb-2 text-gray-700">
-                    Select from Tracked Medications
+                    {lang({en:'Select from Tracked Medications',pidgin:'Choose from drug wey you dey track',ha:'Zabi daga magunguna masu bibiya',yo:'Yan láti inú oogun tọpinpin',ig:'Họrọ na ọgwụ na-enyocha'})}
                   </label>
                   <select
                     value={selectedMedicationId}
@@ -251,10 +279,10 @@ export default function Reminders() {
                     }}
                     className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-primary focus:outline-none"
                   >
-                    <option value="">-- Select medication --</option>
+                    <option value="">{lang({en:'-- Select medication --',pidgin:'-- Choose drug --',ha:'-- Zabi magani --',yo:'-- Yan oogun --',ig:'-- Họrọ ọgwụ --'})}</option>
                     {medications.map(med => (
                       <option key={med.id} value={med.id}>
-                        {med.name} ({med.completed}/{med.total} doses)
+                        {med.name} ({med.completed}/{med.total} {lang({en:'doses',pidgin:'doses',ha:'nisa',yo:'aleyi',ig:'ihe ndị ahụ'})})
                       </option>
                     ))}
                   </select>
@@ -263,7 +291,9 @@ export default function Reminders() {
               
               <div>
                 <label className="block text-sm font-semibold mb-2 text-gray-700">
-                  {medications.length > 0 && selectedMedicationId ? 'Or enter custom name' : 'Medication Name'}
+                  {medications.length > 0 && selectedMedicationId 
+                    ? lang({en:'Or enter custom name',pidgin:'Or type another name',ha:'Ko shigar da sunan ka',yo:'Abi kikọ orukọ',ig:'Ma tinye aha gị'}) 
+                    : lang({en:'Medication Name',pidgin:'Drug Name',ha:'Sunan Magani',yo:'Orúkọ Oogun',ig:'Aha Ọgwụ'})}
                 </label>
                 <div className="relative">
                   <Pill className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
@@ -280,7 +310,7 @@ export default function Reminders() {
 
               <div>
                 <label className="block text-sm font-semibold mb-2 text-gray-700">
-                  Reminder Time
+                  {lang({en:'Reminder Time',pidgin:'Time for Alarm',ha:'Lokacin Tunatarwa',yo:'Akoko Aago',ig:'Oge Ihe Ncheta'})}
                 </label>
                 <div className="relative">
                   <Clock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
@@ -293,7 +323,7 @@ export default function Reminders() {
                   />
                 </div>
                 <p className="text-xs text-gray-500 mt-1">
-                  Current time: {getCurrentTime()} ({formatTime12Hour(getCurrentTime())})
+                  {lang({en:'Current time:',pidgin:'Time now:',ha:'Lokacin yanzu:',yo:'Akoko bayi:',ig:'Oge a:'})} {getCurrentTime()} ({formatTime12Hour(getCurrentTime())})
                 </p>
               </div>
             </div>
@@ -304,12 +334,12 @@ export default function Reminders() {
               className="btn-primary w-full disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <Plus size={20} className="inline mr-2" />
-              Add Reminder
+              {lang({en:'Add Reminder',pidgin:'Put Alarm',ha:'Saka Tunatarwa',yo:'Fi Aago Sí',ig:'Tinye Ihe Ncheta'})}
             </button>
 
             {notificationPermission !== 'granted' && (
               <p className="text-sm text-gray-500 mt-2 text-center">
-                Enable notifications first to add reminders
+                {lang({en:'Enable notifications first to add reminders',pidgin:'On notification first before you put alarm',ha:'Fara kunna tunatarwa kafin ka saka sanarwa',yo:'Pa aago pọ lati fi ránníyè kún un',ig:'Dọwa amụma mbụ i ji tinye ihe ncheta'})}
               </p>
             )}
           </form>
@@ -319,14 +349,14 @@ export default function Reminders() {
         <div className="card">
           <h2 className="font-bold text-2xl mb-6 text-gray-900 flex items-center">
             <Bell className="mr-3 text-primary" size={28} />
-            Your Reminders ({reminders.length})
+            {lang({en:`Your Reminders (${reminders.length})`,pidgin:`Your Alarms (${reminders.length})`,ha:`Tunatarwanku (${reminders.length})`,yo:`Awọn Aago Rẹ (${reminders.length})`,ig:`Amụma Gị (${reminders.length})`})}
           </h2>
 
           {reminders.length === 0 ? (
             <div className="text-center py-12">
               <Bell className="mx-auto mb-4 text-gray-300" size={64} />
-              <p className="text-gray-500 text-lg mb-2">No reminders yet</p>
-              <p className="text-gray-400">Add your first medication reminder above</p>
+              <p className="text-gray-500 text-lg mb-2">{lang({en:'No reminders yet',pidgin:'No alarm yet',ha:'Babu tunatarwa tukunna',yo:'Ko si aago kankan nisisiyi',ig:'Enweghị ụda amụma ugbu a'})}</p>
+              <p className="text-gray-400">{lang({en:'Add your first medication reminder above',pidgin:'Put your first drug alarm up there',ha:'Saka sanarwar maganinka ta farko a sama',yo:'Fi aago ṣiṣe ránníyè nipa oogun tirẹ ti akọkọ si ibẹ',ig:'Tinye amụma mbụ maka ọgwụ gị site n\'elu'})}</p>
             </div>
           ) : (
             <div className="space-y-4">
@@ -392,47 +422,38 @@ export default function Reminders() {
 
         {/* How It Works */}
         <div className="mt-8 bg-blue-50 border-2 border-blue-200 rounded-xl p-6">
-          <h3 className="font-bold text-xl mb-4 text-gray-900">How It Works</h3>
+          <h3 className="font-bold text-xl mb-4 text-gray-900">{lang({en:'How It Works',pidgin:'How E Dey Work',ha:'Yadda Yake Aiki',yo:'Báwo Ló Ṣe Ń Ṣiṣẹ́',ig:'Otu O Si Aru Oru'})}</h3>
           <div className="space-y-3 text-gray-700">
             <div className="flex items-start">
-              <div className="bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold mr-3 flex-shrink-0 mt-0.5">
-                1
-              </div>
-              <p>Enable browser notifications by clicking the button above</p>
+              <div className="bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold mr-3 flex-shrink-0 mt-0.5">1</div>
+              <p>{lang({en:'Enable browser notifications by clicking the button above',pidgin:'Allow alarm by clicking di button way dey up',ha:'Kuna sanarwar burauza ta danna botin da ke sama',yo:'Gba aago wẹẹbu láàyè nípa kíkàn bọtini tó wà lókè',ig:'Hapụ amụma weebụsaịtị site ịpị bọtịnụ nọ n\'elu'})}</p>
             </div>
             <div className="flex items-start">
-              <div className="bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold mr-3 flex-shrink-0 mt-0.5">
-                2
-              </div>
-              <p>Add your medication and set the time you want to be reminded</p>
+              <div className="bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold mr-3 flex-shrink-0 mt-0.5">2</div>
+              <p>{lang({en:'Add your medication and set the time you want to be reminded',pidgin:'Put your drug name and di time way you wan make e ring',ha:'Saka maganinka sannan ka saita lokacin da kake so a tunatar da kai',yo:'Fi oogun rẹ sílẹ̀ ati asiko tí o fẹ́ kí a rán ẹ létí',ig:'Tinye ọgwụ gị na oge ị chọrọ inweta ihe ncheta'})}</p>
             </div>
             <div className="flex items-start">
-              <div className="bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold mr-3 flex-shrink-0 mt-0.5">
-                3
-              </div>
-              <p>System checks every 30 seconds and sends notification at exact time</p>
+              <div className="bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold mr-3 flex-shrink-0 mt-0.5">3</div>
+              <p>{lang({en:'System checks every 30 seconds and sends notification at exact time',pidgin:'System dey check evri 30 seconds and go ring for exact time',ha:'Tsarin zai duba kowane dakikoki 30 kuma ya aiko maka da sanarwa a ainihin lokacin',yo:'Ètò yóò yẹ̀wò lẹ́yìn ìṣẹ́jú kọ̀ọ̀kan láti fi aago rán ẹ létí gẹ́lẹ́',ig:'Usoro a ga-enyocha kwa sekọnd iri atọ we zitere gị amụma n\'oge kpamkpam'})}</p>
             </div>
             <div className="flex items-start">
-              <div className="bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold mr-3 flex-shrink-0 mt-0.5">
-                4
-              </div>
-              <p>Toggle reminders on/off or delete them anytime</p>
+              <div className="bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold mr-3 flex-shrink-0 mt-0.5">4</div>
+              <p>{lang({en:'Toggle reminders on/off or delete them anytime',pidgin:'You fit off or delete am anytime way you like',ha:'Kuna iya biye ko share su a kowane lokaci',yo:'O lè tan án tàbí pa á, abi kóo parẹ́ lákòókò yówù kí ó jẹ́',ig:'Ị nwere ike ịgbanyụ ma ọ bụ gbuo ihe ncheta gị n\'oge ọbụla'})}</p>
             </div>
           </div>
         </div>
 
-        {/* Important Notes with Desktop Recommendation */}
+        {/* Important Notes */}
         <div className="mt-8 bg-yellow-50 border-l-4 border-yellow-500 p-4 rounded-r-lg">
-          <h3 className="font-bold text-yellow-900 mb-2">Important Notes</h3>
+          <h3 className="font-bold text-yellow-900 mb-2">{lang({en:'Important Notes',pidgin:'Very Important Messages',ha:'Sakonni Masu Muhimmanci',yo:'Àwọn Ohun Pàtàkì',ig:'Ihe Ndị Dị Mkpa'})}</h3>
           <ul className="text-sm text-yellow-800 space-y-1">
             <li className="font-bold text-orange-900">
-              💻 <strong>Works Best on Desktop:</strong> This feature is most reliable on desktop browsers (Chrome, Edge, Firefox on Windows/Mac). Mobile notifications may have limited support due to platform restrictions.
+              📱 <strong>{lang({en:'Mobile Ready:',pidgin:'Phone Ready:',ha:'Akwai a Waya:',yo:'Àyẹwò lórí fóònù:',ig:'Dị Nkwado n\'ekwute:'})}</strong> {lang({en:'Fully supports Android and Desktop. For iPhones, add this app to your Home Screen to get notifications.',pidgin:'E dey work well for Android and Laptop. For iPhone, you gats Add to Home Screen first.',ha:'Yana aiki da Android da Desktop gaba daya. Ga iPhones, saka wannan domin samun sanarwa.',yo:'Yóò ṣiṣẹ́ fún Android ati kọ̀ǹpútà àgbéká tirẹ̀. Lati iPhones, fi kún òkè ojú-ewé láti gba aago.',ig:'Na-akwado nke ọma na gam akporo na desktọpụ. Maka iPhone, tinye na ihuenyo ụlọ gị iji nweta amụma.'})}
             </li>
-            <li>• Keep this browser tab open (can be minimized)</li>
-            <li>• Click "Test Now" button to verify notifications work</li>
-            <li>• System checks every 30 seconds for reminders</li>
-            <li>• Your reminders are saved locally on this device only</li>
-            <li>• This is a helpful tool, but always follow your doctor's prescription</li>
+            <li>• {lang({en:'Keep this browser tab open (can be minimized)',pidgin:'Keep dis browser tab open (but you fit minimize am)',ha:'Ka bar wannan zauren a bude (zaka iya adana shi)',yo:'Jẹ́ kí ojú-ewé yìí wà ní ṣíṣí (o lè pa á gbàdí)',ig:'Dowe taabụ weebụsaịtị nkem a mepee(ịnwere ike ibelata ya)'})}</li>
+            <li>• {lang({en:'Click "Test Now" button to verify notifications work',pidgin:'Click "Test Now" button to see whether di alarm dey work',ha:'Danna maballin "Gwajin Tunatarwa" domin ganin yana aiki',yo:'Tẹ bọtini "Dánwò" kí o rii daju wí pé aago ń ṣiṣẹ́',ig:'Pịa "Nnwale" inweta eziokwu na amụma na-arụ ọrụ nke ọma'})}</li>
+            <li>• {lang({en:'Your reminders are saved locally on this device only',pidgin:'Your reminders only dey saved for dis normal phone/laptop',ha:'Ana adana tunatarwarku a kan wayarku ko kwamfutarku kadai',yo:'Àwọn aago rẹ ti was ní ìpamọ́ sí orí fóònù/kọ̀ǹpútà rẹ yìí nikan',ig:'Echekwaala ihe ncheta gị n\'ime ngwaọrụ gị a naanị'})}</li>
+            <li>• {lang({en:'This is a helpful tool, but always follow your doctor\'s prescription',pidgin:'Dis tool make sense well-well, but make you always dey follow wetin doctor talk',ha:'Duk da wannan kayan aiki ne mai amfani, koyaushe ka bi umarnin likitanka',yo:'Ohun eèlò yìí rẹwà, ṣùgbọ́n rí i wí pé o kò kúrò ní ọ̀nà ìtọ́kasí oníṣěgùn',ig:'Nke a bụ ngwaọrụ dị mkpa ma gbaa mbọ sàé maka ndenye ọgwụ dọkịta oge ọbụla'})}</li>
           </ul>
         </div>
       </div>

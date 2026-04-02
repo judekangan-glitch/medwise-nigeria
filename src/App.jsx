@@ -8,7 +8,7 @@ import ToastContainer from './components/ToastContainer'
 import { useMedwise } from './context/MedwiseContext'
 
 function App() {
-  const { user, theme, setTheme } = useMedwise()
+  const { user, theme, setTheme, language } = useMedwise()
 
   useEffect(() => {
     // Apply theme globally
