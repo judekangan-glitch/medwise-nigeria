@@ -8,7 +8,7 @@ export default function Navigation() {
   const location = useLocation()
   
   // Consume Context deeply directly! No more polling localStorage
-  const { user, theme, setTheme } = useMedwise()
+  const { user, theme, setTheme, language, setLanguage } = useMedwise()
 
   const navItems = [
     { path: '/learn', label: 'Learn', icon: GraduationCap },
@@ -78,6 +78,18 @@ export default function Navigation() {
                 </div>
               </div>
             )}
+
+            {/* Language Toggle */}
+            <button
+              onClick={() => setLanguage(language === 'en' ? 'pidgin' : 'en')}
+              className={`px-3 py-1 text-sm font-bold rounded-lg transition-all border-2 ${
+                theme === 'dark' 
+                  ? 'border-white/10 text-white hover:bg-white/10' 
+                  : 'border-primary/10 text-primary hover:bg-primary/10'
+              }`}
+            >
+              {language === 'en' ? 'PIDGIN' : 'ENGLISH'}
+            </button>
 
             {/* Theme Toggle */}
             <button

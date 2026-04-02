@@ -1,11 +1,12 @@
-import { useState } from 'react'
 import { Plus, Pill, Clock, CheckCircle, AlertCircle, Trophy, Trash2 } from 'lucide-react'
 import { useMedwise } from '../context/MedwiseContext'
+import { useTranslation } from '../utils/translations'
 import { useGamification } from '../hooks/useGamification'
 import PageWrapper from '../components/PageWrapper'
 
 export default function Track() {
-  const { medications, updateMedications, reminders, updateReminders } = useMedwise()
+  const { medications, updateMedications, reminders, updateReminders, language } = useMedwise()
+  const { t } = useTranslation(language)
   const { awardPoints, updateStreak, checkAchievement } = useGamification()
   
   const [showAddForm, setShowAddForm] = useState(false)
@@ -93,10 +94,12 @@ export default function Track() {
       <div className="container mx-auto max-w-4xl">
         <div className="text-center mb-12">
           <h1 className="font-display font-bold text-4xl md:text-5xl mb-4 text-gray-900">
-            Track Your Medications
+            {language === 'en' ? 'Track Your Medications' : 'Follow Your Medicine'}
           </h1>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Never miss a dose. Complete your antibiotic course. Fight resistance.
+            {language === 'en' 
+              ? 'Never miss a dose. Complete your antibiotic course. Fight resistance.'
+              : 'No forget to take your drug. Finish the full course make sickness no strong pass you.'}
           </p>
         </div>
 
@@ -105,10 +108,12 @@ export default function Track() {
             <AlertCircle className="text-blue-600 mr-3 flex-shrink-0 mt-1" size={24} />
             <div>
               <h3 className="font-bold text-lg mb-2 text-gray-900">
-                Why Complete Your Course?
+                {language === 'en' ? 'Why Complete Your Course?' : 'Why You Suppose Finish Your Drug?'}
               </h3>
               <p className="text-gray-700">
-                Stopping antibiotics early—even when you feel better—allows resistant bacteria to survive and multiply. Completing the full course ensures all bacteria are eliminated.
+                {language === 'en' 
+                  ? 'Stopping antibiotics early—even when you feel better—allows resistant bacteria to survive and multiply. Completing the full course ensures all bacteria are eliminated.'
+                  : 'If you stop take your antibiotic before time—even if you don better—that sickness fit come back strong pass before. Finish the full med make everything clear.'}
               </p>
             </div>
           </div>
@@ -120,7 +125,7 @@ export default function Track() {
             className="btn-primary w-full md:w-auto"
           >
             <Plus size={20} className="inline mr-2" />
-            Add Medication to Track
+            {language === 'en' ? 'Add Medication to Track' : 'Add New Medicine'}
           </button>
         </div>
 
@@ -191,9 +196,9 @@ export default function Track() {
         {medications.length === 0 ? (
           <div className="card text-center py-12">
             <Pill size={48} className="text-gray-400 mx-auto mb-4" />
-            <h3 className="font-bold text-xl mb-2 text-gray-900">No Medications Tracked</h3>
-            <p className="text-gray-600 mb-6">Add your first medication to start tracking adherence</p>
-            <button onClick={() => setShowAddForm(true)} className="btn-primary">Add Medication</button>
+            <h3 className="font-bold text-xl mb-2 text-gray-900">{language === 'en' ? 'No Medications Tracked' : 'You never add any medicine'}</h3>
+            <p className="text-gray-600 mb-6">{language === 'en' ? 'Add your first medication to start tracking adherence' : 'Add your first medicine make we start to follow you'}</p>
+            <button onClick={() => setShowAddForm(true)} className="btn-primary">{language === 'en' ? 'Add Medication' : 'Add Medicine'}</button>
           </div>
         ) : (
           <div className="space-y-6">
@@ -234,8 +239,8 @@ export default function Track() {
                     <div className="bg-green-50 p-4 rounded-lg flex items-center">
                       <CheckCircle size={24} className="text-green-600 mr-3" />
                       <div>
-                        <p className="font-semibold text-green-900">Course Completed!</p>
-                        <p className="text-sm text-green-700">Great job completing your full antibiotic course</p>
+                        <p className="font-semibold text-green-900">{language === 'en' ? 'Course Completed!' : 'You Don Finish Am!'}</p>
+                        <p className="text-sm text-green-700">{language === 'en' ? 'Great job completing your full antibiotic course' : 'Well done as you finish all your antibiotic pills'}</p>
                       </div>
                     </div>
                   ) : (
@@ -243,12 +248,12 @@ export default function Track() {
                       <div className="bg-blue-50 p-4 rounded-lg mb-4">
                         <div className="flex items-center">
                           <Clock size={20} className="text-blue-600 mr-2" />
-                          <span className="text-blue-900 font-semibold">Next dose: {med.nextDose}</span>
+                          <span className="text-blue-900 font-semibold">{language === 'en' ? 'Next dose' : 'Dose wey follow'}: {med.nextDose}</span>
                         </div>
                       </div>
                       <button onClick={() => markDoseTaken(med.id)} className="btn-primary w-full" disabled={isCompleted}>
                         <CheckCircle size={20} className="inline mr-2" />
-                        Mark Dose as Taken
+                        {language === 'en' ? 'Mark Dose as Taken' : 'I don take this dose'}
                       </button>
                     </div>
                   )}
@@ -259,13 +264,12 @@ export default function Track() {
         )}
 
         <div className="mt-12 card bg-green-50">
-          <h3 className="font-bold text-xl mb-4 text-gray-900">Adherence Tips</h3>
+          <h3 className="font-bold text-xl mb-4 text-gray-900">{language === 'en' ? 'Adherence Tips' : 'Helpful Advice'}</h3>
           <div className="space-y-3 text-gray-700">
-            <div className="flex items-start"><CheckCircle size={20} className="text-green-600 mr-3 flex-shrink-0 mt-0.5" /><p>Set alarms or reminders for each dose time</p></div>
-            <div className="flex items-start"><CheckCircle size={20} className="text-green-600 mr-3 flex-shrink-0 mt-0.5" /><p>Keep medications in a visible place (but out of children's reach)</p></div>
-            <div className="flex items-start"><CheckCircle size={20} className="text-green-600 mr-3 flex-shrink-0 mt-0.5" /><p>Take doses at the same times each day</p></div>
-            <div className="flex items-start"><CheckCircle size={20} className="text-green-600 mr-3 flex-shrink-0 mt-0.5" /><p>Never stop early, even if you feel better</p></div>
-            <div className="flex items-start"><CheckCircle size={20} className="text-green-600 mr-3 flex-shrink-0 mt-0.5" /><p>If you miss a dose, take it as soon as you remember (unless it's almost time for the next dose)</p></div>
+            <div className="flex items-start"><CheckCircle size={20} className="text-green-600 mr-3 flex-shrink-0 mt-0.5" /><p>{language === 'en' ? 'Set alarms or reminders for each dose time' : 'Set alarm make you no forget to take your drug'}</p></div>
+            <div className="flex items-start"><CheckCircle size={20} className="text-green-600 mr-3 flex-shrink-0 mt-0.5" /><p>{language === 'en' ? "Keep medications in a visible place (but out of children's reach)" : 'Put your medicine where you fit see am quick'}</p></div>
+            <div className="flex items-start"><CheckCircle size={20} className="text-green-600 mr-3 flex-shrink-0 mt-0.5" /><p>{language === 'en' ? 'Take doses at the same times each day' : 'Dey take am the same time every day'}</p></div>
+            <div className="flex items-start"><CheckCircle size={20} className="text-green-600 mr-3 flex-shrink-0 mt-0.5" /><p>{language === 'en' ? 'Never stop early, even if you feel better' : 'No ever stop early, even if you don better'}</p></div>
           </div>
         </div>
       </div>

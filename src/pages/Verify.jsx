@@ -1,12 +1,14 @@
-
-import { useState } from 'react'
 import { Search, AlertTriangle, CheckCircle, Camera, FileText } from 'lucide-react'
 import FakeDrugAlerts from '../components/FakeDrugAlerts'
 import { verifyNafdac } from '../utils/verifyNafdac'
 import PageWrapper from '../components/PageWrapper'
 import CodeScanner from '../components/CodeScanner'
+import { useMedwise } from '../context/MedwiseContext'
+import { useTranslation } from '../utils/translations'
 
 export default function Verify() {
+  const { language } = useMedwise()
+  const { t } = useTranslation(language)
   const [nafdacCode, setNafdacCode] = useState('')
   const [verificationResult, setVerificationResult] = useState(null)
   const [isVerifying, setIsVerifying] = useState(false)
@@ -28,7 +30,9 @@ export default function Verify() {
       } else {
         setVerificationResult({
           status: 'not_found',
-          warning: 'NAFDAC number not found in database. This could indicate a counterfeit product.'
+          warning: language === 'en' 
+            ? 'NAFDAC number not found in database. This could indicate a counterfeit product.'
+            : 'We no see this NAFDAC number for our record. E fit mean say the drug be fake o.'
         })
       }
       setIsVerifying(false)
@@ -53,14 +57,14 @@ export default function Verify() {
         {/* Header */}
         <div className="text-center mb-12">
           <h1 className="font-display font-bold text-4xl md:text-5xl mb-4 text-gray-900">
-            Verify Your Medication
+            {t('verify.title')}
           </h1>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Check NAFDAC registration numbers to help identify counterfeit medications
+            {t('verify.subtitle')}
           </p>
           <div className="mt-4">
             <span className="inline-block bg-blue-100 text-blue-800 text-sm font-semibold px-4 py-2 rounded-full">
-              <strong>Currently verifying:</strong> 10,076 NAFDAC-registered drugs
+              <strong>{language === 'en' ? 'Currently verifying:' : 'We dey check:'}</strong> 10,076 {language === 'en' ? 'NAFDAC-registered drugs' : 'drug for Naija'}
             </span>
             <p className="text-xs text-gray-500 mt-2 max-w-xl mx-auto">
               <strong>Note:</strong> This tool does <u>not</u> cover every drug registered by NAFDAC. The limitation is due to lack of access to the official NAFDAC API. Only drugs for which we could obtain public data are included.
@@ -74,10 +78,12 @@ export default function Verify() {
             <AlertTriangle className="text-red-600 mr-3 flex-shrink-0 mt-1" size={24} />
             <div>
               <h3 className="font-bold text-lg mb-2 text-gray-900">
-                30-40% of Medications in Nigerian Markets Are Counterfeit
+                {language === 'en' ? '30-40% of Medications in Nigerian Markets Are Counterfeit' : '30-40% of Medicine wey dey Naija market be Fake'}
               </h3>
               <p className="text-gray-700">
-                Fake medications contain no active ingredients or harmful substances. Verification before consumption can save lives.
+                {language === 'en' 
+                  ? 'Fake medications contain no active ingredients or harmful substances. Verification before consumption can save lives.'
+                  : 'Fake medicine no get wetin go heal you or e fit even kill person. Check your med before you take am.'}
               </p>
             </div>
           </div>
@@ -87,7 +93,7 @@ export default function Verify() {
         <div className="card mb-8">
           <div className="flex flex-col md:flex-row md:items-center justify-between mb-6">
             <h2 className="font-bold text-2xl text-gray-900 mb-4 md:mb-0">
-              Check NAFDAC Registration Number
+              {language === 'en' ? 'Check NAFDAC Registration Number' : 'Check NAFDAC Registration Number'}
             </h2>
             <button 
               onClick={() => setIsScanning(!isScanning)}
@@ -95,7 +101,7 @@ export default function Verify() {
               type="button"
             >
               <Camera size={18} className="mr-2" />
-              {isScanning ? 'Stop Scanning' : 'Scan Code with Camera'}
+              {isScanning ? t('verify.stop_scan') : t('verify.scan_btn')}
             </button>
           </div>
 
@@ -108,7 +114,7 @@ export default function Verify() {
             <form onSubmit={handleVerify} className="mb-6">
               <div className="mb-4">
                 <label className="block text-sm font-semibold mb-2 text-gray-700">
-                  Enter NAFDAC Number (e.g., A7-1234)
+                  {t('verify.input_label')}
                 </label>
                 <div className="flex space-x-3">
                   <input
@@ -125,17 +131,19 @@ export default function Verify() {
                     className="btn-primary px-8 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {isVerifying ? (
-                      'Verifying...'
+                      t('verify.verifying')
                     ) : (
                       <>
                         <Search size={20} className="inline mr-2" />
-                        Verify
+                        {t('verify.verify_btn')}
                       </>
                     )}
                   </button>
                 </div>
                 <p className="text-sm text-gray-500 mt-2">
-                  Find the NAFDAC number or scan the barcode/QR code on your medication package
+                  {language === 'en' 
+                    ? 'Find the NAFDAC number or scan the barcode/QR code on your medication package'
+                    : 'Check the NAFDAC number or scan the QR code wey dey the medicine body'}
                 </p>
               </div>
             </form>
@@ -161,8 +169,8 @@ export default function Verify() {
                       : 'text-red-900'
                   }`}>
                     {verificationResult.status === 'verified'
-                      ? 'Medication Verified ✓'
-                      : 'Verification Failed'}
+                      ? (language === 'en' ? 'Medication Verified ✓' : 'We don confirm am ✓')
+                      : (language === 'en' ? 'Verification Failed' : 'E no match o')}
                   </h3>
                   
                   {verificationResult.status === 'verified' ? (
@@ -203,10 +211,12 @@ export default function Verify() {
           <div className="card">
             <Camera size={32} className="text-primary mb-4" />
             <h3 className="font-bold text-xl mb-3 text-gray-900">
-              Where to Find NAFDAC Number
+              {language === 'en' ? 'Where to Find NAFDAC Number' : 'Which place NAFDAC number dey?'}
             </h3>
             <p className="text-gray-700 mb-3">
-              Look for the NAFDAC registration number on the medication package. It typically starts with a letter followed by numbers (e.g., A7-1234).
+              {language === 'en'
+                ? 'Look for the NAFDAC registration number on the medication package. It typically starts with a letter followed by numbers (e.g., A7-1234).'
+                : 'Look for that NAFDAC number for the medicine body. E dey start with one letter then follow with numbers.'}
             </p>
             <p className="text-sm text-gray-600">
               Found on: Product label, packaging box, or insert leaflet
@@ -216,7 +226,7 @@ export default function Verify() {
           <div className="card">
             <FileText size={32} className="text-primary mb-4" />
             <h3 className="font-bold text-xl mb-3 text-gray-900">
-              Additional Verification Tips
+              {language === 'en' ? 'Additional Verification Tips' : 'More things to check:'}
             </h3>
             <ul className="text-gray-700 space-y-2">
               <li>• Check for spelling errors on packaging</li>

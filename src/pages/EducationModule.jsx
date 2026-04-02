@@ -1,11 +1,15 @@
 import { useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { ArrowLeft, CheckCircle, Award, Zap } from 'lucide-react'
+import { useMedwise } from '../context/MedwiseContext'
+import { useTranslation } from '../utils/translations'
 import { useGamification } from '../hooks/useGamification'
 import { saveQuizResult } from '../utils/localStorage'
 import PageWrapper from '../components/PageWrapper'
 
 export default function EducationModule() {
+  const { language } = useMedwise()
+  const { t } = useTranslation(language)
   const { awardPoints, checkAchievement } = useGamification()
   const { moduleId } = useParams()
   const [currentSection, setCurrentSection] = useState(0)
@@ -500,7 +504,7 @@ VACCINATION:
           className="inline-flex items-center text-primary hover:text-primary-dark mb-8"
         >
           <ArrowLeft size={20} className="mr-2" />
-          Back to Learn
+          {language === 'en' ? 'Back to Learn' : 'Go back to Education'}
         </Link>
 
         <div className="card">
@@ -512,7 +516,7 @@ VACCINATION:
           <div className="mb-8">
             <div className="flex items-center justify-between mb-2">
               <span className="text-sm text-gray-600">
-                Section {currentSection + 1} of {currentModule.sections.length + 1}
+                {language === 'en' ? 'Section' : 'Part'} {currentSection + 1} {language === 'en' ? 'of' : 'for'} {currentModule.sections.length + 1}
               </span>
               <span className="text-sm text-gray-600">
                 {Math.round(((currentSection + 1) / (currentModule.sections.length + 1)) * 100)}%
@@ -545,9 +549,9 @@ VACCINATION:
                 <div className="flex items-center justify-center mb-4">
                   <Zap size={64} className="text-yellow-400" />
                 </div>
-                <h2 className="font-bold text-3xl mb-4">Module Complete!</h2>
+                <h2 className="font-bold text-3xl mb-4">{language === 'en' ? 'Module Complete!' : 'You Don Finish!'}</h2>
                 <p className="text-xl mb-6">
-                  You've successfully completed <strong>{currentModule.title}</strong>
+                  {language === 'en' ? "You've successfully completed" : 'You don finish to learn'} <strong>{currentModule.title}</strong>
                 </p>
                 
                 {reward && (
@@ -560,7 +564,7 @@ VACCINATION:
               </div>
 
               <Link to="/learn" className="btn-primary inline-block">
-                Back to Learning Modules
+                {language === 'en' ? 'Back to Learning Modules' : 'Go back to Other Topics'}
               </Link>
             </div>
           ) : (
@@ -568,7 +572,7 @@ VACCINATION:
             <div>
               <div className="mb-6">
                 <span className="text-sm text-gray-600">
-                  Question {currentQuizIndex + 1} of {currentModule.quiz.length}
+                  {language === 'en' ? 'Question' : 'Ask'} {currentQuizIndex + 1} {language === 'en' ? 'of' : 'for'} {currentModule.quiz.length}
                 </span>
                 <div className="w-full bg-gray-200 rounded-full h-2 mt-2">
                   <div
@@ -579,7 +583,7 @@ VACCINATION:
               </div>
 
               <h2 className="font-bold text-2xl mb-6 text-gray-900">
-                Knowledge Check
+                {language === 'en' ? 'Knowledge Check' : 'Check Wetin You Learn'}
               </h2>
               <p className="text-gray-700 mb-6 text-lg font-semibold">
                 {currentModule.quiz[currentQuizIndex].question}
@@ -635,8 +639,8 @@ VACCINATION:
                   className="btn-primary w-full"
                 >
                   {currentQuizIndex < currentModule.quiz.length - 1
-                    ? 'Next Question'
-                    : 'Complete Quiz'}
+                    ? (language === 'en' ? 'Next Question' : 'Next Ask')
+                    : (language === 'en' ? 'Complete Quiz' : 'Finish Am')}
                 </button>
               )}
             </div>
@@ -651,13 +655,15 @@ VACCINATION:
                 className="text-gray-600 hover:text-gray-800 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 <ArrowLeft size={20} className="inline mr-2" />
-                Previous
+                {language === 'en' ? 'Previous' : 'Go Back'}
               </button>
               <button
                 onClick={() => setCurrentSection(currentSection + 1)}
                 className="btn-primary"
               >
-                {currentSection === currentModule.sections.length - 1 ? 'Take Quiz' : 'Next'}
+                {currentSection === currentModule.sections.length - 1 
+                  ? (language === 'en' ? 'Take Quiz' : 'Try the Test') 
+                  : (language === 'en' ? 'Next' : 'Next')}
               </button>
             </div>
           )}

@@ -10,8 +10,13 @@ export const MedwiseProvider = ({ children }) => {
   const [reminders, setReminders] = useState(() => storage.getReminders());
   const [achievements, setAchievements] = useState(() => storage.getAchievements());
   const [theme, setThemeState] = useState(() => storage.getTheme());
+  const [language, setLanguageState] = useState(() => localStorage.getItem('medwise-language') || 'en');
   
   // Action dispatchers that sync to localStorage automatically
+  const setLanguage = (lang) => {
+    setLanguageState(lang);
+    localStorage.setItem('medwise-language', lang);
+  };
   const updateUser = (newUser) => { 
     setUser(newUser); 
     storage.saveUserProfile(newUser); 
@@ -43,7 +48,8 @@ export const MedwiseProvider = ({ children }) => {
       medications, updateMedications,
       reminders, updateReminders,
       achievements, addAchievement,
-      theme, setTheme
+      theme, setTheme,
+      language, setLanguage
     }}>
       {children}
     </MedwiseContext.Provider>
