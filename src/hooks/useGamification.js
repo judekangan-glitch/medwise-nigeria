@@ -31,18 +31,18 @@ export const useGamification = () => {
       case 'reminder_set':    pointsToAdd = 5; achievementToCheck = 'REMINDER_PRO'; break;
     }
 
-    const newPoints = user.points + pointsToAdd;
-    const newLevel = Math.floor(newPoints / 200) + 1;
-    
-    // Defer the updateUser call slightly to ensure checkAchievement receives fresh state
-    const updatedUser = { ...user, points: newPoints, level: newLevel };
-    updateUser(updatedUser);
+    updateUser((prev) => {
+      if (!prev) return prev;
+      const newPoints = prev.points + pointsToAdd;
+      const newLevel = Math.floor(newPoints / 200) + 1;
+      return { ...prev, points: newPoints, level: newLevel };
+    });
 
     if (achievementToCheck) {
       checkAchievement(achievementToCheck);
     }
 
-    return { pointsAdded: pointsToAdd, newTotal: newPoints, newLevel };
+    return { pointsAdded: pointsToAdd };
   };
 
   const checkAchievement = (achievementId) => {
@@ -55,15 +55,16 @@ export const useGamification = () => {
 
     addAchievement({ id: achievementId, name: achievement.name });
     
-    // Award bonus points directly instead of recursive call to avoid stack depth
-    if (user) {
-      const bonusPoints = user.points + achievement.points;
-      updateUser({ 
-        ...user, 
+    // Award bonus points functionally to avoid race conditions when multiple achievements unlock
+    updateUser(prev => {
+      if (!prev) return prev;
+      const bonusPoints = prev.points + achievement.points;
+      return { 
+        ...prev, 
         points: bonusPoints, 
         level: Math.floor(bonusPoints / 200) + 1 
-      });
-    }
+      };
+    });
     
     return true;
   };
@@ -85,10 +86,13 @@ export const useGamification = () => {
       newStreaks = 0;
     }
 
-    updateUser({ 
-      ...user, 
-      streaks: newStreaks, 
-      lastActivityDate: new Date().toISOString() 
+    updateUser(prev => {
+      if (!prev) return prev;
+      return {
+        ...prev, 
+        streaks: newStreaks, 
+        lastActivityDate: new Date().toISOString() 
+      };
     });
   };
 

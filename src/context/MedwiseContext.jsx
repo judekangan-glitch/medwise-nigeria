@@ -26,9 +26,12 @@ export const MedwiseProvider = ({ children }) => {
     setLanguageState(lang);
     localStorage.setItem('medwise-language', lang);
   };
-  const updateUser = (newUser) => { 
-    setUser(newUser); 
-    storage.saveUserProfile(newUser); 
+  const updateUser = (newUserOrUpdater) => { 
+    setUser((prev) => {
+      const nextUser = typeof newUserOrUpdater === 'function' ? newUserOrUpdater(prev) : newUserOrUpdater;
+      storage.saveUserProfile(nextUser);
+      return nextUser;
+    });
   };
   
   const updateMedications = (newMeds) => { 

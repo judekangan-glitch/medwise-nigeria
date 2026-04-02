@@ -250,18 +250,10 @@ export default function Reminders() {
         <div className="card mb-8">
           <h2 className="font-bold text-2xl mb-6 text-gray-900 flex items-center">
             <Plus className="mr-3 text-primary" size={28} />
-            Add New Reminder
+            {lang({en:'Add New Reminder',pidgin:'Put New Alarm',ha:'Saka Sabon Tunatarwa',yo:'Fi Aago Tuntun Sí',ig:'Tinye Ihe Ncheta Ọhụrụ'})}
           </h2>
 
           <form onSubmit={addReminder}>
-            {medications.length > 0 && (
-              <div className="bg-blue-50 border border-blue-200 p-4 rounded-lg mb-6">
-                <p className="text-sm text-blue-800 font-semibold">
-                  ≡ƒÆ╛ Link to a tracked medication (optional)
-                </p>
-              </div>
-            )}
-            
             <div className="grid md:grid-cols-2 gap-6 mb-6">
               {medications.length > 0 && (
                 <div>
