@@ -47,18 +47,6 @@ export default function InstallPWA() {
     localStorage.setItem('pwa-install-dismissed', Date.now().toString())
   }
 
-  // Don't show if already installed or dismissed recently
-  useEffect(() => {
-    const dismissed = localStorage.getItem('pwa-install-dismissed')
-    if (dismissed) {
-      const dismissedTime = parseInt(dismissed)
-      const oneDayAgo = Date.now() - (24 * 60 * 60 * 1000)
-      if (dismissedTime > oneDayAgo) {
-        setShowInstallPrompt(false)
-      }
-    }
-  }, [])
-
   // Don't render anything if already installed
   if (isStandalone) {
     return null
