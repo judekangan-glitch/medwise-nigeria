@@ -66,11 +66,19 @@ Built for the **3MTT Knowledge Showcase 2026** under the **Education** pillar.
 - **Course Completion Rewards**: Gamified adherence
 
 
+### 4. MULTILINGUAL Core (New!)
+- **Native Localization**: The entire platform translates instantly between 5 dominant Nigerian languages.
+- **Supported Languages**: English, Pidgin, Hausa, Yoruba, and Igbo.
+- **Deep Translation**: Database models, Symptom definitions, and UI alerts are fully mapped.
+
 ## ♿ Accessibility & Inclusion
-- Mobile-friendly responsive design
-- Dark mode support
-- All features work without login for privacy and inclusion
-- (Optional: Add local language or text-to-speech if present)
+- **Bridging Linguistic Divides**: First healthcare app to prioritize and ship native Pidgin, Hausa, Yoruba, and Igbo translations.
+- **Offline-First PWA**: Installs natively to any Android or iOS device. Core features handle offline conditions gracefully.
+- **Mobile Hardware Integration**: 
+  - Exact-match rear camera algorithms for barcode scanning on any device.
+  - Native Android Push Notifications via integrated Service Workers.
+- Dark mode support and highly responsive mobile-first UI.
+- All features work without login for privacy and inclusion.
 
 ## 🛠️ Tech Stack
 
@@ -202,8 +210,9 @@ Nigeria faces a dual healthcare crisis: rampant antibiotic resistance—driven b
 - **Modern Frontend:** React + Vite for blazing-fast, seamless user experience.
 - **Responsive Design:** Tailwind CSS ensures accessibility on any device.
 - **Medical Intelligence:** Evidence-based decision trees and expert content.
+- **Inclusive Architecture:** Native multi-language support (English, Pidgin, Hausa, Yoruba, Igbo) bridging the digital divide.
 - **Privacy-First:** 100% local data storage—no login, no tracking.
-- **PWA-Ready:** Installs like an app, works offline, always available.
+- **PWA-Ready:** Installs like an app, features native mobile push notifications, offline databases, and targeted camera WebView hooks.
 
 ### Impact
 - **Empowers Smarter Choices:** Transforms how Nigerians learn about, use, and verify medications.
