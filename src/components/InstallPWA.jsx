@@ -25,6 +25,11 @@ export default function InstallPWA() {
       setShowInstallPrompt(true)
     }
 
+    // [DEV ONLY] Force the UI to show up locally so we can confirm the component works
+    if (import.meta.env.DEV && !isInStandaloneMode) {
+      setShowInstallPrompt(true)
+    }
+
     window.addEventListener('pwa-install-available', handleInstallAvailable)
 
     return () => {
