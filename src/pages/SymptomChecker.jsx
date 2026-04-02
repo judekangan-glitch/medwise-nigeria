@@ -5,7 +5,7 @@ import { useGamification } from '../hooks/useGamification'
 import PageWrapper from '../components/PageWrapper'
 
 export default function SymptomChecker() {
-  const { language } = useMedwise()
+  const { language, showToast } = useMedwise()
   const { t } = useTranslation(language)
   const { awardPoints, checkAchievement } = useGamification()
   const [currentStep, setCurrentStep] = useState(0)
@@ -308,6 +308,7 @@ export default function SymptomChecker() {
       awardPoints('quiz_perfect', 50)
       checkAchievement('KNOWLEDGE_SEEKER')
       
+      showToast(language === 'en' ? 'Assessment complete. View your results below.' : 'I don check am. See wetin you go do for bottom.', 'success')
       setResult(option.recommendation)
     } else if (option.next !== undefined) {
       setCurrentStep(option.next)

@@ -7,7 +7,7 @@ import { useMedwise } from '../context/MedwiseContext'
 import { useTranslation } from '../utils/translations'
 
 export default function Verify() {
-  const { language } = useMedwise()
+  const { language, showToast } = useMedwise()
   const { t } = useTranslation(language)
   const [nafdacCode, setNafdacCode] = useState('')
   const [verificationResult, setVerificationResult] = useState(null)
@@ -27,6 +27,7 @@ export default function Verify() {
           manufacturer: found.manufacturer || 'N/A',
           expiryCheck: 'Check expiry date on package'
         })
+        showToast(language === 'en' ? 'Medication Verified ✓' : 'We don confirm am ✓', 'success')
       } else {
         setVerificationResult({
           status: 'not_found',
@@ -34,6 +35,7 @@ export default function Verify() {
             ? 'NAFDAC number not found in database. This could indicate a counterfeit product.'
             : 'We no see this NAFDAC number for our record. E fit mean say the drug be fake o.'
         })
+        showToast(language === 'en' ? 'Verification Failed!' : 'E no match o!', 'error')
       }
       setIsVerifying(false)
     }, 1000)

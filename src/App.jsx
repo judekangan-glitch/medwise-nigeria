@@ -4,6 +4,7 @@ import Navigation from './components/Navigation'
 import Auth from './components/Auth'
 import InstallPWA from './components/InstallPWA'
 import AnimatedRoutes from './components/AnimatedRoutes'
+import ToastContainer from './components/ToastContainer'
 import { useMedwise } from './context/MedwiseContext'
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
         <Navigation theme={theme} setTheme={setTheme} />
         <AnimatedRoutes />
         <InstallPWA />
+        <ToastContainer />
       </div>
     </Router>
   )

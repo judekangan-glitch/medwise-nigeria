@@ -5,7 +5,7 @@ import { useGamification } from '../hooks/useGamification'
 import PageWrapper from '../components/PageWrapper'
 
 export default function Track() {
-  const { medications, updateMedications, reminders, updateReminders, language } = useMedwise()
+  const { medications, updateMedications, reminders, updateReminders, language, showToast } = useMedwise()
   const { t } = useTranslation(language)
   const { awardPoints, updateStreak, checkAchievement } = useGamification()
   
@@ -46,7 +46,7 @@ export default function Track() {
     
     setNewMed({ name: '', dosage: '', frequency: '', duration: '' })
     setShowAddForm(false)
-    alert('Medication added! Set up reminders in the Reminders tab.')
+    showToast(language === 'en' ? 'Medication added! Set up reminders in the Reminders tab.' : 'Medicine don add! Set up alarm for Reminders tab.', 'success')
   }
 
   const deleteMedication = (medId) => {
@@ -65,9 +65,9 @@ export default function Track() {
         
         if (newCompleted === med.total) {
           checkAchievement('COURSE_COMPLETER')
-          alert(`🎉 Course Complete! +${reward.pointsAdded} points\n${med.name} finished!`)
+          showToast(`🎉 Course Complete! +${reward.pointsAdded} points\n${med.name} finished!`, 'success')
         } else {
-          alert(`✓ Dose taken! +${reward.pointsAdded} points`)
+          showToast(`✓ Dose taken! +${reward.pointsAdded} points`, 'success')
         }
         
         return { ...med, completed: newCompleted }

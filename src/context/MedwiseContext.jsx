@@ -11,6 +11,15 @@ export const MedwiseProvider = ({ children }) => {
   const [achievements, setAchievements] = useState(() => storage.getAchievements());
   const [theme, setThemeState] = useState(() => storage.getTheme());
   const [language, setLanguageState] = useState(() => localStorage.getItem('medwise-language') || 'en');
+  const [toasts, setToasts] = useState([]);
+
+  const showToast = (message, type = 'success') => {
+    const id = Date.now();
+    setToasts((prev) => [...prev, { id, message, type }]);
+    setTimeout(() => {
+      setToasts((prev) => prev.filter((t) => t.id !== id));
+    }, 4000);
+  };
   
   // Action dispatchers that sync to localStorage automatically
   const setLanguage = (lang) => {
@@ -49,7 +58,8 @@ export const MedwiseProvider = ({ children }) => {
       reminders, updateReminders,
       achievements, addAchievement,
       theme, setTheme,
-      language, setLanguage
+      language, setLanguage,
+      toasts, showToast
     }}>
       {children}
     </MedwiseContext.Provider>

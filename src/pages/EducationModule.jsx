@@ -8,7 +8,7 @@ import { saveQuizResult } from '../utils/localStorage'
 import PageWrapper from '../components/PageWrapper'
 
 export default function EducationModule() {
-  const { language } = useMedwise()
+  const { language, showToast } = useMedwise()
   const { t } = useTranslation(language)
   const { awardPoints, checkAchievement } = useGamification()
   const { moduleId } = useParams()
@@ -491,6 +491,7 @@ VACCINATION:
       saveQuizResult(moduleId, score)
       setReward(rewardData)
       setQuizComplete(true)
+      showToast(language === 'en' ? `Module Complete! You scored ${score}%` : `You don finish am! You get ${score}%`, 'success')
     }
   }
 
