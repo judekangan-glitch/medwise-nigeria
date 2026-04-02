@@ -3,19 +3,20 @@ import { useState } from 'react'
 import { Search, AlertTriangle, CheckCircle, Camera, FileText } from 'lucide-react'
 import FakeDrugAlerts from '../components/FakeDrugAlerts'
 import { verifyNafdac } from '../utils/verifyNafdac'
+import PageWrapper from '../components/PageWrapper'
+import CodeScanner from '../components/CodeScanner'
 
 export default function Verify() {
   const [nafdacCode, setNafdacCode] = useState('')
   const [verificationResult, setVerificationResult] = useState(null)
   const [isVerifying, setIsVerifying] = useState(false)
+  const [isScanning, setIsScanning] = useState(false)
 
-
-  const handleVerify = (e) => {
-    e.preventDefault()
+  const processVerification = (code) => {
     setIsVerifying(true)
-
+    
     setTimeout(() => {
-      const found = verifyNafdac(nafdacCode)
+      const found = verifyNafdac(code)
       if (found) {
         setVerificationResult({
           status: 'verified',
@@ -34,8 +35,20 @@ export default function Verify() {
     }, 1000)
   }
 
+  const handleVerify = (e) => {
+    e.preventDefault()
+    processVerification(nafdacCode)
+  }
+
+  const handleScanSuccess = (decodedText) => {
+    setIsScanning(false)
+    const formattedCode = decodedText.trim().toUpperCase()
+    setNafdacCode(formattedCode)
+    processVerification(formattedCode)
+  }
+
   return (
-    <div className="min-h-screen py-12 px-4">
+    <PageWrapper className="min-h-screen py-12 px-4">
       <div className="container mx-auto max-w-4xl">
         {/* Header */}
         <div className="text-center mb-12">
@@ -72,44 +85,61 @@ export default function Verify() {
 
         {/* Verification Form */}
         <div className="card mb-8">
-          <h2 className="font-bold text-2xl mb-6 text-gray-900">
-            Check NAFDAC Registration Number
-          </h2>
+          <div className="flex flex-col md:flex-row md:items-center justify-between mb-6">
+            <h2 className="font-bold text-2xl text-gray-900 mb-4 md:mb-0">
+              Check NAFDAC Registration Number
+            </h2>
+            <button 
+              onClick={() => setIsScanning(!isScanning)}
+              className="bg-green-100 hover:bg-green-200 text-green-700 font-semibold px-4 py-2 rounded-lg flex items-center transition-colors shadow-sm"
+              type="button"
+            >
+              <Camera size={18} className="mr-2" />
+              {isScanning ? 'Stop Scanning' : 'Scan Code with Camera'}
+            </button>
+          </div>
 
-          <form onSubmit={handleVerify} className="mb-6">
-            <div className="mb-4">
-              <label className="block text-sm font-semibold mb-2 text-gray-700">
-                Enter NAFDAC Number (e.g., A7-1234)
-              </label>
-              <div className="flex space-x-3">
-                <input
-                  type="text"
-                  value={nafdacCode}
-                  onChange={(e) => setNafdacCode(e.target.value.toUpperCase())}
-                  placeholder="A7-XXXX"
-                  className="flex-1 px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-primary focus:outline-none"
-                  required
-                />
-                <button
-                  type="submit"
-                  disabled={isVerifying || !nafdacCode}
-                  className="btn-primary px-8 disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  {isVerifying ? (
-                    'Verifying...'
-                  ) : (
-                    <>
-                      <Search size={20} className="inline mr-2" />
-                      Verify
-                    </>
-                  )}
-                </button>
+          {isScanning ? (
+            <CodeScanner 
+              onScan={handleScanSuccess} 
+              onClose={() => setIsScanning(false)}
+            />
+          ) : (
+            <form onSubmit={handleVerify} className="mb-6">
+              <div className="mb-4">
+                <label className="block text-sm font-semibold mb-2 text-gray-700">
+                  Enter NAFDAC Number (e.g., A7-1234)
+                </label>
+                <div className="flex space-x-3">
+                  <input
+                    type="text"
+                    value={nafdacCode}
+                    onChange={(e) => setNafdacCode(e.target.value.toUpperCase())}
+                    placeholder="A7-XXXX"
+                    className="flex-1 px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-primary focus:outline-none"
+                    required
+                  />
+                  <button
+                    type="submit"
+                    disabled={isVerifying || !nafdacCode}
+                    className="btn-primary px-8 disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    {isVerifying ? (
+                      'Verifying...'
+                    ) : (
+                      <>
+                        <Search size={20} className="inline mr-2" />
+                        Verify
+                      </>
+                    )}
+                  </button>
+                </div>
+                <p className="text-sm text-gray-500 mt-2">
+                  Find the NAFDAC number or scan the barcode/QR code on your medication package
+                </p>
               </div>
-              <p className="text-sm text-gray-500 mt-2">
-                Find the NAFDAC number on your medication package
-              </p>
-            </div>
-          </form>
+            </form>
+          )}
 
           {/* Verification Result */}
           {verificationResult && (
@@ -230,7 +260,7 @@ export default function Verify() {
           </p>
         </div>
       </div>
-    </div>
+    </PageWrapper>
   )
 }
 

@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { Activity, BookOpen, Award, ArrowRight, AlertTriangle } from 'lucide-react'
 import AntibioticGallery from '../components/AntibioticGallery'
+import PageWrapper from '../components/PageWrapper'
 
 export default function Learn() {
   const modules = [
@@ -31,7 +32,7 @@ export default function Learn() {
   ]
 
   return (
-    <div className="min-h-screen py-12 px-4">
+    <PageWrapper className="min-h-screen py-12 px-4">
       <div className="container mx-auto max-w-6xl">
         {/* Header */}
         <div className="text-center mb-12">
@@ -123,7 +124,7 @@ export default function Learn() {
           </div>
         </div>
       </div>
-    </div>
+    </PageWrapper>
   )
 }
 

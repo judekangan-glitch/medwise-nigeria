@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react'
 import { ArrowLeft, AlertCircle, CheckCircle, Users, Zap, TrendingUp, Heart, Clock } from 'lucide-react'
 import { Link } from 'react-router-dom'
-import { awardPoints, checkAchievement } from '../utils/gamification'
+import { useGamification } from '../hooks/useGamification'
+import PageWrapper from '../components/PageWrapper'
 
 export default function SymptomChecker() {
+  const { awardPoints, checkAchievement } = useGamification()
   const [currentStep, setCurrentStep] = useState(0)
   const [answers, setAnswers] = useState({})
   const [result, setResult] = useState(null)
@@ -288,7 +290,7 @@ export default function SymptomChecker() {
     const Icon = rec.icon
 
     return (
-      <div className="min-h-screen py-12 px-4 bg-gradient-to-b from-gray-50 to-white">
+      <PageWrapper className="min-h-screen py-12 px-4 bg-gradient-to-b from-gray-50 to-white">
         <div className="container mx-auto max-w-4xl">
           <Link
             to="/learn"
@@ -397,7 +399,7 @@ export default function SymptomChecker() {
             </ul>
           </div>
         </div>
-      </div>
+      </PageWrapper>
     )
   }
 
@@ -405,7 +407,7 @@ export default function SymptomChecker() {
   const completionPercentage = Math.round(((currentStep + 1) / questions.length) * 100)
 
   return (
-    <div className="min-h-screen py-12 px-4 bg-gradient-to-b from-primary-light/10 to-white">
+    <PageWrapper className="min-h-screen py-12 px-4 bg-gradient-to-b from-primary-light/10 to-white">
       <div className="container mx-auto max-w-3xl">
         <Link
           to="/learn"
@@ -497,6 +499,6 @@ export default function SymptomChecker() {
           </p>
         </div>
       </div>
-    </div>
+    </PageWrapper>
   )
 }

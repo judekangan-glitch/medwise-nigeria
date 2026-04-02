@@ -20,6 +20,11 @@ export default {
         medical: {
           blue: '#4A90E2',
           green: '#50C878',
+        },
+        deep: {
+          green: '#091C10',
+          surface: '#0D2818',
+          border: '#1A3C26'
         }
       },
       fontFamily: {

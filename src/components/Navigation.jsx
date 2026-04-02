@@ -1,32 +1,14 @@
 import { Link, useLocation } from 'react-router-dom'
 import { Menu, X, GraduationCap, Shield, Clock, Bell, Moon, Sun, User, LogOut } from 'lucide-react'
-import { useState, useEffect } from 'react'
-import { setTheme } from '../utils/localStorage'
+import { useState } from 'react'
+import { useMedwise } from '../context/MedwiseContext'
 
-export default function Navigation({ theme = 'light', setTheme: setThemeApp }) {
+export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
-  const [user, setUser] = useState(null)
   const location = useLocation()
-
-  useEffect(() => {
-    const updateUser = () => {
-      const savedUser = localStorage.getItem('medwise-user')
-      setUser(savedUser ? JSON.parse(savedUser) : null)
-    }
-
-    updateUser()
-
-    // Listen for storage changes from other tabs
-    window.addEventListener('storage', updateUser)
-    
-    // Poll for changes every second (for same-tab updates)
-    const interval = setInterval(updateUser, 1000)
-
-    return () => {
-      window.removeEventListener('storage', updateUser)
-      clearInterval(interval)
-    }
-  }, [])
+  
+  // Consume Context deeply directly! No more polling localStorage
+  const { user, theme, setTheme } = useMedwise()
 
   const navItems = [
     { path: '/learn', label: 'Learn', icon: GraduationCap },
@@ -38,13 +20,11 @@ export default function Navigation({ theme = 'light', setTheme: setThemeApp }) {
   const isActive = (path) => location.pathname.startsWith(path)
 
   const toggleTheme = () => {
-    const newTheme = theme === 'dark' ? 'light' : 'dark'
-    setTheme(newTheme)
-    setThemeApp?.(newTheme)
+    setTheme(theme === 'dark' ? 'light' : 'dark')
   }
 
   return (
-    <nav className={`${theme === 'dark' ? 'bg-gray-800 border-gray-700' : 'bg-white'} shadow-md sticky top-0 z-50 border-b`}>
+    <nav className={`glass-nav sticky top-0 z-50`}>
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
@@ -67,10 +47,10 @@ export default function Navigation({ theme = 'light', setTheme: setThemeApp }) {
                   to={item.path}
                   className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-all ${
                     isActive(item.path)
-                      ? 'bg-primary text-white'
+                      ? 'bg-primary text-white shadow-md'
                       : theme === 'dark'
-                      ? 'text-gray-300 hover:bg-gray-700'
-                      : 'text-gray-700 hover:bg-gray-100'
+                      ? 'text-gray-300 hover:bg-white/10'
+                      : 'text-gray-700 hover:bg-primary/5'
                   }`}
                 >
                   <Icon size={18} />
@@ -84,8 +64,8 @@ export default function Navigation({ theme = 'light', setTheme: setThemeApp }) {
           <div className="flex items-center space-x-4">
             {/* Profile Widget - Inline */}
             {user && (
-              <div className="hidden sm:flex items-center space-x-2 px-3 py-2 rounded-lg" style={{
-                backgroundColor: theme === 'dark' ? '#374151' : '#f3f4f6'
+              <div className="hidden sm:flex items-center space-x-2 px-3 py-2 rounded-lg backdrop-blur-sm" style={{
+                backgroundColor: theme === 'dark' ? 'rgba(13, 40, 24, 0.6)' : 'rgba(243, 244, 246, 0.8)'
               }}>
                 <User size={16} className="text-primary" />
                 <div className="text-left text-sm">
@@ -102,10 +82,10 @@ export default function Navigation({ theme = 'light', setTheme: setThemeApp }) {
             {/* Theme Toggle */}
             <button
               onClick={toggleTheme}
-              className={`p-2 rounded-lg transition ${
+              className={`p-2 rounded-full transition-all ${
                 theme === 'dark'
-                  ? 'bg-gray-700 text-yellow-400 hover:bg-gray-600'
-                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                  ? 'bg-white/10 text-yellow-400 hover:bg-white/20'
+                  : 'bg-primary/10 text-primary hover:bg-primary/20'
               }`}
             >
               {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
@@ -113,8 +93,8 @@ export default function Navigation({ theme = 'light', setTheme: setThemeApp }) {
 
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className={`md:hidden p-2 rounded-lg ${
-                theme === 'dark' ? 'hover:bg-gray-700' : 'hover:bg-gray-100'
+              className={`md:hidden p-2 rounded-full transition-all ${
+                theme === 'dark' ? 'hover:bg-white/10 text-gray-300' : 'hover:bg-primary/10 text-gray-700'
               }`}
             >
               {isOpen ? <X size={24} /> : <Menu size={24} />}
@@ -124,7 +104,7 @@ export default function Navigation({ theme = 'light', setTheme: setThemeApp }) {
 
         {/* Mobile Navigation */}
         {isOpen && (
-          <div className={`md:hidden py-4 space-y-2 ${theme === 'dark' ? 'bg-gray-700' : 'bg-gray-50'}`}>
+          <div className={`md:hidden py-4 space-y-2 backdrop-blur-xl border-t ${theme === 'dark' ? 'bg-deep-surface/95 border-deep-border' : 'bg-white/95 border-gray-100'}`}>
             {navItems.map((item) => {
               const Icon = item.icon
               return (
@@ -134,10 +114,10 @@ export default function Navigation({ theme = 'light', setTheme: setThemeApp }) {
                   onClick={() => setIsOpen(false)}
                   className={`flex items-center space-x-3 px-4 py-3 rounded-lg transition-all ${
                     isActive(item.path)
-                      ? 'bg-primary text-white'
+                      ? 'bg-primary text-white shadow-md'
                       : theme === 'dark'
-                      ? 'text-gray-300 hover:bg-gray-600'
-                      : 'text-gray-700 hover:bg-gray-100'
+                      ? 'text-gray-300 hover:bg-white/10'
+                      : 'text-gray-700 hover:bg-primary/5'
                   }`}
                 >
                   <Icon size={20} />
@@ -151,5 +131,3 @@ export default function Navigation({ theme = 'light', setTheme: setThemeApp }) {
     </nav>
   )
 }
-
-

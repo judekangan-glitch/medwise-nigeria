@@ -1,22 +1,12 @@
 
-import { useState, useEffect } from 'react'
-import { User, LogOut, LogIn, Mail } from 'lucide-react'
-import { getUserProfile, initializeUser, saveUserProfile, getAchievements } from '../utils/localStorage'
-import { ACHIEVEMENTS } from '../utils/gamification'
-
+import { useState } from 'react'
+import { User, LogOut, LogIn } from 'lucide-react'
+import { useMedwise } from '../context/MedwiseContext'
+import { ACHIEVEMENTS } from '../hooks/useGamification'
 
 export default function Auth() {
-  const [user, setUser] = useState(getUserProfile())
-  const [showAuth, setShowAuth] = useState(!user)
-  const [authMode, setAuthMode] = useState('login')
+  const { user, updateUser, achievements } = useMedwise()
   const [formData, setFormData] = useState({ username: '', email: '' })
-  const [achievements, setAchievements] = useState([])
-
-  useEffect(() => {
-    if (user) {
-      setAchievements(getAchievements())
-    }
-  }, [user])
 
   const handleLogin = (e) => {
     e.preventDefault()
@@ -37,9 +27,7 @@ export default function Auth() {
       lastActivityDate: new Date().toISOString()
     }
 
-    saveUserProfile(newUser)
-    setUser(newUser)
-    setShowAuth(false)
+    updateUser(newUser)
     setFormData({ username: '', email: '' })
     alert(`Welcome, ${newUser.username}! 🎉`)
   }
@@ -47,8 +35,7 @@ export default function Auth() {
   const handleLogout = () => {
     if (confirm('Logout and reset all data?')) {
       localStorage.clear()
-      setUser(null)
-      setShowAuth(true)
+      window.location.reload()
     }
   }
 

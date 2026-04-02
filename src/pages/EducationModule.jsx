@@ -1,10 +1,12 @@
 import { useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { ArrowLeft, CheckCircle, Award, Zap } from 'lucide-react'
-import { awardPoints, checkAchievement } from '../utils/gamification'
+import { useGamification } from '../hooks/useGamification'
 import { saveQuizResult } from '../utils/localStorage'
+import PageWrapper from '../components/PageWrapper'
 
 export default function EducationModule() {
+  const { awardPoints, checkAchievement } = useGamification()
   const { moduleId } = useParams()
   const [currentSection, setCurrentSection] = useState(0)
   const [currentQuizIndex, setCurrentQuizIndex] = useState(0)
@@ -491,7 +493,7 @@ VACCINATION:
   const isLastSection = currentSection === currentModule.sections.length
 
   return (
-    <div className="min-h-screen py-12 px-4">
+    <PageWrapper className="min-h-screen py-12 px-4">
       <div className="container mx-auto max-w-4xl">
         <Link
           to="/learn"
@@ -661,6 +663,6 @@ VACCINATION:
           )}
         </div>
       </div>
-    </div>
+    </PageWrapper>
   )
 }

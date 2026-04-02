@@ -1,36 +1,22 @@
 import { useState, useEffect } from 'react'
 import { Bell, Plus, Trash2, Clock, Pill, AlertCircle, CheckCircle, Zap } from 'lucide-react'
-import { getMedications } from '../utils/localStorage'
+import { useMedwise } from '../context/MedwiseContext'
+import PageWrapper from '../components/PageWrapper'
 
 export default function Reminders() {
-  const [reminders, setReminders] = useState([])
-  const [medications, setMedications] = useState([])
+  const { medications, reminders, updateReminders } = useMedwise()
   const [medicationName, setMedicationName] = useState('')
   const [selectedMedicationId, setSelectedMedicationId] = useState('')
   const [reminderTime, setReminderTime] = useState('')
   const [notificationPermission, setNotificationPermission] = useState('default')
   const [lastCheck, setLastCheck] = useState(null)
 
-  // Load reminders and medications from localStorage on mount
   useEffect(() => {
-    const saved = localStorage.getItem('medwise-reminders')
-    if (saved) {
-      setReminders(JSON.parse(saved))
-    }
-
-    const savedMeds = getMedications()
-    setMedications(savedMeds)
-
     // Check notification permission
     if ('Notification' in window) {
       setNotificationPermission(Notification.permission)
     }
   }, [])
-
-  // Save reminders to localStorage whenever they change
-  useEffect(() => {
-    localStorage.setItem('medwise-reminders', JSON.stringify(reminders))
-  }, [reminders])
 
   // Check reminders every 30 seconds
   useEffect(() => {
@@ -131,7 +117,7 @@ export default function Reminders() {
       dosableMarkWhenNotified: true
     }
 
-    setReminders([...reminders, newReminder])
+    updateReminders([...reminders, newReminder])
     setMedicationName('')
     setSelectedMedicationId('')
     setReminderTime('')
@@ -141,12 +127,12 @@ export default function Reminders() {
 
   const deleteReminder = (id) => {
     if (confirm('Delete this reminder?')) {
-      setReminders(reminders.filter(r => r.id !== id))
+      updateReminders(reminders.filter(r => r.id !== id))
     }
   }
 
   const toggleReminder = (id) => {
-    setReminders(reminders.map(r => 
+    updateReminders(reminders.map(r => 
       r.id === id ? { ...r, enabled: !r.enabled } : r
     ))
   }
@@ -165,7 +151,7 @@ export default function Reminders() {
   }
 
   return (
-    <div className="min-h-screen py-12 px-4">
+    <PageWrapper className="min-h-screen py-12 px-4">
       <div className="container mx-auto max-w-4xl">
         {/* Header */}
         <div className="text-center mb-12">
@@ -450,7 +436,7 @@ export default function Reminders() {
           </ul>
         </div>
       </div>
-    </div>
+    </PageWrapper>
   )
 }
 

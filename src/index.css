@@ -14,14 +14,18 @@
   }
   
   .btn-secondary {
-    @apply bg-white hover:bg-gray-50 text-primary border-2 border-primary font-semibold py-3 px-6 rounded-lg transition-all duration-200;
+    @apply bg-white dark:bg-transparent hover:bg-gray-50 dark:hover:bg-deep-surface text-primary border-2 border-primary font-semibold py-3 px-6 rounded-lg transition-all duration-200;
   }
   
   .card {
-    @apply bg-white rounded-xl shadow-md p-6 transition-all duration-200 hover:shadow-xl;
+    @apply bg-white dark:bg-deep-surface rounded-xl shadow-[0_4px_20px_-4px_rgba(44,95,45,0.05)] dark:shadow-[0_4px_20px_-4px_rgba(0,0,0,0.3)] dark:border dark:border-deep-border p-6 transition-all duration-300 hover:shadow-[0_8px_30px_-4px_rgba(44,95,45,0.1)];
   }
   
   .feature-card {
-    @apply bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100;
+    @apply bg-white/90 dark:bg-deep-surface/80 backdrop-blur-md rounded-2xl p-8 shadow-[0_8px_30px_-4px_rgba(44,95,45,0.06)] hover:shadow-[0_20px_40px_-4px_rgba(44,95,45,0.12)] border border-white/40 dark:border-deep-border transition-all duration-300;
+  }
+
+  .glass-nav {
+    @apply bg-white/80 dark:bg-deep-green/80 backdrop-blur-md border-b border-gray-100 dark:border-deep-border transition-colors duration-300;
   }
 }
