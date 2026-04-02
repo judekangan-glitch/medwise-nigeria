@@ -124,11 +124,11 @@ export default function Auth() {
               <div className="flex flex-wrap gap-2">
                 {achievements.map(a => {
                   // Find the achievement details from ACHIEVEMENTS
-                  const details = Object.values(ACHIEVEMENTS).find(ach => ach.id === a.id)
+                  const details = Object.values(ACHIEVEMENTS).find(ach => ach.id === a.id.toLowerCase())
                   return details ? (
-                    <span key={a.id} title={details.description} className="flex items-center px-2 py-1 bg-blue-50 rounded text-xs">
-                      <span className="mr-1">{details.name.split(' ')[0]}</span>
-                      <span>{details.name.split(' ').slice(1).join(' ')}</span>
+                    <span key={a.id} className="flex items-center px-2 py-1 bg-blue-50 rounded text-xs">
+                      <span className="mr-1">{details.name?.split(' ')[0]}</span>
+                      <span>{details.name?.split(' ').slice(1).join(' ')}</span>
                     </span>
                   ) : null
                 })}

@@ -1,4 +1,6 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { CheckCircle, Users, AlertCircle, TrendingUp, Zap, Clock, ArrowLeft } from 'lucide-react'
 import { useMedwise } from '../context/MedwiseContext'
 import { useTranslation } from '../utils/translations'
 import { useGamification } from '../hooks/useGamification'

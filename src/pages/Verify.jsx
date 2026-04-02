@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Search, AlertTriangle, CheckCircle, Camera, FileText } from 'lucide-react'
 import FakeDrugAlerts from '../components/FakeDrugAlerts'
 import { verifyNafdac } from '../utils/verifyNafdac'

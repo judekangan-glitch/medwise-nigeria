@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { GraduationCap, Shield, Clock, ArrowRight, AlertCircle, CheckCircle } from 'lucide-react'
+import { GraduationCap, Shield, Clock, ArrowRight, AlertCircle, CheckCircle, Users, User } from 'lucide-react'
 import { useMedwise } from '../context/MedwiseContext'
 import { useTranslation } from '../utils/translations'
 
@@ -104,9 +104,9 @@ export default function Home() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="container mx-auto max-w-6xl px-4 -mt-16 mb-20 relative z-20"
+          className="container mx-auto max-w-4xl px-4 -mt-16 mb-20 relative z-20"
         >
-          <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-8 shadow-2xl overflow-hidden relative group">
+          <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-6 shadow-2xl overflow-hidden relative group">
             <div className="absolute top-0 right-0 w-64 h-64 bg-accent/20 rounded-full blur-3xl -mr-32 -mt-32 transition-all group-hover:bg-accent/30"></div>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative z-10">
@@ -115,30 +115,30 @@ export default function Home() {
                 <div className="inline-flex items-center justify-center w-16 h-16 bg-white/10 rounded-2xl mb-4 border border-white/10 group-hover:scale-110 transition-transform">
                   <Users size={32} className="text-green-400" />
                 </div>
-                <h3 className="text-4xl font-black text-white mb-1">12,480+</h3>
-                <p className="text-green-100/60 font-medium tracking-wide uppercase text-xs">
+                <h3 className="text-3xl font-black text-white mb-1">12,480+</h3>
+                <p className="text-green-100/60 font-medium tracking-wide uppercase text-[10px]">
                   {language === 'en' ? 'Nigerians Protected' : 'Naija People Wey We Protect'}
                 </p>
               </div>
 
               {/* Stat 2 */}
-              <div className="text-center p-4 border-y md:border-y-0 md:border-x border-white/10">
-                <div className="inline-flex items-center justify-center w-16 h-16 bg-white/10 rounded-2xl mb-4 border border-white/10 group-hover:scale-110 transition-transform">
-                  <Shield size={32} className="text-accent" />
+              <div className="text-center p-2 border-y md:border-y-0 md:border-x border-white/10">
+                <div className="inline-flex items-center justify-center w-12 h-12 bg-white/10 rounded-xl mb-3 border border-white/10 group-hover:scale-110 transition-transform">
+                  <Shield size={24} className="text-accent" />
                 </div>
-                <h3 className="text-4xl font-black text-white mb-1">842</h3>
-                <p className="text-green-100/60 font-medium tracking-wide uppercase text-xs">
+                <h3 className="text-3xl font-black text-white mb-1">842</h3>
+                <p className="text-green-100/60 font-medium tracking-wide uppercase text-[10px]">
                   {language === 'en' ? 'Fake Drugs Flagged' : 'Fake Medicine Wey We Catch'}
                 </p>
               </div>
 
               {/* Stat 3 */}
-              <div className="text-center p-4">
-                <div className="inline-flex items-center justify-center w-16 h-16 bg-white/10 rounded-2xl mb-4 border border-white/10 group-hover:scale-110 transition-transform">
-                  <CheckCircle size={32} className="text-blue-400" />
+              <div className="text-center p-2">
+                <div className="inline-flex items-center justify-center w-12 h-12 bg-white/10 rounded-xl mb-3 border border-white/10 group-hover:scale-110 transition-transform">
+                  <CheckCircle size={24} className="text-blue-400" />
                 </div>
-                <h3 className="text-4xl font-black text-white mb-1">99.9%</h3>
-                <p className="text-green-100/60 font-medium tracking-wide uppercase text-xs">
+                <h3 className="text-3xl font-black text-white mb-1">99.9%</h3>
+                <p className="text-green-100/60 font-medium tracking-wide uppercase text-[10px]">
                   {language === 'en' ? 'Verification Accuracy' : 'As E Correct Reach'}
                 </p>
               </div>
@@ -148,12 +148,16 @@ export default function Home() {
             <div className="mt-8 pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4">
               <div className="flex items-center space-x-3">
                 <div className="flex -space-x-2">
-                  {[1,2,3,4].map(i => (
-                    <div key={i} className="w-8 h-8 rounded-full border-2 border-primary bg-green-800 flex items-center justify-center text-[10px] font-bold text-white overflow-hidden">
-                      <img src={`https://i.pravatar.cc/100?img=${i+10}`} alt="user" />
+                  {['#059669', '#0284c7', '#7c3aed', '#db2777'].map((color, i) => (
+                    <div 
+                      key={i} 
+                      className="w-8 h-8 rounded-full border-2 border-primary/20 flex items-center justify-center text-[10px] font-bold text-white shadow-inner"
+                      style={{ backgroundColor: color }}
+                    >
+                      <User size={14} className="text-white/80" />
                     </div>
                   ))}
-                  <div className="w-8 h-8 rounded-full border-2 border-primary bg-green-700 flex items-center justify-center text-[10px] font-bold text-white">
+                  <div className="w-8 h-8 rounded-full border-2 border-primary/20 bg-green-700 flex items-center justify-center text-[10px] font-bold text-white shadow-lg">
                     +12k
                   </div>
                 </div>

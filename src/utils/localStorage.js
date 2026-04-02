@@ -1,7 +1,12 @@
 // User Management
 export const getUserProfile = () => {
-  const saved = localStorage.getItem('medwise-user')
-  return saved ? JSON.parse(saved) : null
+  try {
+    const saved = localStorage.getItem('medwise-user')
+    return saved ? JSON.parse(saved) : null
+  } catch (e) {
+    console.error('Error parsing user profile:', e)
+    return null
+  }
 }
 
 export const saveUserProfile = (user) => {
@@ -29,8 +34,13 @@ export const initializeUser = () => {
 
 // Medications Management
 export const getMedications = () => {
-  const saved = localStorage.getItem('medwise-medications')
-  return saved ? JSON.parse(saved) : []
+  try {
+    const saved = localStorage.getItem('medwise-medications')
+    return saved ? JSON.parse(saved) : []
+  } catch (e) {
+    console.error('Error parsing medications:', e)
+    return []
+  }
 }
 
 export const saveMedications = (medications) => {
@@ -64,8 +74,13 @@ export const saveQuizResult = (moduleId, score) => {
 
 // Achievements
 export const getAchievements = () => {
-  const saved = localStorage.getItem('medwise-achievements')
-  return saved ? JSON.parse(saved) : []
+  try {
+    const saved = localStorage.getItem('medwise-achievements')
+    return saved ? JSON.parse(saved) : []
+  } catch (e) {
+    console.error('Error parsing achievements:', e)
+    return []
+  }
 }
 
 export const awardAchievement = (achievementId, achievementName) => {

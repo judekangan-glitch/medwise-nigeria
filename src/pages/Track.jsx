@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Plus, Pill, Clock, CheckCircle, AlertCircle, Trophy, Trash2 } from 'lucide-react'
 import { useMedwise } from '../context/MedwiseContext'
 import { useTranslation } from '../utils/translations'
