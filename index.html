@@ -53,6 +53,7 @@
         e.preventDefault();
         // Stash the event so it can be triggered later
         deferredPrompt = e;
+        window.deferredPrompt = e;
         console.log('Install prompt available');
         
         // Dispatch custom event that components can listen to

@@ -20,6 +20,11 @@ export default function InstallPWA() {
       }
     }
 
+    // Check if it already fired before this component mounted
+    if (window.deferredPrompt && !isInStandaloneMode) {
+      setShowInstallPrompt(true)
+    }
+
     window.addEventListener('pwa-install-available', handleInstallAvailable)
 
     return () => {
@@ -38,7 +43,7 @@ export default function InstallPWA() {
 
   const handleDismiss = () => {
     setShowInstallPrompt(false)
-    // Remember dismissal for 7 days
+    // Remember dismissal for abbreviated time (1 day) instead of 7 during development
     localStorage.setItem('pwa-install-dismissed', Date.now().toString())
   }
 
@@ -47,8 +52,8 @@ export default function InstallPWA() {
     const dismissed = localStorage.getItem('pwa-install-dismissed')
     if (dismissed) {
       const dismissedTime = parseInt(dismissed)
-      const sevenDaysAgo = Date.now() - (7 * 24 * 60 * 60 * 1000)
-      if (dismissedTime > sevenDaysAgo) {
+      const oneDayAgo = Date.now() - (24 * 60 * 60 * 1000)
+      if (dismissedTime > oneDayAgo) {
         setShowInstallPrompt(false)
       }
     }
