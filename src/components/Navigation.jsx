@@ -96,8 +96,8 @@ export default function Navigation() {
           <div className="flex items-center space-x-4">
             {/* Profile Widget - Inline */}
             {user && (
-              <div className="hidden sm:flex items-center space-x-2 px-3 py-2 rounded-lg backdrop-blur-sm" style={{
-                backgroundColor: theme === 'dark' ? 'rgba(13, 40, 24, 0.6)' : 'rgba(243, 244, 246, 0.8)'
+              <div className="hidden sm:flex items-center space-x-2 px-3 py-2 rounded-lg backdrop-blur-sm shadow-inner" style={{
+                backgroundColor: theme === 'dark' ? 'rgba(6, 78, 59, 0.4)' : 'rgba(236, 253, 245, 0.8)'
               }}>
                 <User size={16} className="text-primary" />
                 <div className="text-left text-sm">
@@ -128,8 +128,8 @@ export default function Navigation() {
 
               {/* Dropdown Menu */}
               {isLangOpen && (
-                <div className={`absolute top-full right-0 mt-2 w-36 rounded-xl shadow-lg border overflow-hidden z-50 ${
-                  theme === 'dark' ? 'bg-[#0d2818] border-white/10' : 'bg-white border-gray-100'
+                <div className={`absolute top-full right-0 mt-2 w-36 rounded-xl shadow-xl border overflow-hidden z-50 ${
+                  theme === 'dark' ? 'bg-[#064E3B] border-white/10' : 'bg-white border-gray-100'
                 }`}>
                   {Object.entries(LANG_LABELS).map(([code, label]) => (
                     <button

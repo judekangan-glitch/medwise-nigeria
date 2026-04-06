@@ -105,36 +105,38 @@ export default function Home() {
             <div className="absolute top-0 right-0 w-64 h-64 bg-accent/20 rounded-full blur-3xl -mr-32 -mt-32 transition-all group-hover:bg-accent/30"></div>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative z-10">
-              {/* Stat 1 */}
+              {/* Stat 1: XP/Points */}
               <div className="text-center p-4">
-                <div className="inline-flex items-center justify-center w-16 h-16 bg-white/10 rounded-2xl mb-4 border border-white/10 group-hover:scale-110 transition-transform">
-                  <Users size={32} className="text-green-400" />
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-white/10 rounded-2xl mb-4 border border-white/10 group-hover:scale-110 transition-transform shadow-inner">
+                  <motion.div animate={{ rotate: [0, 15, -15, 0] }} transition={{ repeat: Infinity, duration: 4 }}>
+                    <Users size={32} className="text-primary-light" />
+                  </motion.div>
                 </div>
-                <h3 className="text-3xl font-black text-white mb-1">12,480+</h3>
-                <p className="text-green-100/60 font-medium tracking-wide uppercase text-[10px]">
-                  {lang({en:'Nigerians Protected',pidgin:'Naija People Wey We Protect',ha:'Yan Najeriya da Aka Kare',yo:'Aw\u1ecdn Omo Naij\u00e9r\u00ed\u00e0 T\u00f3 Wa Dab\u1ecd\u0300',ig:'Nd\u1ecb Nigeria ny\u1ecdchara'})}
+                <h3 className="text-3xl font-black text-white mb-1 tracking-tight">{(user?.points || 12480).toLocaleString()}+</h3>
+                <p className="text-primary-light/80 font-black tracking-widest uppercase text-[10px]">
+                  {user ? 'YOUR TOTAL XP' : lang({en:'Nigerians Protected',pidgin:'Naija People Protected'})}
                 </p>
               </div>
 
-              {/* Stat 2 */}
-              <div className="text-center p-2 border-y md:border-y-0 md:border-x border-white/10">
+              {/* Stat 2: Level/Shield */}
+              <div className="text-center p-4 border-y md:border-y-0 md:border-x border-white/10">
                 <div className="inline-flex items-center justify-center w-12 h-12 bg-white/10 rounded-xl mb-3 border border-white/10 group-hover:scale-110 transition-transform">
                   <Shield size={24} className="text-accent" />
                 </div>
-                <h3 className="text-3xl font-black text-white mb-1">842</h3>
-                <p className="text-green-100/60 font-medium tracking-wide uppercase text-[10px]">
-                  {lang({en:'Fake Drugs Flagged',pidgin:'Fake Medicine Wey We Catch',ha:'An Gano Magunguna na Karya',yo:'\u1ecdg\u00f9n Iro T\u00f3 Wa Ri',ig:'\u1ecdgw\u1ee5 eche eche a chop\u1ee5tara'})}
+                <h3 className="text-3xl font-black text-white mb-1 tracking-tight">{user?.level || 842}</h3>
+                <p className="text-primary-light/80 font-black tracking-widest uppercase text-[10px]">
+                  {user ? 'YOUR HEALTH LEVEL' : lang({en:'Fake Drugs Flagged',pidgin:'Fake Medicine Caught'})}
                 </p>
               </div>
 
-              {/* Stat 3 */}
-              <div className="text-center p-2">
+              {/* Stat 3: Accuracy/Streaks */}
+              <div className="text-center p-4">
                 <div className="inline-flex items-center justify-center w-12 h-12 bg-white/10 rounded-xl mb-3 border border-white/10 group-hover:scale-110 transition-transform">
-                  <CheckCircle size={24} className="text-blue-400" />
+                  <CheckCircle size={24} className="text-medical-blue" />
                 </div>
-                <h3 className="text-3xl font-black text-white mb-1">99.9%</h3>
-                <p className="text-green-100/60 font-medium tracking-wide uppercase text-[10px]">
-                  {lang({en:'Verification Accuracy',pidgin:'As E Correct Reach',ha:'Daidaiton Tabbatarwa',yo:'Ot\u00fat\u00fa \u1e62\u00e0y\u1eb9\u0300w\u00f2',ig:'Izi izi Nnyocha'})}
+                <h3 className="text-3xl font-black text-white mb-1 tracking-tight">{user ? `${user.streaks || 0}D` : '99.9%'}</h3>
+                <p className="text-primary-light/80 font-black tracking-widest uppercase text-[10px]">
+                  {user ? 'LOGIN STREAK' : lang({en:'Verification Accuracy',pidgin:'Accuracy'})}
                 </p>
               </div>
             </div>
@@ -143,26 +145,31 @@ export default function Home() {
             <div className="mt-8 pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4">
               <div className="flex items-center space-x-3">
                 <div className="flex -space-x-2">
-                  {['#059669', '#0284c7', '#7c3aed', '#db2777'].map((color, i) => (
-                    <div 
-                      key={i} 
-                      className="w-8 h-8 rounded-full border-2 border-primary/20 flex items-center justify-center text-[10px] font-bold text-white shadow-inner"
-                      style={{ backgroundColor: color }}
-                    >
-                      <User size={14} className="text-white/80" />
-                    </div>
-                  ))}
-                  <div className="w-8 h-8 rounded-full border-2 border-primary/20 bg-green-700 flex items-center justify-center text-[10px] font-bold text-white shadow-lg">
-                    +12k
-                  </div>
+                  {user?.achievements?.length > 0 ? (
+                    user.achievements.slice(0, 4).map((a, i) => (
+                      <div key={i} className="w-8 h-8 rounded-full border-2 border-primary-dark bg-primary flex items-center justify-center text-[10px] font-bold text-white shadow-lg overflow-hidden group-hover:-translate-y-1 transition-transform" title={a.name}>
+                         <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary to-primary-dark">
+                           {a.name?.split(' ')[0] || '🏆'}
+                         </div>
+                      </div>
+                    ))
+                  ) : (
+                    ['#059669', '#0284c7', '#7c3aed', '#db2777'].map((color, i) => (
+                      <div key={i} className="w-8 h-8 rounded-full border-2 border-primary-dark flex items-center justify-center text-[10px] font-bold text-white shadow-inner" style={{ backgroundColor: color }}>
+                        <User size={14} className="text-white/80" />
+                      </div>
+                    ))
+                  )}
                 </div>
-                <p className="text-sm text-green-100/80">
-                  {lang({en:'Join thousands of Nigerians making safer medication choices.',pidgin:'Join plenty Naija people wey dey choose better medicine.',ha:'Ku shiga dubban yan Najeriya da ke zabar magunguna mafi aminci.',yo:'D\u00e1r\u00e0 p\u1ecd\u0300 \u00e0w\u1ecdn \u1ecd\u0300g\u00e1\u1ecd\u0300r\u1ecd\u0300 omo Naij\u00e9r\u00ed\u00e0 t\u00ed \u0144 ya ad\u00e9 idi \u1ecdg\u00f9n ab\u00f3.',ig:'D\u1ecb ha na puku mmad\u1ee5 Nigeria na-ah\u1ecd\u1ecd \u1ecdgw\u1ee5 nke \u1ecdma.'})}
+                <p className="text-sm text-white/80 font-medium">
+                  {user 
+                    ? `You have earned ${user.achievements?.length || 0} badges so far. Keep going!` 
+                    : lang({en:'Join thousands of Nigerians making safer medication choices.',pidgin:'Join plenty Naija people wey dey choose better medicine.'})}
                 </p>
               </div>
-              <div className="inline-flex items-center px-4 py-2 bg-accent/20 border border-accent/30 rounded-full text-accent text-xs font-bold uppercase tracking-wider animate-pulse">
-                <span className="w-2 h-2 bg-accent rounded-full mr-2"></span>
-                {lang({en:'Live Protection Active',pidgin:'Active Vigilante Mode',ha:'Kariyar Kai Tsaye Tana Aiki',yo:'Ab\u00f3 T\u00f3 Wa B\u1eb9\u0300r\u1eb9\u0300',ig:'Nche di ndu na-aruo oru'})}
+              <div className="inline-flex items-center px-4 py-2 bg-primary-light/10 border border-primary-light/30 rounded-full text-primary-light text-xs font-black uppercase tracking-widest shadow-sm">
+                <span className="w-2 h-2 bg-primary-light rounded-full mr-2 shadow-[0_0_8px_rgba(16,185,129,0.8)]"></span>
+                {user ? 'CLOUD BACKUP SECURED' : 'LIVE PROTECTION ACTIVE'}
               </div>
             </div>
           </div>

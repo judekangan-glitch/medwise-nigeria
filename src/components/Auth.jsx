@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { User, LogOut, LogIn, Mail, Phone, Chrome, ChevronLeft, Loader2, Key } from 'lucide-react'
+import { User, LogOut, LogIn, Mail, Phone, ChevronLeft, Loader2, Key } from 'lucide-react'
 import { useMedwise } from '../context/MedwiseContext'
 import { ACHIEVEMENTS } from '../hooks/useGamification'
 import { supabase } from '../utils/supabase'
@@ -123,22 +123,6 @@ export default function Auth() {
     }
   }
 
-  const handleGoogleLogin = async () => {
-    setLoading(true)
-    try {
-      const { error } = await supabase.auth.signInWithOAuth({
-        provider: 'google',
-        options: {
-          redirectTo: window.location.origin
-        }
-      })
-      if (error) throw error
-    } catch (error) {
-      showToast(error.message, 'error')
-      setLoading(false)
-    }
-  }
-
   const handleOTPSubmit = async (e) => {
     e.preventDefault()
     setLoading(true)
@@ -182,7 +166,7 @@ export default function Auth() {
 
   if (!user) {
     return (
-      <div className="min-h-screen flex items-center justify-center py-12 px-4 bg-gradient-to-br from-[#0A2647] via-[#144272] to-[#205295]">
+      <div className="min-h-screen flex items-center justify-center py-12 px-4 bg-gradient-to-br from-[#064E3B] via-[#059669] to-[#10B981]">
         <div className="w-full max-w-md">
           <div className="bg-white/95 backdrop-blur-md rounded-3xl shadow-2xl overflow-hidden p-8 border border-white/20">
             
@@ -229,18 +213,6 @@ export default function Auth() {
                     <ChevronLeft size={20} className="rotate-180 text-gray-300 group-hover:translate-x-1 transition-transform" />
                   </button>
 
-                  <button onClick={handleGoogleLogin} disabled={loading} className="w-full flex items-center justify-between p-5 rounded-2xl border-2 border-gray-100 hover:border-red-100 hover:bg-red-50 transition-all group">
-                    <div className="flex items-center">
-                      <div className="w-12 h-12 rounded-xl bg-red-50 text-red-600 flex items-center justify-center mr-4 group-hover:scale-110 transition-transform">
-                        <Chrome size={24} />
-                      </div>
-                      <div className="text-left">
-                        <span className="block font-bold text-gray-800 text-lg leading-tight">Google Login</span>
-                        <span className="text-xs text-gray-500 font-medium">One-tap access</span>
-                      </div>
-                    </div>
-                    {loading ? <Loader2 size={20} className="animate-spin text-gray-300" /> : <ChevronLeft size={20} className="rotate-180 text-gray-300 group-hover:translate-x-1 transition-transform" />}
-                  </button>
 
                   <div className="relative my-8 px-4 text-center">
                     <span className="text-[10px] text-gray-400 font-black uppercase tracking-[0.2em] bg-white px-3 relative z-10">Verification Required</span>

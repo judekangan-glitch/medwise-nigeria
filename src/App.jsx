@@ -22,7 +22,7 @@ function App() {
   // Wrap everything in Router early to avoid hook errors
   return (
     <Router>
-      <div className={`min-h-screen transition-colors duration-300 ${theme === 'dark' ? 'dark bg-deep-green text-gray-100' : 'bg-gray-50/50 text-gray-900'}`}>
+      <div className={`min-h-screen transition-colors duration-300 ${theme === 'dark' ? 'dark bg-[#022c22] text-gray-100' : 'bg-gray-50/50 text-gray-900'}`}>
         {loading ? (
           <div className="min-h-screen flex flex-col items-center justify-center space-y-4">
             <Loader2 className="animate-spin text-primary" size={48} />

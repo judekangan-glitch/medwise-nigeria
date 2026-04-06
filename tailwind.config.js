@@ -8,23 +8,23 @@ export default {
     extend: {
       colors: {
         primary: {
-          DEFAULT: '#2C5F2D',
-          light: '#3D7A3E',
-          dark: '#1F4521',
+          DEFAULT: '#10B981', // Vibrant Emerald 500
+          light: '#34D399',   // Emerald 400
+          dark: '#059669',    // Emerald 600
         },
         accent: {
-          DEFAULT: '#F96167',
-          light: '#FA7A7F',
-          dark: '#D8454A',
+          DEFAULT: '#F43F5E', // Vibrant Rose 500
+          light: '#FB7185',   // Rose 400
+          dark: '#E11D48',    // Rose 600
         },
         medical: {
-          blue: '#4A90E2',
-          green: '#50C878',
+          blue: '#3B82F6',    // Bright Blue 500
+          teal: '#14B8A6',    // Teal 500
         },
         deep: {
-          green: '#091C10',
-          surface: '#0D2818',
-          border: '#1A3C26'
+          green: '#064E3B',   // Emerald 900 (Rich, not black)
+          surface: '#065F46', // Emerald 800
+          border: '#10B981'   // Emerald 500 (Glow)
         }
       },
       fontFamily: {
