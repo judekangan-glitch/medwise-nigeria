@@ -23,12 +23,12 @@ export const useGamification = () => {
     let achievementToCheck = null;
 
     switch (action) {
-      case 'dose_taken':     pointsToAdd = 5; achievementToCheck = 'FIRST_STEP'; break;
-      case 'module_complete': pointsToAdd = 30; achievementToCheck = 'KNOWLEDGE_SEEKER'; break;
-      case 'quiz_perfect':   pointsToAdd = amount > 0 ? amount : 40; achievementToCheck = 'QUIZ_MASTER'; break;
-      case 'verify_medication': pointsToAdd = 20; achievementToCheck = 'DETECTIVE'; break;
-      case 'course_complete': pointsToAdd = 75; achievementToCheck = 'COURSE_COMPLETER'; break;
-      case 'reminder_set':    pointsToAdd = 5; achievementToCheck = 'REMINDER_PRO'; break;
+      case 'dose_taken':        pointsToAdd = amount > 0 ? amount : 10; achievementToCheck = 'FIRST_STEP'; break;
+      case 'module_complete':   pointsToAdd = amount > 0 ? amount : 30; achievementToCheck = 'KNOWLEDGE_SEEKER'; break;
+      case 'quiz_perfect':     pointsToAdd = amount > 0 ? amount : 100; achievementToCheck = 'QUIZ_MASTER'; break;
+      case 'verify_medication': pointsToAdd = amount > 0 ? amount : 20; achievementToCheck = 'DETECTIVE'; break;
+      case 'course_complete':   pointsToAdd = amount > 0 ? amount : 75; achievementToCheck = 'COURSE_COMPLETER'; break;
+      case 'reminder_set':      pointsToAdd = amount > 0 ? amount : 10; achievementToCheck = 'REMINDER_PRO'; break;
     }
 
     updateUser((prev) => {

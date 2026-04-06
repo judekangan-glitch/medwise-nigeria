@@ -2,6 +2,7 @@ import { Link, useLocation } from 'react-router-dom'
 import { Menu, X, GraduationCap, Shield, Clock, Bell, Moon, Sun, User, LogOut, Globe, ChevronDown } from 'lucide-react'
 import { useState, useRef, useEffect } from 'react'
 import { useMedwise } from '../context/MedwiseContext'
+import { supabase } from '../utils/supabase'
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
@@ -39,8 +40,23 @@ export default function Navigation() {
     setTheme(theme === 'dark' ? 'light' : 'dark')
   }
 
+  const handleLogout = async () => {
+    if (confirm('Are you sure you want to logout?')) {
+      try {
+        await supabase.auth.signOut()
+        // Use our safe clear function instead of clearing everything (like theme/lang)
+        const storage = await import('../utils/localStorage')
+        storage.clearAllData()
+        window.location.href = '/'
+      } catch (e) {
+        console.error('Logout error:', e)
+        window.location.reload()
+      }
+    }
+  }
+
   return (
-    <nav className={`glass-nav sticky top-0 z-50`}>
+    <nav className={`glass-nav sticky top-0 z-50 print:hidden`}>
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
@@ -147,6 +163,20 @@ export default function Navigation() {
               {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
             </button>
 
+            {/* Logout Button */}
+            <button
+              onClick={handleLogout}
+              className={`flex items-center space-x-1 px-3 py-1.5 text-sm font-bold rounded-lg transition-all border ${
+                theme === 'dark' 
+                  ? 'border-red-900/30 text-red-400 hover:bg-red-900/20 bg-red-900/10' 
+                  : 'border-red-100 text-red-600 hover:bg-red-50 bg-red-50'
+              }`}
+            >
+              <LogOut size={16} />
+              <span className="hidden lg:inline">Logout</span>
+            </button>
+
+            {/* Mobile Navigation Toggle */}
             <button
               onClick={() => setIsOpen(!isOpen)}
               className={`md:hidden p-2 rounded-full transition-all ${
@@ -181,6 +211,15 @@ export default function Navigation() {
                 </Link>
               )
             })}
+            
+            {/* Mobile Logout */}
+            <button
+              onClick={handleLogout}
+              className="w-full flex items-center space-x-3 px-4 py-3 rounded-lg text-red-600 hover:bg-red-50 transition-all font-bold"
+            >
+              <LogOut size={20} />
+              <span>Logout</span>
+            </button>
           </div>
         )}
       </div>

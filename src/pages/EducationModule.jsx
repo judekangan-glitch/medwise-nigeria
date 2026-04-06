@@ -361,17 +361,14 @@ export default function EducationModule() {
       const totalQuestions = currentModule.quiz.length
       const score = Math.round((correctAnswers / totalQuestions) * 100)
       
-      // Award points based on score
+      // Award points based on score (Points added + auto-achievement triggers)
       const pointsToAward = Math.round((correctAnswers / totalQuestions) * 100)
-      const rewardData = awardPoints('quiz_perfect', pointsToAward)
       
-      // Check if perfect score achievement
-      if (correctAnswers === totalQuestions) {
-        checkAchievement('QUIZ_MASTER')
-      }
-      
-      // Check if knowledge seeker achievement
-      checkAchievement('KNOWLEDGE_SEEKER')
+      // We only call awardPoints once - the hook handles the badges automatically!
+      const rewardData = awardPoints(
+        correctAnswers === totalQuestions ? 'quiz_perfect' : 'module_complete', 
+        pointsToAward
+      )
       
       // Save quiz result
       saveQuizResult(moduleId, score)

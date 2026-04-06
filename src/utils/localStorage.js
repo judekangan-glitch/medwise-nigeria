@@ -49,8 +49,13 @@ export const saveMedications = (medications) => {
 
 // Reminders Management
 export const getReminders = () => {
-  const saved = localStorage.getItem('medwise-reminders')
-  return saved ? JSON.parse(saved) : []
+  try {
+    const saved = localStorage.getItem('medwise-reminders')
+    return saved ? JSON.parse(saved) : []
+  } catch (e) {
+    console.error('Error parsing reminders:', e)
+    return []
+  }
 }
 
 export const saveReminders = (reminders) => {
@@ -59,8 +64,13 @@ export const saveReminders = (reminders) => {
 
 // Quiz Results
 export const getQuizResults = () => {
-  const saved = localStorage.getItem('medwise-quiz-results')
-  return saved ? JSON.parse(saved) : {}
+  try {
+    const saved = localStorage.getItem('medwise-quiz-results')
+    return saved ? JSON.parse(saved) : {}
+  } catch (e) {
+    console.error('Error parsing quiz results:', e)
+    return {}
+  }
 }
 
 export const saveQuizResult = (moduleId, score) => {
@@ -97,7 +107,11 @@ export const awardAchievement = (achievementId, achievementName) => {
 
 // Theme
 export const getTheme = () => {
-  return localStorage.getItem('medwise-theme') || 'light'
+  try {
+    return localStorage.getItem('medwise-theme') || 'light'
+  } catch (e) {
+    return 'light'
+  }
 }
 
 export const setTheme = (theme) => {
@@ -106,8 +120,13 @@ export const setTheme = (theme) => {
 
 // Verification History
 export const getVerificationHistory = () => {
-  const saved = localStorage.getItem('medwise-verifications')
-  return saved ? JSON.parse(saved) : []
+  try {
+    const saved = localStorage.getItem('medwise-verifications')
+    return saved ? JSON.parse(saved) : []
+  } catch (e) {
+    console.error('Error parsing verification history:', e)
+    return []
+  }
 }
 
 export const addVerification = (nafdacCode, result) => {
