@@ -7,7 +7,7 @@ import { useMedwise } from '../context/MedwiseContext'
 export default function Pitch() {
   const [currentSlide, setCurrentSlide] = useState(0)
   const { theme } = useMedwise()
-  const totalSlides = 11
+  const totalSlides = 9
 
   // Keyboard navigation
   useEffect(() => {
@@ -253,23 +253,23 @@ export default function Pitch() {
     </div>
   )
 
-  // SLIDE 5.7: Cloud Continuity & Security
+  // SLIDE 7: National Scale Connectivity (Merged Cloud Ecosystem)
   const SlideCloud = () => (
     <div className="flex flex-col items-center justify-center h-full w-full text-center">
       <motion.div variants={staggerContainer} initial="hidden" animate="show" className="w-full max-w-6xl">
         <motion.div variants={childVariant} className="mb-4 inline-block px-4 py-1 rounded-full bg-blue-500/20 text-blue-400 font-bold border border-blue-500/30">
-          NEW: CLOUD ECOSYSTEM ☁️
+          NATIONAL SCALE CONNECTIVITY ☁️
         </motion.div>
-        <motion.h2 variants={childVariant} className="text-5xl font-bold text-white mb-6">Built for Scale and Reliability</motion.h2>
+        <motion.h2 variants={childVariant} className="text-5xl font-bold text-white mb-6">Built for Reliability & Speed</motion.h2>
         <motion.p variants={childVariant} className="text-2xl text-gray-400 mb-16 max-w-3xl mx-auto">
-          We've integrated world-class cloud infrastructure to ensure every patient is connected and every record is secure.
+          We've engineered a world-class cloud backbone to unite every patient and healthcare record across Nigeria.
         </motion.p>
         
         <div className="grid md:grid-cols-3 gap-8 text-left">
           {[
-            { icon: Database, title: "Supabase Cloud", desc: "Real-time data synchronization and secure cloud-record backups." },
-            { icon: Smartphone, title: "Twilio SMS Engine", desc: "Dual-purpose messaging for secure OTP verification and patient medication reminders." },
-            { icon: Globe, title: "Offline-First", desc: "All core features work 100% without internet. Cloud sync is your safety net." }
+            { icon: Database, title: "Supabase Cloud", desc: "Enterprise-grade real-time data sync ensuring medical records are never lost." },
+            { icon: Smartphone, title: "Twilio SMS Engine", desc: "A robust national messaging stack for medical alerts and secure OTP verification." },
+            { icon: Globe, title: "Cloud Backup", desc: "Automatic background synchronization whenever the patient is back online." }
           ].map((item, i) => (
             <motion.div key={i} variants={childVariant} whileHover={{ y: -10 }} className="glass-panel p-10 rounded-3xl border border-blue-500/20 bg-blue-900/5 flex flex-col items-center text-center">
               <div className="w-20 h-20 mb-6 bg-blue-500/10 rounded-2xl flex items-center justify-center">
@@ -284,78 +284,12 @@ export default function Pitch() {
     </div>
   )
 
-
-  // SLIDE 6: The Innovation (FIRE)
-  const Slide6 = () => (
-    <div className="flex flex-col items-center justify-center h-full w-full relative overflow-hidden">
-      {/* Background Flare */}
-      <motion.div
-        animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.6, 0.3] }}
-        transition={{ repeat: Infinity, duration: 3 }}
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-primary/20 rounded-full blur-[100px] -z-10"
-      />
-
-      <motion.div variants={staggerContainer} initial="hidden" animate="show" className="w-full max-w-5xl text-center">
-        <motion.div variants={childVariant} className="mb-4 inline-block px-4 py-1 rounded-full bg-orange-500/20 text-orange-400 font-bold border border-orange-500/30">
-          THE COMPETITIVE EDGE 🔥
-        </motion.div>
-        <motion.h2 variants={childVariant} className="text-6xl font-bold text-white mb-16">Innovation Highlights</motion.h2>
-
-        <div className="grid md:grid-cols-3 gap-6 text-left">
-          <motion.div variants={childVariant} whileHover={{ y: -5 }} className="glass-panel p-8 rounded-2xl border-2 border-primary bg-primary/10 relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-bl from-primary to-transparent opacity-50 rounded-bl-3xl"></div>
-            <Zap size={40} className="text-primary-light mb-6" />
-            <h3 className="text-2xl font-bold text-white mb-3">Hybrid Data Engine</h3>
-            <p className="text-gray-300">Intelligent local-first architecture ensuring the 10K+ drug database and tracking stay live even in zero-data zones.</p>
-          </motion.div>
-
-          <motion.div variants={childVariant} whileHover={{ y: -5 }} className="glass-panel p-8 rounded-2xl border border-white/20 bg-white/5">
-            <Database size={40} className="text-blue-400 mb-6" />
-            <h3 className="text-2xl font-bold text-white mb-3">Offline-First Architecture</h3>
-            <p className="text-gray-300">Crucial for Nigerian network conditions. Core features and the 10K drug database work on Airplane Mode.</p>
-          </motion.div>
-
-          <motion.div variants={childVariant} whileHover={{ y: -5 }} className="glass-panel p-8 rounded-2xl border border-white/20 bg-white/5">
-            <Trophy size={40} className="text-yellow-400 mb-6" />
-            <h3 className="text-2xl font-bold text-white mb-3">Reactive Gamification</h3>
-            <p className="text-gray-300">Users earn points and level up instantly via global state hooks when they take meds and pass quizzes.</p>
-          </motion.div>
-        </div>
-      </motion.div>
-    </div>
-  )
-
-  // SLIDE 7: Technical Stack
-  const Slide7 = () => (
-    <div className="flex flex-col items-center justify-center h-full w-full">
-      <motion.div variants={staggerContainer} initial="hidden" animate="show" className="w-full max-w-5xl text-center">
-        <motion.h2 variants={childVariant} className="text-5xl font-bold text-white mb-4">Built for Performance, Scale, and Reliability</motion.h2>
-        <motion.p variants={childVariant} className="text-2xl text-gray-400 mb-16">Modern Web Engineering at its core.</motion.p>
-        
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-          {[
-            { label: "Supabase Cloud", desc: "Enterprise-grade real-time database and secure authentication.", icon: Database },
-            { label: "Twilio SMS API", desc: "Powerful messaging stack for both OTP phone verification and medication reminders.", icon: Smartphone },
-            { label: "Framer Motion", desc: "GPU-accelerated native-feeling cinematic transitions.", icon: Activity },
-            { label: "React + Vite", desc: "For lightning fast module reloading and execution.", icon: Code }
-          ].map((item, i) => (
-            <motion.div key={i} variants={childVariant} className="glass-panel p-6 border border-white/10 rounded-2xl bg-white/5 hover:bg-white/10 transition-colors">
-              <div className="flex justify-center mb-4"><item.icon size={36} className="text-gray-300" /></div>
-              <h3 className="text-xl font-bold text-white mb-2">{item.label}</h3>
-              <p className="text-sm text-gray-400">{item.desc}</p>
-            </motion.div>
-          ))}
-        </div>
-      </motion.div>
-    </div>
-  )
-
-  // SLIDE 7.8: My Development Journey (Claiming Ownership & Strategy)
+  // SLIDE 8: My Development Journey (Claiming Ownership & Strategy)
   const SlideJourney = () => (
-    <div className="flex flex-col items-center justify-center h-full w-full py-2 text-center">
+    <div className="flex flex-col items-center justify-center h-full w-full py-1 text-center">
       <motion.div variants={staggerContainer} initial="hidden" animate="show" className="w-full max-w-5xl">
         <motion.h2 variants={childVariant} className="text-4xl font-bold text-white mb-1">My Development Strategy</motion.h2>
-        <motion.p variants={childVariant} className="text-xl text-primary-light font-medium mb-6 italic">"Engineering the Future of Health with AI-Augmented Strategy"</motion.p>
+        <motion.p variants={childVariant} className="text-lg text-primary-light font-medium mb-4 italic">"Engineering the Future of Health with AI-Augmented Strategy"</motion.p>
         
         <div className="grid md:grid-cols-4 gap-3 text-left">
           {/* Main Strategy Card */}
@@ -364,7 +298,7 @@ export default function Pitch() {
               <Zap size={32} className="text-primary-light mr-3 shadow-[0_0_10px_rgba(34,197,94,0.4)]" />
               <h3 className="text-xl font-bold text-white uppercase tracking-wider">Modern AI Orchestration</h3>
             </div>
-            <p className="text-[17px] text-gray-300 leading-relaxed font-light">
+            <p className="text-[16px] text-gray-300 leading-relaxed font-light">
               I built MedWise Nigeria by leveraging the world's most advanced developer tools. Such as <span className="text-white font-bold underline decoration-primary">Antigravity</span>, <span className="text-white font-bold underline decoration-blue-500">GitHub Copilot</span> and <span className="text-white font-bold">Visual Studio Code</span>. Then chatbots like <span className="text-white font-bold underline decoration-yellow-500">ChatGPT</span>, and <span className="text-white font-bold underline decoration-purple-500">Claude AI</span>. I was able to rapidly engineer a secure, national-scale healthcare ecosystem.
             </p>
           </motion.div>
@@ -372,46 +306,46 @@ export default function Pitch() {
           {/* 7 Pillars */}
           <motion.div variants={childVariant} className="glass-panel p-3 rounded-xl border border-blue-500/20 bg-blue-900/5 hover:bg-blue-900/10 transition-all">
             <Code size={20} className="text-blue-400 mb-2" />
-            <h4 className="font-bold text-white mb-1 text-[15px]">1. Build Engine</h4>
-            <p className="text-[12px] text-gray-400 leading-snug">Architected with <span className="text-blue-400">React</span> and <span className="text-blue-400">Vite</span> for a lightning-fast, modern web experience.</p>
+            <h4 className="font-bold text-white mb-1 text-[13px]">1. Build Engine</h4>
+            <p className="text-[11px] text-gray-400 leading-tight">Architected with <span className="text-blue-400 font-bold">React+Vite</span> for high-speed module execution and performance.</p>
           </motion.div>
 
           <motion.div variants={childVariant} className="glass-panel p-3 rounded-xl border border-yellow-500/20 bg-yellow-900/5 hover:bg-yellow-900/10 transition-all">
             <Activity size={20} className="text-yellow-400 mb-2" />
-            <h4 className="font-bold text-white mb-1 text-[15px]">2. Visual Design</h4>
-            <p className="text-[12px] text-gray-400 leading-snug">Leveraged <span className="text-yellow-400">Tailwind CSS</span> and <span className="text-yellow-400">Framer Motion</span> for a cinematic interface.</p>
+            <h4 className="font-bold text-white mb-1 text-[13px]">2. Visual Innovation</h4>
+            <p className="text-[11px] text-gray-400 leading-tight">Using <span className="text-yellow-400 font-bold">Reactive Gamification</span> and Framer Motion for cinematic UI transitions.</p>
           </motion.div>
 
           <motion.div variants={childVariant} className="glass-panel p-3 rounded-xl border border-green-500/20 bg-green-900/5 hover:bg-green-900/10 transition-all">
             <Database size={20} className="text-green-400 mb-2" />
-            <h4 className="font-bold text-white mb-1 text-[15px]">3. Cloud Database</h4>
-            <p className="text-[12px] text-gray-400 leading-snug">Integrated <span className="text-green-400">Supabase</span> for secure, real-time medical record synchronization.</p>
+            <h4 className="font-bold text-white mb-1 text-[13px]">3. Cloud Database</h4>
+            <p className="text-[11px] text-gray-400 leading-tight">Integrated <span className="text-green-400 font-bold">Supabase</span> for enterprise-grade, real-time cloud record synchronization.</p>
           </motion.div>
 
           <motion.div variants={childVariant} className="glass-panel p-3 rounded-xl border border-red-500/20 bg-red-900/5 hover:bg-red-900/10 transition-all">
             <Smartphone size={20} className="text-red-400 mb-2" />
-            <h4 className="font-bold text-white mb-1 text-[15px]">4. Messaging</h4>
-            <p className="text-[12px] text-gray-400 leading-snug">Utilized <span className="text-red-400">Twilio SMS API</span> for automated reminders and OTP verification.</p>
+            <h4 className="font-bold text-white mb-1 text-[13px]">4. Messaging Logic</h4>
+            <p className="text-[11px] text-gray-400 leading-tight">Secure <span className="text-red-400 font-bold">Twilio SMS API</span> orchestration for OTP and critical medication alerts.</p>
           </motion.div>
 
           <motion.div variants={childVariant} className="glass-panel p-3 rounded-xl border border-cyan-500/20 bg-cyan-900/5 hover:bg-cyan-900/10 transition-all">
             <Globe size={20} className="text-cyan-400 mb-2" />
-            <h4 className="font-bold text-white mb-1 text-[15px]">5. Edge Hosting</h4>
-            <p className="text-[12px] text-gray-400 leading-snug">Deployed on <span className="text-cyan-400">Vercel</span> with serverless functions for national-scale reliability.</p>
+            <h4 className="font-bold text-white mb-1 text-[13px]">5. Edge Deployment</h4>
+            <p className="text-[11px] text-gray-400 leading-tight">National hosting on <span className="text-cyan-400 font-bold">Vercel</span> using high-performance Serverless Edge functions.</p>
           </motion.div>
 
           <motion.div variants={childVariant} className="glass-panel p-3 rounded-xl border border-purple-500/20 bg-purple-900/5 hover:bg-purple-900/10 transition-all">
             <Users size={20} className="text-purple-400 mb-2" />
-            <h4 className="font-bold text-white mb-1 text-[15px]">6. Localization</h4>
-            <p className="text-[12px] text-gray-400 leading-snug">Built a custom engine for <span className="text-purple-400">English, Hausa, Yoruba, Igbo, and Pidgin</span> support.</p>
+            <h4 className="font-bold text-white mb-1 text-[13px]">6. Localization</h4>
+            <p className="text-[11px] text-gray-400 leading-tight">Custom English, Hausa, Yoruba, Igbo, and Pidgin support for national reach.</p>
           </motion.div>
 
           {/* Centered Flagship Pillar: Offline PWA */}
-          <motion.div variants={childVariant} className="glass-panel p-5 rounded-2xl border border-white/30 bg-white/10 hover:bg-white/20 transition-all md:col-start-2 md:col-span-2 flex flex-col items-center text-center shadow-[0_0_20px_rgba(255,255,255,0.05)]">
-            <Shield size={28} className="text-white mb-3" />
-            <h4 className="font-bold text-white mb-2 text-lg italic tracking-wide">🏆 7. Offline-First PWA Architecture</h4>
-            <p className="text-[13px] text-gray-300 leading-relaxed max-w-md">
-              I engineered MedWise Nigeria to be a <span className="text-white font-bold">Progressive Web App (PWA)</span>. This critical innovation ensures that all life-saving features—including the 10,000+ drug database and medical tracking—remain <span className="text-white font-bold underline decoration-primary">100% accessible even without an internet connection</span>.
+          <motion.div variants={childVariant} className="glass-panel p-4 rounded-xl border border-white/20 bg-white/5 hover:bg-white/10 transition-all md:col-start-2 md:col-span-2 flex flex-col items-center text-center">
+            <Shield size={24} className="text-white mb-2" />
+            <h4 className="font-bold text-white mb-1 text-[14px] italic">🏆 7. Hybrid Offline-First Engine</h4>
+            <p className="text-[11px] text-gray-300 leading-relaxed max-w-sm">
+              I engineered a <span className="text-white font-bold">Hybrid Data Engine</span> as a PWA, ensuring 10,000+ NAFDAC drugs are 100% accessible even in zero-data zones.
             </p>
           </motion.div>
         </div>
@@ -451,7 +385,7 @@ export default function Pitch() {
     </div>
   )
 
-  const slides = [<Slide1 />, <Slide2 />, <Slide3 />, <Slide4 />, <Slide5 />, <SlideLanguage />, <SlideCloud />, <Slide6 />, <Slide7 />, <SlideJourney />, <Slide8 />]
+  const slides = [<Slide1 />, <Slide2 />, <Slide3 />, <Slide4 />, <Slide5 />, <SlideLanguage />, <SlideCloud />, <SlideJourney />, <Slide8 />]
 
   return (
     // We override global theme background here to enforce the Deep Forest theme for the presentation exclusively
