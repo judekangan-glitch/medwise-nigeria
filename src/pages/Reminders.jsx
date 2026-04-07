@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Bell, Plus, Trash2, Clock, Pill, AlertCircle, CheckCircle, Zap } from 'lucide-react'
+import { Bell, Plus, Trash2, Clock, Pill, AlertCircle, CheckCircle, Zap, Smartphone } from 'lucide-react'
 import { useMedwise } from '../context/MedwiseContext'
 import PageWrapper from '../components/PageWrapper'
 import { lang } from '../utils/translations'
@@ -27,6 +27,7 @@ export default function Reminders() {
   const [medicationName, setMedicationName] = useState('')
   const [selectedMedicationId, setSelectedMedicationId] = useState('')
   const [reminderTime, setReminderTime] = useState('')
+  const [smsEnabled, setSmsEnabled] = useState(false)
   const [notificationPermission, setNotificationPermission] = useState('default')
   const [lastCheck, setLastCheck] = useState(null)
 
@@ -47,11 +48,17 @@ export default function Reminders() {
       
       console.log('Checking reminders at:', currentTime)
 
-      reminders.forEach(reminder => {
+      reminders.forEach(async (reminder) => {
         console.log('Reminder:', reminder.medication, 'at', reminder.time, 'enabled:', reminder.enabled)
         if (reminder.time === currentTime && reminder.enabled) {
           console.log('FIRING NOTIFICATION for:', reminder.medication)
           sendNotification(reminder)
+
+          // SMS Reminder (if enabled for demo and not sent in this minute)
+          if (reminder.smsEnabled && reminder.lastSmsSentAt !== currentTime) {
+            console.log('FIRING SMS for:', reminder.medication)
+            await sendSmsReminder(reminder, currentTime)
+          }
         }
       })
     }
@@ -118,6 +125,36 @@ export default function Reminders() {
     }
   }
 
+  const sendSmsReminder = async (reminder, currentTime) => {
+    try {
+      console.log('Triggering SMS for:', reminder.medication)
+      const response = await fetch('/api/send-sms', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          medication: reminder.medication,
+          time: formatTime12Hour(reminder.time)
+        })
+      });
+      
+      const data = await response.json();
+      if (data.success) {
+        console.log('SMS Sent successfully:', data.sid);
+        
+        // Update reminder locally to reflect SMS was sent for this minute
+        // This prevents double-sending if the 30s check runs twice in one minute
+        const updatedReminders = reminders.map(r => 
+          r.id === reminder.id ? { ...r, lastSmsSentAt: currentTime } : r
+        );
+        updateReminders(updatedReminders);
+      } else {
+        console.warn('SMS failed (possibly demo restriction):', data.error);
+      }
+    } catch (err) {
+      console.error('Failed to trigger SMS service:', err);
+    }
+  }
+
   const addReminder = (e) => {
     e.preventDefault()
 
@@ -141,6 +178,8 @@ export default function Reminders() {
       medication: medName,
       time: reminderTime,
       enabled: true,
+      smsEnabled: smsEnabled,
+      lastSmsSentAt: null,
       createdAt: new Date().toISOString(),
       dosableMarkWhenNotified: true
     }
@@ -149,8 +188,9 @@ export default function Reminders() {
     setMedicationName('')
     setSelectedMedicationId('')
     setReminderTime('')
+    setSmsEnabled(false)
     
-    alert(`Reminder added! You will be notified at ${formatTime12Hour(reminderTime)}`)
+    alert(`Reminder added! You will be notified at ${formatTime12Hour(reminderTime)}${smsEnabled ? ' with an additional SMS reminder' : ''}.`)
   }
 
   const deleteReminder = (id) => {
@@ -318,6 +358,27 @@ export default function Reminders() {
                   {lang({en:'Current time:',pidgin:'Time now:',ha:'Lokacin yanzu:',yo:'Akoko bayi:',ig:'Oge a:'})} {getCurrentTime()} ({formatTime12Hour(getCurrentTime())})
                 </p>
               </div>
+
+              {/* SMS Toggle */}
+              <div className="flex items-center space-x-3 p-4 bg-gray-50 rounded-lg border-2 border-dashed border-gray-300">
+                <input
+                  type="checkbox"
+                  id="smsEnabled"
+                  checked={smsEnabled}
+                  onChange={(e) => setSmsEnabled(e.target.checked)}
+                  className="w-5 h-5 rounded text-primary focus:ring-primary cursor-pointer"
+                />
+                <label htmlFor="smsEnabled" className="flex items-center text-sm font-semibold text-gray-700 cursor-pointer">
+                  <Smartphone className="mr-2 text-primary" size={18} />
+                  {lang({
+                    en: 'Enable Twilio SMS Reminder (Demo Mode)',
+                    pidgin: 'Receive drug alarm via SMS (Demo)',
+                    ha: 'Kunna tunatarwa ta SMS (Yanayin Gwaji)',
+                    yo: 'Gba ìránníyè oogun lórí SMS (Àpẹẹrẹ)',
+                    ig: 'Nweta amụma maka ọgwụ site na SMS (Demo)'
+                  })}
+                </label>
+              </div>
             </div>
 
             <button
@@ -388,6 +449,12 @@ export default function Reminders() {
                           <Clock size={16} className="mr-1" />
                           {formatTime12Hour(reminder.time)} ({reminder.time})
                         </div>
+                        {reminder.smsEnabled && (
+                          <div className="flex items-center mt-1 text-xs text-primary font-medium">
+                            <Smartphone size={14} className="mr-1" />
+                            {lang({en:'SMS Enabled (Demo)', pidgin:'SMS Alarm On', ha:'SMS Tunatarwa', yo:'Aago SMS sí', ig:'Amụma SMS'})}
+                          </div>
+                        )}
                       </div>
                     </div>
 
