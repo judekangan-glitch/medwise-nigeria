@@ -3,6 +3,7 @@ import { Menu, X, GraduationCap, Shield, Clock, Bell, Moon, Sun, User, LogOut, G
 import { useState, useRef, useEffect } from 'react'
 import { useMedwise } from '../context/MedwiseContext'
 import { supabase } from '../utils/supabase'
+import { clearAllData } from '../utils/localStorage'
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
@@ -40,19 +41,12 @@ export default function Navigation() {
     setTheme(theme === 'dark' ? 'light' : 'dark')
   }
 
-  const handleLogout = async () => {
-    if (confirm('Are you sure you want to logout?')) {
-      try {
-        await supabase.auth.signOut()
-        // Use our safe clear function instead of clearing everything (like theme/lang)
-        const storage = await import('../utils/localStorage')
-        storage.clearAllData()
-        window.location.href = '/'
-      } catch (e) {
-        console.error('Logout error:', e)
-        window.location.reload()
-      }
-    }
+  const handleLogout = () => {
+    // 1. Clear everything locally immediately
+    localStorage.clear()
+    
+    // 2. Redirect to landing page instantly
+    window.location.href = '/'
   }
 
   return (
@@ -96,8 +90,8 @@ export default function Navigation() {
           <div className="flex items-center space-x-4">
             {/* Profile Widget - Inline */}
             {user && (
-              <div className="hidden sm:flex items-center space-x-2 px-3 py-2 rounded-lg backdrop-blur-sm shadow-inner" style={{
-                backgroundColor: theme === 'dark' ? 'rgba(6, 78, 59, 0.4)' : 'rgba(236, 253, 245, 0.8)'
+              <div className="hidden sm:flex items-center space-x-2 px-3 py-2 rounded-lg backdrop-blur-sm" style={{
+                backgroundColor: theme === 'dark' ? 'rgba(13, 40, 24, 0.6)' : 'rgba(243, 244, 246, 0.8)'
               }}>
                 <User size={16} className="text-primary" />
                 <div className="text-left text-sm">
@@ -105,7 +99,7 @@ export default function Navigation() {
                     {user.username}
                   </p>
                   <p style={{color: theme === 'dark' ? '#9ca3af' : '#6b7280'}} className="text-xs leading-tight">
-                    Lv {user.level} • ⭐ {user.points}
+                    {lang({en:'Lv', pidgin:'Level', ha:'Mataki', yo:'Ìpele', ig:'Ogo'})} {user.level} • {lang({en:'⭐', pidgin:'⭐', ha:'⭐', yo:'⭐', ig:'⭐'})} {user.points}
                   </p>
                 </div>
               </div>
@@ -128,8 +122,8 @@ export default function Navigation() {
 
               {/* Dropdown Menu */}
               {isLangOpen && (
-                <div className={`absolute top-full right-0 mt-2 w-36 rounded-xl shadow-xl border overflow-hidden z-50 ${
-                  theme === 'dark' ? 'bg-[#064E3B] border-white/10' : 'bg-white border-gray-100'
+                <div className={`absolute top-full right-0 mt-2 w-36 rounded-xl shadow-lg border overflow-hidden z-50 ${
+                  theme === 'dark' ? 'bg-[#0d2818] border-white/10' : 'bg-white border-gray-100'
                 }`}>
                   {Object.entries(LANG_LABELS).map(([code, label]) => (
                     <button
@@ -173,7 +167,7 @@ export default function Navigation() {
               }`}
             >
               <LogOut size={16} />
-              <span className="hidden lg:inline">Logout</span>
+              <span className="hidden lg:inline">{lang({en:'Logout', pidgin:'Comot', ha:'Fita', yo:'Jáde', ig:'Pụọ'})}</span>
             </button>
 
             {/* Mobile Navigation Toggle */}
@@ -218,7 +212,7 @@ export default function Navigation() {
               className="w-full flex items-center space-x-3 px-4 py-3 rounded-lg text-red-600 hover:bg-red-50 transition-all font-bold"
             >
               <LogOut size={20} />
-              <span>Logout</span>
+              <span>{lang({en:'Logout', pidgin:'Comot', ha:'Fita', yo:'Jáde', ig:'Pụọ'})}</span>
             </button>
           </div>
         )}

@@ -403,7 +403,7 @@ export default function Reminders() {
 
                   {!reminder.enabled && (
                     <p className="text-sm text-gray-500 mt-2 ml-16">
-                      This reminder is paused
+                      {lang({en:'This reminder is paused', pidgin:'Dis alarm don sleep', ha:'An dakatar da wannan tunatarwa', yo:'Aago yìí ti dúró na', ig:'Amụma a akwụsịla tupu oge'})}
                     </p>
                   )}
                 </div>
@@ -418,19 +418,19 @@ export default function Reminders() {
           <div className="space-y-3 text-gray-700">
             <div className="flex items-start">
               <div className="bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold mr-3 flex-shrink-0 mt-0.5">1</div>
-              <p>{lang({en:'Enable browser notifications by clicking the button above',pidgin:'Allow alarm by clicking di button way dey up',ha:'Kuna sanarwar burauza ta danna botin da ke sama',yo:'Gba aago wẹẹbu láàyè nípa kíkàn bọtini tó wà lókè',ig:'Hapụ amụma weebụsaịtị site ịpị bọtịnụ nọ n\'elu'})}</p>
+              <p>{lang({en:'Enable browser notifications by clicking the button above',pidgin:'Allow browser alarm/notification by clicking the button way dey up for dis page',ha:'Kunna sanarwar na\'urar bincike (Browser) ta hanyar danna maballin da ke sama',yo:'Gba aago wẹẹbu láàyè nípa kíkàn bọtini "Enable Notifications" tó wà lókè',ig:'Hapụ amụma weebụsaịtị gị site n\'ịpị bọtịnụ "Enable Notifications" nọ n\'elu'})}</p>
             </div>
             <div className="flex items-start">
               <div className="bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold mr-3 flex-shrink-0 mt-0.5">2</div>
-              <p>{lang({en:'Add your medication and set the time you want to be reminded',pidgin:'Put your drug name and di time way you wan make e ring',ha:'Saka maganinka sannan ka saita lokacin da kake so a tunatar da kai',yo:'Fi oogun rẹ sílẹ̀ ati asiko tí o fẹ́ kí a rán ẹ létí',ig:'Tinye ọgwụ gị na oge ị chọrọ inweta ihe ncheta'})}</p>
+              <p>{lang({en:'Add your medication and set the time you want to be reminded',pidgin:'Type your medicine name and target time way you wan make your phone ring',ha:'Saka sunan maganinka sannan ka saita lokacin da kake so a tunatar da kai',yo:'Fi orúkọ oogun rẹ sílẹ̀ ati asiko gangan tí o fẹ́ kí aago rẹ dún',ig:'Tinye aha ọgwụ gị na oge kpamkpam ị chọrọ ka ihe ncheta gị dọọ aka ná ntị'})}</p>
             </div>
             <div className="flex items-start">
               <div className="bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold mr-3 flex-shrink-0 mt-0.5">3</div>
-              <p>{lang({en:'System checks every 30 seconds and sends notification at exact time',pidgin:'System dey check evri 30 seconds and go ring for exact time',ha:'Tsarin zai duba kowane dakikoki 30 kuma ya aiko maka da sanarwa a ainihin lokacin',yo:'Ètò yóò yẹ̀wò lẹ́yìn ìṣẹ́jú kọ̀ọ̀kan láti fi aago rán ẹ létí gẹ́lẹ́',ig:'Usoro a ga-enyocha kwa sekọnd iri atọ we zitere gị amụma n\'oge kpamkpam'})}</p>
+              <p>{lang({en:'System checks every 30 seconds and sends notification at exact time',pidgin:'The system go dey check every 30 seconds and e go ring sharp-sharp for your exact time',ha:'Tsarinmu yana duba kowane dakikoki 30 kuma zai aiko maka da sanarwa a ainihin lokacin da ka saita',yo:'Ètò yóò máa yẹ̀wò lẹ́yìn ìṣẹ́jú kọ̀ọ̀kan láti rí i pé aago rẹ dún gẹ́lẹ́ lákòókò tó tọ́',ig:'Usoro a na-enyocha kwa sekọnd iri atọ ọ bụla iji hụ na amụma gị dọrọ aka ná ntị n\'oge kpamkpam'})}</p>
             </div>
             <div className="flex items-start">
               <div className="bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold mr-3 flex-shrink-0 mt-0.5">4</div>
-              <p>{lang({en:'Toggle reminders on/off or delete them anytime',pidgin:'You fit off or delete am anytime way you like',ha:'Kuna iya biye ko share su a kowane lokaci',yo:'O lè tan án tàbí pa á, abi kóo parẹ́ lákòókò yówù kí ó jẹ́',ig:'Ị nwere ike ịgbanyụ ma ọ bụ gbuo ihe ncheta gị n\'oge ọbụla'})}</p>
+              <p>{lang({en:'Toggle reminders on/off or delete them anytime',pidgin:'You fit off di alarm or delete am anytime way you feel like',ha:'Kuna iya kunna ko kashe tunatarwa, ko kuma share su a duk lokacin da kuke so',yo:'O lè tan aago rẹ tàbí kí o pa á, tàbí kí o parẹ́ pátápátá lákòókò yówù kí ó jẹ́',ig:'Ị nwere ike ịgbanyụ ma ọ bụ gbuo ihe ncheta gị n\'oge ọbụla ị chọrọ'})}</p>
             </div>
           </div>
         </div>
@@ -440,7 +440,7 @@ export default function Reminders() {
           <h3 className="font-bold text-yellow-900 mb-2">{lang({en:'Important Notes',pidgin:'Very Important Messages',ha:'Sakonni Masu Muhimmanci',yo:'Àwọn Ohun Pàtàkì',ig:'Ihe Ndị Dị Mkpa'})}</h3>
           <ul className="text-sm text-yellow-800 space-y-1">
             <li className="font-bold text-orange-900">
-              📱 <strong>{lang({en:'Mobile Ready:',pidgin:'Phone Ready:',ha:'Akwai a Waya:',yo:'Àyẹwò lórí fóònù:',ig:'Dị Nkwado n\'ekwute:'})}</strong> {lang({en:'Fully supports Android and Desktop. For iPhones, add this app to your Home Screen to get notifications.',pidgin:'E dey work well for Android and Laptop. For iPhone, you gats Add to Home Screen first.',ha:'Yana aiki da Android da Desktop gaba daya. Ga iPhones, saka wannan domin samun sanarwa.',yo:'Yóò ṣiṣẹ́ fún Android ati kọ̀ǹpútà àgbéká tirẹ̀. Lati iPhones, fi kún òkè ojú-ewé láti gba aago.',ig:'Na-akwado nke ọma na gam akporo na desktọpụ. Maka iPhone, tinye na ihuenyo ụlọ gị iji nweta amụma.'})}
+              📱 <strong>{lang({en:'Mobile Ready:',pidgin:'Phone Ready:',ha:'Akwai a Waya:',yo:'Àyẹwò lórí fóònù:',ig:'Dị Nkwado n\'ekwute:'})}</strong> {lang({en:'Fully supports Android and Desktop. For iPhones, add this app to your Home Screen to get notifications.',pidgin:'E dey work well for Android and Laptop. For iPhone people, you gats "Add to Home Screen" first before you fit get notification.',ha:'Yana aiki da Android da Desktop gaba daya. Ga masu iPhone, sai kun saka wannan manhajar a babban shafin wayar ku (Add to Home Screen) kafin ku samu sanarwa.',yo:'Ó ń ṣiṣẹ́ fín-ní-fín-ní lórí Android àti kọ̀ǹpútà. Fún àwọn tó ń lo iPhone, ẹ gbọdọ̀ lo "Add to Home Screen" kọ́kọ́ láti gba ìtọ́nilétí aago.',ig:'O na-arụ ọrụ nke ọma na Android na kọmputa. Maka ndị na-eji iPhone, ị ghaghị ibu ụzọ gbakwunye ngwa a na ihuenyo ụlọ gị (Add to Home Screen) iji nweta amụma.'})}
             </li>
             <li>• {lang({en:'Keep this browser tab open (can be minimized)',pidgin:'Keep dis browser tab open (but you fit minimize am)',ha:'Ka bar wannan zauren a bude (zaka iya adana shi)',yo:'Jẹ́ kí ojú-ewé yìí wà ní ṣíṣí (o lè pa á gbàdí)',ig:'Dowe taabụ weebụsaịtị nkem a mepee(ịnwere ike ibelata ya)'})}</li>
             <li>• {lang({en:'Click "Test Now" button to verify notifications work',pidgin:'Click "Test Now" button to see whether di alarm dey work',ha:'Danna maballin "Gwajin Tunatarwa" domin ganin yana aiki',yo:'Tẹ bọtini "Dánwò" kí o rii daju wí pé aago ń ṣiṣẹ́',ig:'Pịa "Nnwale" inweta eziokwu na amụma na-arụ ọrụ nke ọma'})}</li>

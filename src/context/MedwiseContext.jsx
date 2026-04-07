@@ -12,6 +12,7 @@ export const MedwiseProvider = ({ children }) => {
   const [achievements, setAchievements] = useState(() => storage.getAchievements());
   const [theme, setThemeState] = useState(() => storage.getTheme());
   const [language, setLanguageState] = useState(() => localStorage.getItem('medwise-language') || 'en');
+  const lang = (map) => map[language] ?? map['en'];
   const [toasts, setToasts] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -20,7 +21,7 @@ export const MedwiseProvider = ({ children }) => {
     const safetyTimer = setTimeout(() => {
       console.warn('Startup Safety Timeout reached. Forcing load...');
       setLoading(false);
-    }, 4500);
+    }, 4000);
 
     const handleAuthStateChange = async (_event, session) => {
       try {
@@ -141,7 +142,13 @@ export const MedwiseProvider = ({ children }) => {
         if (error) throw error;
         console.log('Progress saved to cloud! ☁️');
         // Let the user know progress is saved
-        showToast('Progress safely saved to cloud! ☁️', 'success');
+        showToast(lang({
+          en: 'Progress safely saved to cloud! ☁️',
+          pidgin: 'Your progress don save for cloud! ☁️',
+          ha: 'An adana bayanan ku cikin nasara! ☁️',
+          yo: 'A ti tọ́jú ìlọsíwájú rẹ sí inú sánmà! ☁️',
+          ig: 'Echekwala ọganiihu gị n\'ime igwe-oji! ☁️'
+        }), 'success');
       } catch (err) {
         console.error('Cloud Sync Error (Auto-Sync):', err);
       }
@@ -188,6 +195,7 @@ export const MedwiseProvider = ({ children }) => {
       achievements, addAchievement,
       theme, setTheme,
       language, setLanguage,
+      lang,
       toasts, showToast,
       loading
     }}>

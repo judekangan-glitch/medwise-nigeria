@@ -1,9 +1,8 @@
 import { useState } from 'react'
-import { Search, AlertTriangle, CheckCircle, Camera, FileText } from 'lucide-react'
+import { Search, AlertTriangle, CheckCircle, FileText } from 'lucide-react'
 import FakeDrugAlerts from '../components/FakeDrugAlerts'
 import { verifyNafdac } from '../utils/verifyNafdac'
 import PageWrapper from '../components/PageWrapper'
-import CodeScanner from '../components/CodeScanner'
 import { useMedwise } from '../context/MedwiseContext'
 import { lang } from '../utils/translations'
 
@@ -12,7 +11,6 @@ export default function Verify() {
   const [nafdacCode, setNafdacCode] = useState('')
   const [verificationResult, setVerificationResult] = useState(null)
   const [isVerifying, setIsVerifying] = useState(false)
-  const [isScanning, setIsScanning] = useState(false)
 
   const processVerification = (code) => {
     setIsVerifying(true)
@@ -44,12 +42,6 @@ export default function Verify() {
     processVerification(nafdacCode)
   }
 
-  const handleScanSuccess = (decodedText) => {
-    setIsScanning(false)
-    const formattedCode = decodedText.trim().toUpperCase()
-    setNafdacCode(formattedCode)
-    processVerification(formattedCode)
-  }
 
   return (
     <PageWrapper className="min-h-screen py-12 px-4">
@@ -60,14 +52,26 @@ export default function Verify() {
             {lang({en:'Verify Your Medication',pidgin:'Check Your Medicine',ha:'Tabbatar da Maganinka',yo:'Sàyẹ̀wò Egbogi Rẹ',ig:'Nyochaa Ọgwụ Gị'})}
           </h1>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            {lang({en:'Check NAFDAC registration numbers to help identify counterfeit medications',pidgin:'Check NAFDAC number to know whether your medicine be real or fake',ha:'Duba lambobin rajistan NAFDAC don taimaka wajen gane magungunan karya',yo:'Sayẹwò àwọn nọmbà ìdasilẹ NAFDAC láti ṣèrànwọ mọ àwọn egbogi iro',ig:'Lelee nọmba ndebanye aha NAFDAC iji nyere aka ịchọpụta ọgwụ eche eche'})}
+            {lang({
+              en:'Check NAFDAC registration numbers to help identify counterfeit medications',
+              pidgin:'Check NAFDAC number for your medicine body or pack to know whether e be real or fake',
+              ha:'Duba lambobin rajista ta NAFDAC a jikin akwatin magani don sanin ingancinsa',
+              yo:'Ṣàyẹ̀wò nọ́mbà ìforúkọ̀silẹ̀ NAFDAC ní apoti egbogi rẹ láti mọ̀ bóyá jábujábu ni',
+              ig:'Lelee nọmba ndebanye aha NAFDAC na ọpọmọ ọgwụ gị iji hụ na ọ bụ eziokwu'
+            })}
           </p>
           <div className="mt-4">
             <span className="inline-block bg-blue-100 text-blue-800 text-sm font-semibold px-4 py-2 rounded-full">
-              <strong>{lang({en:'Currently verifying:',pidgin:'We dey check:',ha:'Ana tabbatarwa:',yo:'A ń ṣàyẹ̀wò:',ig:'A na-enyocha ugbu a:'})}</strong> 10,076 {lang({en:'NAFDAC-registered drugs',pidgin:'drug for Naija',ha:'magunguna da NAFDAC ta yi rajista',yo:'egbogi tí NAFDAC fọwọ́ sí',ig:'ọgwụ ndị NAFDAC deresara'})}
+              <strong>{lang({en:'Currently verifying:',pidgin:'We dey check:',ha:'Ana tabbatarwa:',yo:'A ń ṣàyẹ̀wò:',ig:'A na-enyocha ugbu a:'})}</strong> 10,076 {lang({en:'NAFDAC-registered drugs',pidgin:'different medicines for Naija',ha:'magunguna da NAFDAC ta yi rajista',yo:'egbogi tí NAFDAC fọwọ́ sí',ig:'ọgwụ ndị NAFDAC deresara'})}
             </span>
             <p className="text-xs text-gray-500 mt-2 max-w-xl mx-auto">
-              <strong>Note:</strong> {lang({en:'This tool does not cover every drug registered by NAFDAC. The limitation is due to lack of access to the official NAFDAC API. Only drugs for which we could obtain public data are included.',pidgin:'This tool no cover all drug wey NAFDAC register. We no get access to their official system. We only put the ones wey we see for public.',ha:'Wannan kayan aiki baya rufe kowace magani da NAFDAC ta yi rajista. Iyakar ta kasance saboda rashin samun damar shiga API ta hukumar NAFDAC. Ana haɗa magunguna kawai waɗanda za a iya samun bayanai na jama\'a.',yo:'Ètò yìí kò bo gbogbo egbogi tí NAFDAC forúkọsilẹ. Ìdíwọ́ yìí jẹ nítorí àìní ìráàyèsí sí API ìjọba NAFDAC. A pẹ̀lú egbogi tí a lè gba àlàyẹ gbangba nikan.',ig:'Ngwá ọrụ a adọrọghị ọgwụ niile ndị NAFDAC deresara. Ọnọdụ a bụ n\'ihi enwegh NAFDAC API. Naanị ọgwụ ndị enwere data ọha a tinye.'})}
+              <strong>Note:</strong> {lang({
+                en:'This tool does not cover every drug registered by NAFDAC. Only drugs with public records are included.',
+                pidgin:'This tool no cover all drug wey NAFDAC register o. We only put the ones wey record dey open. If you no see am, e fit still be real, but always double-check.',
+                ha:'Wannan kayan aiki baya rufe kowane magani da NAFDAC ta yi rajista ba. Mun sanya wadanda muke da bayanan su kawai.',
+                yo:'Ètò yìí kò bo gbogbo egbogi tí NAFDAC forúkọsilẹ. Àwọn egbogi tí a ní àlàyẹ gbangba rẹ̀ nìkan ni a pẹ̀lú.',
+                ig:'Ngwá ọrụ a adọrọghị ọgwụ niile ndị NAFDAC deresara. Naanị ọgwụ ndị anyị nwere data ha ka anyị tinyere.'
+              })}
             </p>
           </div>
         </div>
@@ -78,10 +82,22 @@ export default function Verify() {
             <AlertTriangle className="text-red-600 mr-3 flex-shrink-0 mt-1" size={24} />
             <div>
               <h3 className="font-bold text-lg mb-2 text-gray-900">
-                {lang({en:'30-40% of Medications in Nigerian Markets Are Counterfeit',pidgin:'30-40% of Medicine wey dey Naija market be Fake',ha:'30-40% na Magungunan da ke Kasuwar Najeriya Sun Kasance Na Karya',yo:'30-40% ti Egbogi ní Ọjà Naijíríà Jẹ Eke',ig:'30-40% nke Ọgwụ dị na Ahịa Nigeria bụ Eche Eche'})}
+                {lang({
+                  en:'30-40% of Medications in Nigerian Markets Are Counterfeit',
+                  pidgin:'Serious Fake-Drug Alarm: 3 to 4 medicines out of every 10 for our market fit be fake or poison',
+                  ha:'Gargadi: Kusan kashi 30-40 na Magungunan kasuwannin mu na jabu ne masu hadari',
+                  yo:'Ìkìlọ̀ Pàtàkì: Ìdá ọgbọ̀n sí ogójì nínú ọgọ́rùn-ún (30-40%) ògùn ní ọjà wa jẹ́ jábujábu tàbí májèlé',
+                  ig:'Ịdọ aka ná ntị: Pasentị iri atọ ruo iri anọ (30-40%) nke ọgwụ anyị nọ n\'ahịa bụ Jabu ma ọ bụ nsị'
+                })}
               </h3>
               <p className="text-gray-700">
-                {lang({en:'Fake medications contain no active ingredients or harmful substances. Verification before consumption can save lives.',pidgin:'Fake medicine no get wetin go heal you or e fit even kill person. Check your med before you take am.',ha:'Magunguna na karya ba su da wasu kayan aiki masu aiki ko kayan da ke haifar da cutarwa. Tabbatarwa kafin cin abinci na iya ceton rayuka.',yo:'Egbogi iro kò ní ohun èlò tí ń ṣiṣẹ́ tàbí ohun tí ó lè ṣe ọ̀pọ̀lọpọ̀ ìpalára. Ṣàyẹ̀wò ṣáájú lílò lè gùn ẹ̀mí mọ́.',ig:'Ọgwụ eche eche enweghị ihe na-arụ ọrụ ma ọ bụ ihe ndị na-eme mkhai. Nyocha tupu iri nwere ike ide nd\u1ee5 ndu.'})}
+                {lang({
+                  en:'Fake medications contain no active ingredients or harmful substances. Verification before consumption can save lives.',
+                  pidgin:'Fake medicine no get anything wey go heal you, and some fit carry poison wey go damage your body. Check am well before you drink am make you for live long.',
+                  ha:'Magungunan jabu ba su da sinadarin warkewa, kuma suna iya ƙunsar abubuwa masu guba da ke lalata gangar jiki. Tabbatarwa kafin amfani yana tseratar da rayuka.',
+                  yo:'Ògùn jábujábu kì í wò sàn, ó sì lè ba ẹ̀yà ara jẹ́ tàbí kó fa ikú òjijì. Ṣàyẹ̀wò oògùn rẹ nípa rẹ láti gba ẹ̀mí rẹ là.',
+                  ig:'Ọgwụ jabu enweghị ihe na-edozi ahụ, ọ pụkwara imebi akụkụ ahụ gị ma ọ bụ gbuo gị. Nyochaa ya tupu ị nụọ ya iji chebe ndụ gị.'
+                })}
               </p>
             </div>
           </div>
@@ -93,25 +109,13 @@ export default function Verify() {
             <h2 className="font-bold text-2xl text-gray-900 mb-4 md:mb-0">
               {lang({en:'Check NAFDAC Registration Number',pidgin:'Check NAFDAC Registration Number',ha:'Duba Lambar Rajista ta NAFDAC',yo:'Ṣàyẹ̀wò Nọ́mbà Ìforúkọ̀silẹ̀ NAFDAC',ig:'Lelee Nọmba Ndebanye Aha NAFDAC'})}
             </h2>
-            <button 
-              onClick={() => setIsScanning(!isScanning)}
-              className="bg-green-100 hover:bg-green-200 text-green-700 font-semibold px-4 py-2 rounded-lg flex items-center transition-colors shadow-sm"
-              type="button"
-            >
-              <Camera size={18} className="mr-2" />
-              {isScanning
-                ? lang({en:'Stop Scanning',pidgin:'Stop the Scan',ha:'Tsaya Skanin',yo:'Dawọ Sísayẹwò',ig:'Kwụsị Nyocha'})
-                : lang({en:'Scan Code with Camera',pidgin:'Use Camera Scan the Code',ha:'Yi amfani da Kyamara Skan Code',yo:'Lo Kamẹra Sayẹwò Code',ig:'Jiri Kamera Gbaa Code'})}
-            </button>
+            <div className="text-gray-500 flex items-center text-sm font-medium">
+              <FileText size={18} className="mr-2" />
+              {lang({en:'Find number on package',pidgin:'Check the medicine body',ha:'Nemo lamba a akwatin',yo:'Wá nọmbà ní apoti',ig:'Chọta nọmba na ọpọmọ'})}
+            </div>
           </div>
 
-          {isScanning ? (
-            <CodeScanner 
-              onScan={handleScanSuccess} 
-              onClose={() => setIsScanning(false)}
-            />
-          ) : (
-            <form onSubmit={handleVerify} className="mb-6">
+          <form onSubmit={handleVerify} className="mb-6">
               <div className="mb-4">
                 <label className="block text-sm font-semibold mb-2 text-gray-700">
                   {lang({en:'Enter NAFDAC Number (e.g., A7-1234)',pidgin:'Type the NAFDAC Number (e.g., A7-1234)',ha:'Shigar da Lambar NAFDAC (misali, A7-1234)',yo:'Tẹ Nọmbà NAFDAC (fun apẹẹrẹ, A7-1234)',ig:'Tinye Nọmba NAFDAC (dịka, A7-1234)'})}
@@ -141,11 +145,10 @@ export default function Verify() {
                   </button>
                 </div>
                 <p className="text-sm text-gray-500 mt-2">
-                  {lang({en:'Find the NAFDAC number or scan the barcode/QR code on your medication package',pidgin:'Check the NAFDAC number or scan the QR code wey dey the medicine body',ha:'Nemo lambar NAFDAC ko skan lambar tattalin kayan ajiya/QR a kan akwatin magani',yo:'Wá nọ́mbà NAFDAC tàbí ṣe ṣíṣàyẹwò barcode/QR ní apoti egbogi rẹ',ig:'Chọta nọmba NAFDAC ma ọ bụ gbaa barcode/QR code dị na ọpọmọ ọgwụ gị n\'oge'})}
+                  {lang({en:'Find the NAFDAC number printed on your medication package (not the serial number)',pidgin:'Check the NAFDAC number wey dem write the medicine body',ha:'Nemo lambar NAFDAC da aka buga a jikin akwatin magani',yo:'Wá nọ́mbà NAFDAC tí a kọ sí apoti egbogi rẹ',ig:'Chọta nọmba NAFDAC nke a pịnta na ọpọmọ ọgwụ gị'})}
                 </p>
               </div>
             </form>
-          )}
 
           {/* Verification Result */}
           {verificationResult && (
@@ -207,7 +210,7 @@ export default function Verify() {
         {/* How to Find NAFDAC Number */}
         <div className="grid md:grid-cols-2 gap-6 mb-8">
           <div className="card">
-            <Camera size={32} className="text-primary mb-4" />
+            <FileText size={32} className="text-primary mb-4" />
             <h3 className="font-bold text-xl mb-3 text-gray-900">
               {lang({en:'Where to Find NAFDAC Number',pidgin:'Which place NAFDAC number dey?',ha:'Ina Za Ka Sami Lambar NAFDAC',yo:'Ibiti A Ti Rí Nọ́mbà NAFDAC',ig:'Ebe ị ga-achọta Nọmba NAFDAC'})}
             </h3>

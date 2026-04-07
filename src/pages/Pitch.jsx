@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Shield, Cross, CheckCircle, AlertTriangle, Activity, Users, Database, Smartphone, Trophy, Zap, Code, Globe, ArrowRight, ArrowLeft, Play } from 'lucide-react'
+import { Shield, Cross, CheckCircle, AlertTriangle, Activity, Users, Database, Smartphone, Trophy, Zap, Code, Globe, ArrowRight, ArrowLeft, Play, Bell } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { useMedwise } from '../context/MedwiseContext'
 
 export default function Pitch() {
   const [currentSlide, setCurrentSlide] = useState(0)
   const { theme } = useMedwise()
-  const totalSlides = 9
+  const totalSlides = 10
 
   // Keyboard navigation
   useEffect(() => {
@@ -253,6 +253,37 @@ export default function Pitch() {
     </div>
   )
 
+  // SLIDE 5.7: Cloud Continuity & Security
+  const SlideCloud = () => (
+    <div className="flex flex-col items-center justify-center h-full w-full text-center">
+      <motion.div variants={staggerContainer} initial="hidden" animate="show" className="w-full max-w-6xl">
+        <motion.div variants={childVariant} className="mb-4 inline-block px-4 py-1 rounded-full bg-blue-500/20 text-blue-400 font-bold border border-blue-500/30">
+          NEW: CLOUD ECOSYSTEM ☁️
+        </motion.div>
+        <motion.h2 variants={childVariant} className="text-5xl font-bold text-white mb-6">Built for Scale and Reliability</motion.h2>
+        <motion.p variants={childVariant} className="text-2xl text-gray-400 mb-16 max-w-3xl mx-auto">
+          We've integrated world-class cloud infrastructure to ensure every patient is connected and every record is secure.
+        </motion.p>
+        
+        <div className="grid md:grid-cols-3 gap-8 text-left">
+          {[
+            { icon: Database, title: "Supabase Cloud", desc: "Real-time data synchronization and secure cloud-record backups." },
+            { icon: Shield, title: "Twilio SMS OTP", desc: "Military-grade phone verification for secure account creation." },
+            { icon: Globe, title: "Offline-First", desc: "All core features work 100% without internet. Cloud sync is your safety net." }
+          ].map((item, i) => (
+            <motion.div key={i} variants={childVariant} whileHover={{ y: -10 }} className="glass-panel p-10 rounded-3xl border border-blue-500/20 bg-blue-900/5 flex flex-col items-center text-center">
+              <div className="w-20 h-20 mb-6 bg-blue-500/10 rounded-2xl flex items-center justify-center">
+                <item.icon size={40} className="text-blue-400" />
+              </div>
+              <h3 className="text-3xl font-bold text-white mb-3">{item.title}</h3>
+              <p className="text-lg text-gray-400">{item.desc}</p>
+            </motion.div>
+          ))}
+        </div>
+      </motion.div>
+    </div>
+  )
+
 
   // SLIDE 6: The Innovation (FIRE)
   const Slide6 = () => (
@@ -273,9 +304,9 @@ export default function Pitch() {
         <div className="grid md:grid-cols-3 gap-6 text-left">
           <motion.div variants={childVariant} whileHover={{ y: -5 }} className="glass-panel p-8 rounded-2xl border-2 border-primary bg-primary/10 relative overflow-hidden">
             <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-bl from-primary to-transparent opacity-50 rounded-bl-3xl"></div>
-            <Smartphone size={40} className="text-primary-light mb-6" />
-            <h3 className="text-2xl font-bold text-white mb-3">Native Camera Scanner</h3>
-            <p className="text-gray-300">Tap directly into the device WebView/WebRTC stack to scan physical NAFDAC barcodes with auto-extraction.</p>
+            <Zap size={40} className="text-primary-light mb-6" />
+            <h3 className="text-2xl font-bold text-white mb-3">Hybrid Data Engine</h3>
+            <p className="text-gray-300">Intelligent local-first architecture ensuring the 10K+ drug database and tracking stay live even in zero-data zones.</p>
           </motion.div>
 
           <motion.div variants={childVariant} whileHover={{ y: -5 }} className="glass-panel p-8 rounded-2xl border border-white/20 bg-white/5">
@@ -303,10 +334,10 @@ export default function Pitch() {
         
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
           {[
-            { label: "React + Vite", desc: "For lightning fast module reloading and execution.", icon: Code },
-            { label: "Tailwind CSS", desc: "Utility-first precision scaling for beautiful responsive UI.", icon: Zap },
+            { label: "Supabase Cloud", desc: "Enterprise-grade real-time database and secure authentication.", icon: Database },
+            { label: "Twilio API", desc: "Native-reliable messaging stack for medical alerts and OTPs.", icon: Smartphone },
             { label: "Framer Motion", desc: "GPU-accelerated native-feeling cinematic transitions.", icon: Activity },
-            { label: "React Context API", desc: "Centralized state management allowing real-time app-wide updates.", icon: Database }
+            { label: "React + Vite", desc: "For lightning fast module reloading and execution.", icon: Code }
           ].map((item, i) => (
             <motion.div key={i} variants={childVariant} className="glass-panel p-6 border border-white/10 rounded-2xl bg-white/5 hover:bg-white/10 transition-colors">
               <div className="flex justify-center mb-4"><item.icon size={36} className="text-gray-300" /></div>
@@ -351,7 +382,7 @@ export default function Pitch() {
     </div>
   )
 
-  const slides = [<Slide1 />, <Slide2 />, <Slide3 />, <Slide4 />, <Slide5 />, <SlideLanguage />, <Slide6 />, <Slide7 />, <Slide8 />]
+  const slides = [<Slide1 />, <Slide2 />, <Slide3 />, <Slide4 />, <Slide5 />, <SlideLanguage />, <SlideCloud />, <Slide6 />, <Slide7 />, <Slide8 />]
 
   return (
     // We override global theme background here to enforce the Deep Forest theme for the presentation exclusively

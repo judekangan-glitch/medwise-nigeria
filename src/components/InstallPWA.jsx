@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react'
 import { Download, X, Smartphone } from 'lucide-react'
+import { useMedwise } from '../context/MedwiseContext'
 
 export default function InstallPWA() {
+  const { lang } = useMedwise()
   const [showInstallPrompt, setShowInstallPrompt] = useState(false)
   const [isStandalone, setIsStandalone] = useState(false)
 
@@ -79,10 +81,10 @@ export default function InstallPWA() {
 
           <div className="flex-1">
             <h3 className="font-bold text-lg text-gray-900 mb-2">
-              Install MedWise App
+              {lang({en:'Install MedWise App', pidgin:'Install MedWise App', ha:'Saka Manhajar MedWise', yo:'Fi MedWise App Sílẹ̀', ig:'Gbakwunye Ngwa MedWise'})}
             </h3>
             <p className="text-sm text-gray-600 mb-4">
-              Install our app for a better experience! Get offline access, faster loading, and home screen access.
+              {lang({en:'Install our app for a better experience! Get offline access, faster loading, and home screen access.', pidgin:'Install di app for beta experience! E go fast well well and e go work even if you no get data.', ha:'Saka manhajarmu don kyakkyawar gogewa! Samun damar amfani ba tare da yanar gizo ba, saurin lodi, da damar shiga babban shafi.', yo:'Fi ògùn yìí sílẹ̀ fún ìrírí tó dára ju bẹ́ẹ̀ lọ! Ó máa ń yá, ó sì tún máa ń ṣiṣẹ́ láìsí nẹ́tíwọ̀ọ̀kì.', ig:'Gbakwunye ngwa anyị maka ọdịnihu ka mma! Nweta nzikọrịta ozi ngwa ngwa ma rụọ ọrụ n\'ịntanetị pụọ.'})}
             </p>
 
             <div className="flex space-x-3">
@@ -91,13 +93,13 @@ export default function InstallPWA() {
                 className="btn-primary flex-1"
               >
                 <Download size={18} className="inline mr-2" />
-                Install Now
+                {lang({en:'Install Now', pidgin:'Install Now', ha:'Saka Yanzu', yo:'Fi Sílẹ̀ Báyìí', ig:'Tinye Ugbu a'})}
               </button>
               <button
                 onClick={handleDismiss}
                 className="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors text-sm font-medium"
               >
-                Later
+                {lang({en:'Later', pidgin:'Later', ha:'Anjima', yo:'Nígbà mìíràn', ig:'Ma emechaa'})}
               </button>
             </div>
           </div>
@@ -105,7 +107,7 @@ export default function InstallPWA() {
 
         <div className="mt-4 pt-4 border-t border-gray-200">
           <p className="text-xs text-gray-500">
-            ✨ Benefits: Offline access • Push notifications • Faster loading • App-like experience
+            {lang({en:'✨ Benefits: Offline access • Push notifications • Faster loading', pidgin:'✨ Benefits: Work without data • Sharp sharp alarm • Very fast', ha:'✨ Amfani: Amfani ba yanar gizo • Sanarwa ta gaggawa • Saurin lodi', yo:'✨ Àǹfààní: Ìlò láìsí nẹ́tíwọ̀ọ̀kì • Aago ìránnilétí • Ó máa ń yá láti ṣí', ig:'✨ Abamuru: Ọ na-arụ ọrụ n\'ịntanetị pụọ • Amụma ngwa ngwa • Ọ na-agba ọsọ'})}
           </p>
         </div>
       </div>

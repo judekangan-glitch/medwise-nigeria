@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+﻿import { useState, useEffect } from 'react'
 import { User, LogOut, LogIn, Mail, Phone, ChevronLeft, Loader2, Key } from 'lucide-react'
 import { useMedwise } from '../context/MedwiseContext'
 import { ACHIEVEMENTS } from '../hooks/useGamification'
@@ -285,13 +285,13 @@ export default function Auth() {
                     required 
                     maxLength={8} 
                     className="w-full p-6 text-center text-3xl font-black tracking-[0.2em] bg-gray-50 border-none rounded-3xl focus:ring-2 focus:ring-primary/20 transition-all outline-none shadow-inner" 
-                    placeholder="••••••••" 
+                    placeholder="ΓÇóΓÇóΓÇóΓÇóΓÇóΓÇóΓÇóΓÇó" 
                     value={formData.otp} 
                     onChange={e => setFormData({...formData, otp: e.target.value.replace(/[^0-9]/g, '')})} 
                   />
 
                   <button disabled={loading} type="submit" className="btn-primary w-full py-4 rounded-2xl shadow-xl flex items-center justify-center space-x-2 transition-all active:scale-95 group">
-                    {loading ? <Loader2 className="animate-spin" size={20} /> : <div className="w-5 h-5 rounded-full bg-white text-primary flex items-center justify-center text-[10px] font-black group-hover:scale-110 transition-transform">✓</div>}
+                    {loading ? <Loader2 className="animate-spin" size={20} /> : <div className="w-5 h-5 rounded-full bg-white text-primary flex items-center justify-center text-[10px] font-black group-hover:scale-110 transition-transform">Γ£ô</div>}
                     <span className="font-bold uppercase tracking-widest text-sm">Verify & Sign In</span>
                   </button>
 
@@ -324,7 +324,7 @@ export default function Auth() {
           </div>
           <div>
             <p className="font-bold text-gray-900 leading-none mb-1">{user.username}</p>
-            <div className="flex items-center text-[10px] font-black text-primary bg-primary/5 px-2 py-0.5 rounded-full uppercase tracking-tighter">LVL {user.level} • {user.points} XP</div>
+            <div className="flex items-center text-[10px] font-black text-primary bg-primary/5 px-2 py-0.5 rounded-full uppercase tracking-tighter">LVL {user.level} ΓÇó {user.points} XP</div>
           </div>
         </div>
 
@@ -336,7 +336,7 @@ export default function Auth() {
                 const achMetadata = Object.values(ACHIEVEMENTS).find(ach => ach.id === a.id?.toLowerCase());
                 return (
                   <div key={a.id} className="w-8 h-8 rounded-lg bg-gray-50 flex items-center justify-center text-lg" title={achMetadata?.name || 'Achievement'}>
-                    {achMetadata?.name?.split(' ')[0] || '🏆'}
+                    {achMetadata?.name?.split(' ')[0] || '≡ƒÅå'}
                   </div>
                 );
               })}

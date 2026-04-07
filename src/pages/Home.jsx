@@ -12,31 +12,31 @@ export default function Home() {
   const features = [
     {
       icon: GraduationCap,
-      title: lang({en:'LEARN',pidgin:'LEARN',ha:'KOYO',yo:'K\u1ecd\u0301',ig:'M\u1ee4TA'}),
-      description: lang({en:'Evidence-based education on antibiotic use, resistance, and medication safety',pidgin:'Learn how to use medicine well make you no get wahala for body',ha:'Ilimi game da amfani da antibiotics da juriya da amincin magani',yo:'\u00c8k\u1ecd\u0301 t\u00f3 d\u00e1 \u00e0r\u00eds\u00ed ar\u00edn l\u00edlo antibiotics, j\u00far\u00fas\u00ed, \u00e0ti ab\u00f3 \u1ecdg\u00f9n',ig:'Agumagu banyere ojiji antibiotics, mgbochi, na nche \u1ecdgw\u1ee5'}),
+      title: lang({en:'LEARN',pidgin:'LEARN',ha:'KOYO',yo:'KỌ́',ig:'MỤTA'}),
+      description: lang({en:'Evidence-based education on antibiotic use, resistance, and medication safety',pidgin:'Learn everything about medicine well make you no get wahala for body or strong-head sickness',ha:'Cikakken bayani akan amfanin antibiotics, yadda ake gane juriyar magani da kuma tsaron lafiyar ku',yo:'Ẹ̀kọ́ gidi nípa bí a ṣe ń lo ògùn antibiotics, àti bí a ṣe lè yàgò fún àrùn tó kọ ògùn',ig:'Agụmagụ banyere ojiji ọgwụ antibiotics, nguzogide, na nchebe ọgwụ gị'}),
       color: 'bg-blue-50 text-blue-600',
       link: '/learn'
     },
     {
       icon: Shield,
-      title: lang({en:'VERIFY',pidgin:'CHECK AM',ha:'TABBATAR',yo:'\u1e62\u00c0Y\u1eb8\u0300W\u00d2',ig:'NWALEE'}),
-      description: lang({en:'Authenticate medications and detect counterfeit drugs before consumption',pidgin:'Check your medicine make you know if e be fake or correct one',ha:'Tabbatar da magunguna kuma gano magunguna na karya kafin amfani',yo:'\u1e62\u1eb9\u0300\u1e63e \u1ecdg\u00f9n \u00e0ti m\u1ecd b\u00f3y\u00e1 \u1ecdg\u00f9n iro n\u00ed b\u00ed \u1eb9 t\u00f3 mu',ig:'Nwalee \u1ecdgw\u1ee5 ma \u1ecbchoputa \u1ecdgw\u1ee5 eche eche tupu \u1ecd d\u1ecb oge iri'}),
+      title: lang({en:'VERIFY',pidgin:'CHECK AM',ha:'TABBATAR',yo:'ṢÀYẸ̀WÒ',ig:'NWALEE'}),
+      description: lang({en:'Authenticate medications and detect counterfeit drugs before consumption',pidgin:'Check your medicine with NAFDAC records make you know if e be fake or correct one before you drink am',ha:'Tabbatar da ingancin magani sannan ka gano na jabu kafin ka sha don kare kanka',yo:'Ṣàyẹ̀wò oògùn rẹ nípa rẹ sẹ́ nọ́mbà NAFDAC láti mọ ògùn jábujábu kó o tó lò ó',ig:'Nwalee ọgwụ gị iji chọpụta ọgwụ jabu ma ọ bụ nke eche eche tupu ị nụọ ya'}),
       color: 'bg-green-50 text-green-600',
       link: '/verify'
     },
     {
       icon: Clock,
-      title: lang({en:'TRACK',pidgin:'FOLLOW AM',ha:'BIBIYE',yo:'T\u1eccPINPIN',ig:'SORO YA'}),
-      description: lang({en:'Smart reminders to ensure proper medication adherence and course completion',pidgin:'Make we remind you make you no forget to take your tabs correct',ha:'Tunatarwa na wayo don tabbatar da bin umarnin magani da kammala koryar',yo:'\u00c0w\u1ecdn r\u00e1nnt\u00ed l\u00e1ti r\u00edj\u00fa p\u1ecd\u0300 t\u00ed a m\u00fa \u1ecdg\u00f9n \u1e63\u00e1\u00e1j\u00fa \u00e0ti p\u00e0r\u00ed k\u00f3\u1ecds\u00ec',ig:'Ihe ncheta iji jide na ojiji \u1ecdgw\u1ee5 nke ezi ma mechaa usoro'}),
+      title: lang({en:'TRACK',pidgin:'FOLLOW AM',ha:'BIBIYE',yo:'TỌPINPIN',ig:'SORO YA'}),
+      description: lang({en:'Smart reminders to ensure proper medication adherence and course completion',pidgin:'Smart alarm wey go remind you make you finish all your dose correct without missing any',ha:'Tura tunatarwa na musamman don tabbatar da bin umarnin shan magani da kuma gama dukkan koryar sa',yo:'Olùránnilétí tó péye láti rí i pé o tẹ̀lé ìtọ́sọ́nà oògùn rẹ kí o sì parí gbogbo dose rẹ',ig:'Ihe ncheta iji hụ na ị na-enweta ọgwụ gị n\'oge ma mechaa usoro niile nke ọma'}),
       color: 'bg-purple-50 text-purple-600',
       link: '/track'
     }
   ]
 
   const stats = [
-    { value: '70%+', label: lang({en:'Inappropriate antibiotic use in Nigeria',pidgin:'Wrong antibiotic wey Naija people dey use',ha:'Rashin amfani da antibiotics a Najeriya',yo:'Lilo antibiotics ti ko to ni Naijeria',ig:'Ojiji antibiotics ezighi ezi na Nigeria'}) },
-    { value: '30-40%', label: lang({en:'Counterfeit medications in markets',pidgin:'Fake medicine wey dey market',ha:'Magunguna na karya a kasuwanni',yo:'Ogun iro ni oja',ig:'\u1ecdgw\u1ee5 eche eche n\'ahia'}) },
-    { value: '2x', label: lang({en:'Increased resistance from incomplete courses',pidgin:'Resistance wey dey grow when you no finish your drug',ha:'Karuwar juriya daga koryar da ba a kammala ba',yo:'Jijeji lati awon kosi ti a ko pari',ig:'Mmeri mgbochi si na usoro na-ezughihi oke'}) }
+    { value: '70%+', label: lang({en:'Inappropriate antibiotic use in Nigeria',pidgin:'Naija people wey dey take antibiotic anyhow',ha:'Yawaitar shan antibiotics ba tare da bukatar sa ba',yo:'Lilo antibiotics ti ko to ni Naijeria',ig:'Ndị na-aṅụ antibiotics otú ọ bụla na Nigeria'}) },
+    { value: '30-40%', label: lang({en:'Counterfeit medications in markets',pidgin:'Fake medicine wey dey market wey fit kill person',ha:'Adadin magungunan jabu da ke kasuwanni',yo:'Ogun iro ni oja to le fa iku',ig:'Ọgwụ eche eche n\'ahịa nwere ike igbu mmadụ'}) },
+    { value: '2x', label: lang({en:'Increased resistance from incomplete courses',pidgin:'Sickness wey strong-head because people no finish dose',ha:'Hadarin juriyar magani daga rashin gama saiti',yo:'Àìsàn tó kọ ògùn nítorí àìparí rẹ̀',ig:'Nguzogide ọgwụ site na enweghị nụcha dose'}) }
   ]
 
   return (
@@ -83,7 +83,7 @@ export default function Home() {
             {t('home.hero_subtitle')}
           </p>
           <p className="text-lg mb-8 text-green-50 max-w-2xl mx-auto">
-            {lang({en:'Combating antibiotic resistance and counterfeit medications through education, verification, and adherence tracking',pidgin:'We dey fight fake medicine and wrong antibiotic use through learning, checking and following treatment',ha:'Yakar juriyar maganin kashe demuwa da magunguna na karya ta hanyar ilimi, tabbatarwa, da bin ta',yo:'Ij\u00fa\u1e63\u1eb9\u0301 j\u00far\u00fas\u00ed antibiotics \u00e0ti \u1ecdg\u00f9n iro p\u1eb9\u0300l\u00fa \u1eb9\u0300k\u1ecd\u0301, \u1e63\u00e0y\u1eb9\u0300w\u00f2, \u00e0ti topt\u00ec \u00ect\u1ecd\u0301s\u1ecd\u0301n\u00e0',ig:'Inogide ihe mgbochi antibiotics na \u1ecdgw\u1ee5 eche eche site na agumagu, nyocha, na ilo oge'})}
+            {lang({en:'Combating antibiotic resistance and counterfeit medications through education, verification, and adherence tracking',pidgin:'We dey fight fake-drug wahala and sickness wey no dey gree for medicine (resistance) through learning, checking and following your treatment.',ha:'Muna yaki da juriyar magani da magungunan jabu a Najeriya ta hanyar ba da ingantaccen ilimi, tabbatarwa, da kuma biye diddigin magani.',yo:'Ìjàṣẹ́ lòdì sí àrùn tó kọ ògùn (resistance) àti ògùn jábujábu nípasẹ̀ ẹ̀kọ́, ṣàyẹ̀wò oògùn, àti títẹ̀lé ìtọ́nilétí oògùn.',ig:'Anyị na-alụso nsogbu nguzogide ọgwụ na ọgwụ jabu ọgụ na Nigeria site n\'agụmagụ, nnyocha ọgwụ, na iso oge ojiji ọgwụ gị.'})}
           </p>
           <Link
             to="/learn"
@@ -105,38 +105,36 @@ export default function Home() {
             <div className="absolute top-0 right-0 w-64 h-64 bg-accent/20 rounded-full blur-3xl -mr-32 -mt-32 transition-all group-hover:bg-accent/30"></div>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative z-10">
-              {/* Stat 1: XP/Points */}
+              {/* Stat 1 */}
               <div className="text-center p-4">
-                <div className="inline-flex items-center justify-center w-16 h-16 bg-white/10 rounded-2xl mb-4 border border-white/10 group-hover:scale-110 transition-transform shadow-inner">
-                  <motion.div animate={{ rotate: [0, 15, -15, 0] }} transition={{ repeat: Infinity, duration: 4 }}>
-                    <Users size={32} className="text-primary-light" />
-                  </motion.div>
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-white/10 rounded-2xl mb-4 border border-white/10 group-hover:scale-110 transition-transform">
+                  <Users size={32} className="text-green-400" />
                 </div>
-                <h3 className="text-3xl font-black text-white mb-1 tracking-tight">{(user?.points || 12480).toLocaleString()}+</h3>
-                <p className="text-primary-light/80 font-black tracking-widest uppercase text-[10px]">
-                  {user ? 'YOUR TOTAL XP' : lang({en:'Nigerians Protected',pidgin:'Naija People Protected'})}
+                <h3 className="text-3xl font-black text-white mb-1">12,480+</h3>
+                <p className="text-green-100/60 font-medium tracking-wide uppercase text-[10px]">
+                  {lang({en:'Nigerians Protected',pidgin:'Naija People Wey We Protect',ha:'Yan Najeriya da Aka Kare',yo:'Aw\u1ecdn Omo Naij\u00e9r\u00ed\u00e0 T\u00f3 Wa Dab\u1ecd\u0300',ig:'Nd\u1ecb Nigeria ny\u1ecdchara'})}
                 </p>
               </div>
 
-              {/* Stat 2: Level/Shield */}
-              <div className="text-center p-4 border-y md:border-y-0 md:border-x border-white/10">
+              {/* Stat 2 */}
+              <div className="text-center p-2 border-y md:border-y-0 md:border-x border-white/10">
                 <div className="inline-flex items-center justify-center w-12 h-12 bg-white/10 rounded-xl mb-3 border border-white/10 group-hover:scale-110 transition-transform">
                   <Shield size={24} className="text-accent" />
                 </div>
-                <h3 className="text-3xl font-black text-white mb-1 tracking-tight">{user?.level || 842}</h3>
-                <p className="text-primary-light/80 font-black tracking-widest uppercase text-[10px]">
-                  {user ? 'YOUR HEALTH LEVEL' : lang({en:'Fake Drugs Flagged',pidgin:'Fake Medicine Caught'})}
+                <h3 className="text-3xl font-black text-white mb-1">842</h3>
+                <p className="text-green-100/60 font-medium tracking-wide uppercase text-[10px]">
+                  {lang({en:'Fake Drugs Flagged',pidgin:'Fake Medicine Wey We Catch',ha:'An Gano Magunguna na Karya',yo:'\u1ecdg\u00f9n Iro T\u00f3 Wa Ri',ig:'\u1ecdgw\u1ee5 eche eche a chop\u1ee5tara'})}
                 </p>
               </div>
 
-              {/* Stat 3: Accuracy/Streaks */}
-              <div className="text-center p-4">
+              {/* Stat 3 */}
+              <div className="text-center p-2">
                 <div className="inline-flex items-center justify-center w-12 h-12 bg-white/10 rounded-xl mb-3 border border-white/10 group-hover:scale-110 transition-transform">
-                  <CheckCircle size={24} className="text-medical-blue" />
+                  <CheckCircle size={24} className="text-blue-400" />
                 </div>
-                <h3 className="text-3xl font-black text-white mb-1 tracking-tight">{user ? `${user.streaks || 0}D` : '99.9%'}</h3>
-                <p className="text-primary-light/80 font-black tracking-widest uppercase text-[10px]">
-                  {user ? 'LOGIN STREAK' : lang({en:'Verification Accuracy',pidgin:'Accuracy'})}
+                <h3 className="text-3xl font-black text-white mb-1">99.9%</h3>
+                <p className="text-green-100/60 font-medium tracking-wide uppercase text-[10px]">
+                  {lang({en:'Verification Accuracy',pidgin:'As E Correct Reach',ha:'Daidaiton Tabbatarwa',yo:'Ot\u00fat\u00fa \u1e62\u00e0y\u1eb9\u0300w\u00f2',ig:'Izi izi Nnyocha'})}
                 </p>
               </div>
             </div>
@@ -145,31 +143,32 @@ export default function Home() {
             <div className="mt-8 pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4">
               <div className="flex items-center space-x-3">
                 <div className="flex -space-x-2">
-                  {user?.achievements?.length > 0 ? (
-                    user.achievements.slice(0, 4).map((a, i) => (
-                      <div key={i} className="w-8 h-8 rounded-full border-2 border-primary-dark bg-primary flex items-center justify-center text-[10px] font-bold text-white shadow-lg overflow-hidden group-hover:-translate-y-1 transition-transform" title={a.name}>
-                         <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary to-primary-dark">
-                           {a.name?.split(' ')[0] || '🏆'}
-                         </div>
-                      </div>
-                    ))
-                  ) : (
-                    ['#059669', '#0284c7', '#7c3aed', '#db2777'].map((color, i) => (
-                      <div key={i} className="w-8 h-8 rounded-full border-2 border-primary-dark flex items-center justify-center text-[10px] font-bold text-white shadow-inner" style={{ backgroundColor: color }}>
-                        <User size={14} className="text-white/80" />
-                      </div>
-                    ))
-                  )}
+                  {['#059669', '#0284c7', '#7c3aed', '#db2777'].map((color, i) => (
+                    <div 
+                      key={i} 
+                      className="w-8 h-8 rounded-full border-2 border-primary/20 flex items-center justify-center text-[10px] font-bold text-white shadow-inner"
+                      style={{ backgroundColor: color }}
+                    >
+                      <User size={14} className="text-white/80" />
+                    </div>
+                  ))}
+                  <div className="w-8 h-8 rounded-full border-2 border-primary/20 bg-green-700 flex items-center justify-center text-[10px] font-bold text-white shadow-lg">
+                    +12k
+                  </div>
                 </div>
-                <p className="text-sm text-white/80 font-medium">
-                  {user 
-                    ? `You have earned ${user.achievements?.length || 0} badges so far. Keep going!` 
-                    : lang({en:'Join thousands of Nigerians making safer medication choices.',pidgin:'Join plenty Naija people wey dey choose better medicine.'})}
-                </p>
+                <p className="text-xl text-blue-100 mb-10 max-w-2xl mx-auto leading-relaxed">
+              {lang({
+                en: 'Join thousands of Nigerians making safer medication choices through education and verification.',
+                pidgin: 'Join plenty Naija people wey dey choose better medicine as dem dey learn and check dem well.',
+                ha: 'Kasance babban bangare na yan Najeriya masu zabar ingantaccen magani ta hanyar ilimi da tabbatarwa.',
+                yo: 'Fi ara mọ́ ọ̀pọ̀lọpọ̀ ará Nàìjíríà tí wọ́n ń yan ògùn tó dára fún ìlera wọn nípapasẹ̀ ẹ̀kọ́ àti ṣàyẹ̀wò.',
+                ig: 'Soro ọtụtụ ndi Nigeria na-ahọrọ ọgwụ kacha mma n\'ezie site na mmụta na nnyocha.'
+              })}
+            </p>
               </div>
-              <div className="inline-flex items-center px-4 py-2 bg-primary-light/10 border border-primary-light/30 rounded-full text-primary-light text-xs font-black uppercase tracking-widest shadow-sm">
-                <span className="w-2 h-2 bg-primary-light rounded-full mr-2 shadow-[0_0_8px_rgba(16,185,129,0.8)]"></span>
-                {user ? 'CLOUD BACKUP SECURED' : 'LIVE PROTECTION ACTIVE'}
+              <div className="inline-flex items-center px-4 py-2 bg-accent/20 border border-accent/30 rounded-full text-accent text-xs font-bold uppercase tracking-wider animate-pulse">
+                <span className="w-2 h-2 bg-accent rounded-full mr-2"></span>
+                {lang({en:'Live Protection Active',pidgin:'Active Vigilante Mode',ha:'Kariyar Kai Tsaye Tana Aiki',yo:'Ab\u00f3 T\u00f3 Wa B\u1eb9\u0300r\u1eb9\u0300',ig:'Nche di ndu na-aruo oru'})}
               </div>
             </div>
           </div>
@@ -199,15 +198,15 @@ export default function Home() {
           
           <div className="grid md:grid-cols-2 gap-6">
             <div className="card border dark:border-red-900/30">
-              <h3 className="font-bold text-xl mb-3 text-gray-900 dark:text-gray-100">{lang({en:'Antibiotic Resistance',pidgin:'Antibiotic Resistance',ha:'Juriyar Maganin Kashe Demuwa',yo:'J\u00far\u00fas\u00ed Antibiotics',ig:'Ihe mgbochi Antibiotics'})}</h3>
+              <h3 className="font-bold text-xl mb-3 text-gray-900 dark:text-gray-100">{lang({en:'Antibiotic Resistance',pidgin:'Strong-head Sickness (Resistance)',ha:'Juriyar Antibiotics (Magani Baya Ci)',yo:'Ìfaradà Antibiotics (Ògùn Kọ Iṣẹ́)',ig:'Nguzogide Ọgwụ (Ọgwụ ịjụ ọrụ)'})}</h3>
               <p className="text-gray-700 dark:text-gray-400">
-                {lang({en:'Over-the-counter antibiotics, incomplete treatment courses, and inappropriate use are creating superbugs that no longer respond to treatment. Simple infections are becoming life-threatening.',pidgin:'Buying antibiotic from market without doctor, no finishing your course, and wrong use na them dey create superbugs. Small sickness dey become dangerous.',ha:'Saye antibiotics ba tare da takardar likita ba, koryar da ba a kammala ba, da rashin amfani su ne ke haifar da kwayoyin cuta masu juriya. Kamuwa mai sauki tana zama mai hatsarin rai.',yo:'Ra antibiotics l\u1eb9\u0301\u1ecd si oj\u00e0 lai si owo iwofin, aipar\u00ed k\u00f3\u1ecds\u00ec, ati lilo ti ko to ni awon to n mu ki superbug wa. Awon aisan kekere n bere si ni ewu aye.',ig:'Izi antibiotics n-ahia, ilegh\u1ecb usoro nke ezi, na ojiji ezighi ezi na-emep\u1ee5ta superbugs. \u1eccr\u1ecba d\u1ecb obere na-ab\u1ecb ihe ize nd\u1ee5.'})}
+                {lang({en:'Over-the-counter antibiotics, incomplete treatment courses, and inappropriate use are creating superbugs that no longer respond to treatment. Simple infections are becoming life-threatening.',pidgin:'If you dey buy antibiotic anyhow for market without doctor paper, or you no finish your medicine, the sickness go become "strong-head". Next time wey you sick, that drug no go work again.',ha:'Shan antibiotics ba tare da bukatar sa ba ko rashin gama shan saitin magani yana sanya kwayoyin cuta su zama masu tauri wadanda magani baya iya kashewa.',yo:'Lílo ògùn antibiotics láìnídìí tàbí kí a má parí rẹ̀, ń mú kí àwọn kòkòrò inú ara le gan-an tó bẹ́ẹ̀ tí ògùn kò fi ní ṣiṣẹ́ mọ́. Èyí sì léwu fún ayé rẹ.',ig:'Iji ọgwụ antibiotics eme ihe n’atụghị egwu ma ọ bụ enweghị nụcha ya, na-eme ka nje dị n’ahụ sie ike nke na ọgwụ anaghị arụ ọrụ ọzọ. Nke a dị egwu maka ndụ gị.'})}
               </p>
             </div>
             <div className="card border dark:border-red-900/30">
-              <h3 className="font-bold text-xl mb-3 text-gray-900 dark:text-gray-100">{lang({en:'Counterfeit Medications',pidgin:'Fake Medicine',ha:'Magunguna na Karya',yo:'\u1ecdg\u00f9n Iro',ig:'\u1ecdgw\u1ee5 Eche Eche'})}</h3>
+              <h3 className="font-bold text-xl mb-3 text-gray-900 dark:text-gray-100">{lang({en:'Counterfeit Medications',pidgin:'Fake-Drug Wahala',ha:'Magungunan Jabu (Kabu-kabu)',yo:'Ògùn Jábujábu (Fake Drugs)',ig:'Ọgwụ Jabu (Fake Drugs)'})}</h3>
               <p className="text-gray-700 dark:text-gray-400">
-                {lang({en:'30-40% of medications in Nigerian markets are fake or substandard. Patients trust these drugs with their lives, unknowingly consuming substances that provide no treatment or cause harm.',pidgin:'30-40% of medicine wey dey Naija market na fake or bad quality. People dey trust those drugs with their life, without knowing say them dey take poison.',ha:'30-40% na magunguna a kasuwar Najeriya na karya ko kasa fahimta. Marasa lafiya suna amincewa da waannan magunguna da rayukansu, ba su sani ba cewa suna sha abubuwa masu cutar da su.',yo:'30-40% ti awon egbogi ni oja Naij\u00e9r\u00ed\u00e0 je eke tabi ko dara. Awon aroorun maa lo awon egbogi naa pelu aye won, lai mo pe won n gbe jije ti ko wulo.',ig:'30-40% nke \u1ecdgw\u1ee5 n-ahia Nigeria b\u1ee5 adi nma ma \u1ecd b\u1ee5 ezighi ezi. Nd\u1ecb \u1ecdr\u1ecba na-a\u1e45\u1ecd \u1ecdgw\u1ee5 ndiya na nd\u1ee5 ha, na-an\u1ecbghá»‹ mara na ha na-ata ihe na-enwegh\u1ecb ike.'})}
+                {lang({en:'30-40% of medications in Nigerian markets are fake or substandard. Patients trust these drugs with their lives, unknowingly consuming substances that provide no treatment or cause harm.',pidgin:'For Naija, like 4 medicine inside 10 na fake. People dey drink wetin dem think say go heal dem, but true-true na poison or ordinary chalk dey inside. E dey kill person.',ha:'Kusan kashi 30-40 na magunguna a Najeriya na jabu ne ko kuma marasa inganci. Mutane na shan su suna tunanin zasu warke, amma suna iya janyo karin ciwo ko mutuwa.',yo:'Bíi ìdá ọgbọ̀n sí ogójì nínú ọ gọ́ rùn-ún (30-40%) ògùn ní Nàìjíríà jẹ́ jábujábu. Ènìyàn ń lò wọ́n láti rí ìwòsàn, ṣùgbọ́n ohun tó lè fa ikú ni.',ig:'Ihe karịrị pasentị iri atọ ruo iri anọ (30-40%) nke ọgwụ dị na Nigeria bụ jabu. Ndị mmadụ na-anụ ya n’atụmanya nhụjuanya, mana ọ nwere ike ibute ọnwụ.'})}
               </p>
             </div>
           </div>
