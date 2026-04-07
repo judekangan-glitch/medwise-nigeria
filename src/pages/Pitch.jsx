@@ -7,7 +7,7 @@ import { useMedwise } from '../context/MedwiseContext'
 export default function Pitch() {
   const [currentSlide, setCurrentSlide] = useState(0)
   const { theme } = useMedwise()
-  const totalSlides = 10
+  const totalSlides = 11
 
   // Keyboard navigation
   useEffect(() => {
@@ -350,6 +350,66 @@ export default function Pitch() {
     </div>
   )
 
+  // SLIDE 7.8: My Development Journey (Claiming Ownership & Strategy)
+  const SlideJourney = () => (
+    <div className="flex flex-col items-center justify-center h-full w-full">
+      <motion.div variants={staggerContainer} initial="hidden" animate="show" className="w-full max-w-6xl text-center">
+        <motion.h2 variants={childVariant} className="text-5xl font-bold text-white mb-4">My Development Strategy</motion.h2>
+        <motion.p variants={childVariant} className="text-2xl text-primary-light font-medium mb-12 italic">"Engineering the Future of Health with AI-Augmented Strategy"</motion.p>
+        
+        <div className="grid md:grid-cols-4 gap-6 text-left">
+          {/* Main Strategy Card */}
+          <motion.div variants={childVariant} className="glass-panel p-8 rounded-2xl border border-primary/30 bg-primary/10 hover:bg-primary/20 transition-all col-span-full md:col-span-2 flex flex-col justify-center">
+            <div className="flex items-center mb-6">
+              <Zap size={40} className="text-primary-light mr-4 shadow-[0_0_15px_rgba(34,197,94,0.4)]" />
+              <h3 className="text-3xl font-bold text-white">Modern AI Orchestration</h3>
+            </div>
+            <p className="text-xl text-gray-300 leading-relaxed">
+              I built MedWise Nigeria by leveraging the world's most advanced developer tools. By orchestrating <span className="text-white font-bold underline decoration-primary">Antigravity</span>, <span className="text-white font-bold underline decoration-blue-500">GitHub Copilot</span>, <span className="text-white font-bold underline decoration-yellow-500">ChatGPT</span>, and <span className="text-white font-bold underline decoration-purple-500">Claude AI</span> within <span className="text-white font-bold">Visual Studio Code</span>, I was able to rapidly engineer a secure, national-scale healthcare ecosystem.
+            </p>
+          </motion.div>
+
+          {/* Pillars */}
+          <motion.div variants={childVariant} className="glass-panel p-6 rounded-2xl border border-blue-500/20 bg-blue-900/5 hover:bg-blue-900/10 transition-all">
+            <Code size={32} className="text-blue-400 mb-4" />
+            <h4 className="font-bold text-white mb-2">Build & Performance</h4>
+            <p className="text-sm text-gray-400">Architected with <span className="text-blue-400 font-bold">React</span> and <span className="text-blue-400 font-bold">Vite</span> for high performance.</p>
+          </motion.div>
+
+          <motion.div variants={childVariant} className="glass-panel p-6 rounded-2xl border border-yellow-500/20 bg-yellow-900/5 hover:bg-yellow-900/10 transition-all">
+            <Activity size={32} className="text-yellow-400 mb-4" />
+            <h4 className="font-bold text-white mb-2">Cinematic Design</h4>
+            <p className="text-sm text-gray-400">Designed using <span className="text-yellow-400 font-bold">Tailwind CSS</span> and <span className="text-yellow-400 font-bold">Framer Motion</span>.</p>
+          </motion.div>
+
+          <motion.div variants={childVariant} className="glass-panel p-6 rounded-2xl border border-green-500/20 bg-green-900/5 hover:bg-green-900/10 transition-all">
+            <Database size={32} className="text-green-400 mb-4" />
+            <h4 className="font-bold text-white mb-2">Cloud Infrastructure</h4>
+            <p className="text-sm text-gray-400">Integrated <span className="text-green-400 font-bold">Supabase</span> and <span className="text-green-400 font-bold">Vercel</span> for reliable healthcare records.</p>
+          </motion.div>
+
+          <motion.div variants={childVariant} className="glass-panel p-6 rounded-2xl border border-red-500/20 bg-red-900/5 hover:bg-red-900/10 transition-all">
+            <Smartphone size={32} className="text-red-400 mb-4" />
+            <h4 className="font-bold text-white mb-2">Smart Alerts</h4>
+            <p className="text-sm text-gray-400">Utilized <span className="text-red-400 font-bold">Twilio SMS API</span> for medication reminders and OTP security.</p>
+          </motion.div>
+
+          <motion.div variants={childVariant} className="glass-panel p-6 rounded-2xl border border-purple-500/20 bg-purple-900/5 hover:bg-purple-900/10 transition-all">
+            <Globe size={32} className="text-purple-400 mb-4" />
+            <h4 className="font-bold text-white mb-2">Localization Reach</h4>
+            <p className="text-sm text-gray-400">Custom engine for English, Hausa, Yoruba, Igbo, and Pidgin support.</p>
+          </motion.div>
+
+          <motion.div variants={childVariant} className="glass-panel p-6 rounded-2xl border border-gray-500/20 bg-gray-900/5 hover:bg-gray-900/10 transition-all">
+            <Shield size={32} className="text-gray-400 mb-4" />
+            <h4 className="font-bold text-white mb-2">Security & Offline</h4>
+            <p className="text-sm text-gray-400">Offline-first PWA architecture with secure environment management.</p>
+          </motion.div>
+        </div>
+      </motion.div>
+    </div>
+  )
+
   // SLIDE 8: The Conclusion
   const Slide8 = () => (
     <div className="flex flex-col items-center justify-center h-full w-full text-center relative">
@@ -382,7 +442,7 @@ export default function Pitch() {
     </div>
   )
 
-  const slides = [<Slide1 />, <Slide2 />, <Slide3 />, <Slide4 />, <Slide5 />, <SlideLanguage />, <SlideCloud />, <Slide6 />, <Slide7 />, <Slide8 />]
+  const slides = [<Slide1 />, <Slide2 />, <Slide3 />, <Slide4 />, <Slide5 />, <SlideLanguage />, <SlideCloud />, <Slide6 />, <Slide7 />, <SlideJourney />, <Slide8 />]
 
   return (
     // We override global theme background here to enforce the Deep Forest theme for the presentation exclusively
