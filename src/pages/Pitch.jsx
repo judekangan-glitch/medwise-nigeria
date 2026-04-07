@@ -352,58 +352,64 @@ export default function Pitch() {
 
   // SLIDE 7.8: My Development Journey (Claiming Ownership & Strategy)
   const SlideJourney = () => (
-    <div className="flex flex-col items-center justify-center h-full w-full">
-      <motion.div variants={staggerContainer} initial="hidden" animate="show" className="w-full max-w-6xl text-center">
-        <motion.h2 variants={childVariant} className="text-5xl font-bold text-white mb-4">My Development Strategy</motion.h2>
-        <motion.p variants={childVariant} className="text-2xl text-primary-light font-medium mb-12 italic">"Engineering the Future of Health with AI-Augmented Strategy"</motion.p>
+    <div className="flex flex-col items-center justify-center h-full w-full py-2 text-center">
+      <motion.div variants={staggerContainer} initial="hidden" animate="show" className="w-full max-w-5xl">
+        <motion.h2 variants={childVariant} className="text-4xl font-bold text-white mb-1">My Development Strategy</motion.h2>
+        <motion.p variants={childVariant} className="text-xl text-primary-light font-medium mb-6 italic">"Engineering the Future of Health with AI-Augmented Strategy"</motion.p>
         
-        <div className="grid md:grid-cols-4 gap-6 text-left">
+        <div className="grid md:grid-cols-4 gap-3 text-left">
           {/* Main Strategy Card */}
-          <motion.div variants={childVariant} className="glass-panel p-8 rounded-2xl border border-primary/30 bg-primary/10 hover:bg-primary/20 transition-all col-span-full md:col-span-2 flex flex-col justify-center">
-            <div className="flex items-center mb-6">
-              <Zap size={40} className="text-primary-light mr-4 shadow-[0_0_15px_rgba(34,197,94,0.4)]" />
-              <h3 className="text-3xl font-bold text-white">Modern AI Orchestration</h3>
+          <motion.div variants={childVariant} className="glass-panel p-5 rounded-2xl border border-primary/30 bg-primary/10 hover:bg-primary/20 transition-all col-span-full md:col-span-2 flex flex-col justify-center">
+            <div className="flex items-center mb-3">
+              <Zap size={32} className="text-primary-light mr-3 shadow-[0_0_10px_rgba(34,197,94,0.4)]" />
+              <h3 className="text-xl font-bold text-white uppercase tracking-wider">Modern AI Orchestration</h3>
             </div>
-            <p className="text-xl text-gray-300 leading-relaxed">
-              I built MedWise Nigeria by leveraging the world's most advanced developer tools. By orchestrating <span className="text-white font-bold underline decoration-primary">Antigravity</span>, <span className="text-white font-bold underline decoration-blue-500">GitHub Copilot</span>, <span className="text-white font-bold underline decoration-yellow-500">ChatGPT</span>, and <span className="text-white font-bold underline decoration-purple-500">Claude AI</span> within <span className="text-white font-bold">Visual Studio Code</span>, I was able to rapidly engineer a secure, national-scale healthcare ecosystem.
+            <p className="text-[17px] text-gray-300 leading-relaxed font-light">
+              I built MedWise Nigeria by leveraging the world's most advanced developer tools. Such as <span className="text-white font-bold underline decoration-primary">Antigravity</span>, <span className="text-white font-bold underline decoration-blue-500">GitHub Copilot</span> and <span className="text-white font-bold">Visual Studio Code</span>. Then chatbots like <span className="text-white font-bold underline decoration-yellow-500">ChatGPT</span>, and <span className="text-white font-bold underline decoration-purple-500">Claude AI</span>. I was able to rapidly engineer a secure, national-scale healthcare ecosystem.
             </p>
           </motion.div>
 
-          {/* Pillars */}
-          <motion.div variants={childVariant} className="glass-panel p-6 rounded-2xl border border-blue-500/20 bg-blue-900/5 hover:bg-blue-900/10 transition-all">
-            <Code size={32} className="text-blue-400 mb-4" />
-            <h4 className="font-bold text-white mb-2">Build & Performance</h4>
-            <p className="text-sm text-gray-400">Architected with <span className="text-blue-400 font-bold">React</span> and <span className="text-blue-400 font-bold">Vite</span> for high performance.</p>
+          {/* 7 Pillars */}
+          <motion.div variants={childVariant} className="glass-panel p-3 rounded-xl border border-blue-500/20 bg-blue-900/5 hover:bg-blue-900/10 transition-all">
+            <Code size={20} className="text-blue-400 mb-2" />
+            <h4 className="font-bold text-white mb-1 text-[15px]">1. Build Engine</h4>
+            <p className="text-[12px] text-gray-400 leading-snug">Architected with <span className="text-blue-400">React</span> and <span className="text-blue-400">Vite</span> for a lightning-fast, modern web experience.</p>
           </motion.div>
 
-          <motion.div variants={childVariant} className="glass-panel p-6 rounded-2xl border border-yellow-500/20 bg-yellow-900/5 hover:bg-yellow-900/10 transition-all">
-            <Activity size={32} className="text-yellow-400 mb-4" />
-            <h4 className="font-bold text-white mb-2">Cinematic Design</h4>
-            <p className="text-sm text-gray-400">Designed using <span className="text-yellow-400 font-bold">Tailwind CSS</span> and <span className="text-yellow-400 font-bold">Framer Motion</span>.</p>
+          <motion.div variants={childVariant} className="glass-panel p-3 rounded-xl border border-yellow-500/20 bg-yellow-900/5 hover:bg-yellow-900/10 transition-all">
+            <Activity size={20} className="text-yellow-400 mb-2" />
+            <h4 className="font-bold text-white mb-1 text-[15px]">2. Visual Design</h4>
+            <p className="text-[12px] text-gray-400 leading-snug">Leveraged <span className="text-yellow-400">Tailwind CSS</span> and <span className="text-yellow-400">Framer Motion</span> for a cinematic interface.</p>
           </motion.div>
 
-          <motion.div variants={childVariant} className="glass-panel p-6 rounded-2xl border border-green-500/20 bg-green-900/5 hover:bg-green-900/10 transition-all">
-            <Database size={32} className="text-green-400 mb-4" />
-            <h4 className="font-bold text-white mb-2">Cloud Infrastructure</h4>
-            <p className="text-sm text-gray-400">Integrated <span className="text-green-400 font-bold">Supabase</span> and <span className="text-green-400 font-bold">Vercel</span> for reliable healthcare records.</p>
+          <motion.div variants={childVariant} className="glass-panel p-3 rounded-xl border border-green-500/20 bg-green-900/5 hover:bg-green-900/10 transition-all">
+            <Database size={20} className="text-green-400 mb-2" />
+            <h4 className="font-bold text-white mb-1 text-[15px]">3. Cloud Database</h4>
+            <p className="text-[12px] text-gray-400 leading-snug">Integrated <span className="text-green-400">Supabase</span> for secure, real-time medical record synchronization.</p>
           </motion.div>
 
-          <motion.div variants={childVariant} className="glass-panel p-6 rounded-2xl border border-red-500/20 bg-red-900/5 hover:bg-red-900/10 transition-all">
-            <Smartphone size={32} className="text-red-400 mb-4" />
-            <h4 className="font-bold text-white mb-2">Smart Alerts</h4>
-            <p className="text-sm text-gray-400">Utilized <span className="text-red-400 font-bold">Twilio SMS API</span> for medication reminders and OTP security.</p>
+          <motion.div variants={childVariant} className="glass-panel p-3 rounded-xl border border-red-500/20 bg-red-900/5 hover:bg-red-900/10 transition-all">
+            <Smartphone size={20} className="text-red-400 mb-2" />
+            <h4 className="font-bold text-white mb-1 text-[15px]">4. Messaging</h4>
+            <p className="text-[12px] text-gray-400 leading-snug">Utilized <span className="text-red-400">Twilio SMS API</span> for automated reminders and OTP verification.</p>
           </motion.div>
 
-          <motion.div variants={childVariant} className="glass-panel p-6 rounded-2xl border border-purple-500/20 bg-purple-900/5 hover:bg-purple-900/10 transition-all">
-            <Globe size={32} className="text-purple-400 mb-4" />
-            <h4 className="font-bold text-white mb-2">Localization Reach</h4>
-            <p className="text-sm text-gray-400">Custom engine for English, Hausa, Yoruba, Igbo, and Pidgin support.</p>
+          <motion.div variants={childVariant} className="glass-panel p-3 rounded-xl border border-cyan-500/20 bg-cyan-900/5 hover:bg-cyan-900/10 transition-all">
+            <Globe size={20} className="text-cyan-400 mb-2" />
+            <h4 className="font-bold text-white mb-1 text-[15px]">5. Edge Hosting</h4>
+            <p className="text-[12px] text-gray-400 leading-snug">Deployed on <span className="text-cyan-400">Vercel</span> with serverless functions for national-scale reliability.</p>
           </motion.div>
 
-          <motion.div variants={childVariant} className="glass-panel p-6 rounded-2xl border border-gray-500/20 bg-gray-900/5 hover:bg-gray-900/10 transition-all">
-            <Shield size={32} className="text-gray-400 mb-4" />
-            <h4 className="font-bold text-white mb-2">Security & Offline</h4>
-            <p className="text-sm text-gray-400">Offline-first PWA architecture with secure environment management.</p>
+          <motion.div variants={childVariant} className="glass-panel p-3 rounded-xl border border-purple-500/20 bg-purple-900/5 hover:bg-purple-900/10 transition-all">
+            <Users size={20} className="text-purple-400 mb-2" />
+            <h4 className="font-bold text-white mb-1 text-[15px]">6. Localization</h4>
+            <p className="text-[12px] text-gray-400 leading-snug">Built a custom engine for <span className="text-purple-400">English, Hausa, Yoruba, Igbo, and Pidgin</span> support.</p>
+          </motion.div>
+
+          <motion.div variants={childVariant} className="glass-panel p-3 rounded-xl border border-gray-500/20 bg-gray-900/5 hover:bg-gray-900/10 transition-all">
+            <Shield size={20} className="text-gray-400 mb-2" />
+            <h4 className="font-bold text-white mb-1 text-[15px]">7. Offline PWA</h4>
+            <p className="text-[12px] text-gray-400 leading-snug">Engineered as a <span className="text-gray-300">PWA</span> to ensure health data is accessible without internet.</p>
           </motion.div>
         </div>
       </motion.div>
