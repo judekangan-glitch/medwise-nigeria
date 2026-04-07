@@ -316,12 +316,12 @@ export default function Pitch() {
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-left">
           {[
-            { icon: Code, title: "1. Fast Core", desc: "Built with modern tools to make the app feel fast and smooth on any device.", color: "text-blue-400" },
-            { icon: Activity, title: "2. Visual Style", desc: "Fun animations and game-like features to keep users interested and engaged.", color: "text-yellow-400" },
-            { icon: Database, title: "3. Safe Storage", desc: "Secure cloud storage that keeps all medical records backed up and always ready.", color: "text-green-400" },
-            { icon: Smartphone, title: "4. Phone Alerts", desc: "Sends automatic SMS reminders so patients never miss their daily medicine.", color: "text-red-400" },
-            { icon: Globe, title: "5. Smart Hosting", desc: "The best servers were used to ensure the app loads quickly anywhere in Nigeria.", color: "text-cyan-400" },
-            { icon: Users, title: "6. Language Support", desc: "It works in English, Hausa, Yoruba, Igbo, and Pidgin so everyone can use it.", color: "text-purple-400" }
+            { icon: Code, title: "1. Fast Core", desc: "Built with React and Vite to make the app feel fast and smooth on any device.", color: "text-blue-400" },
+            { icon: Activity, title: "2. Visual Style", desc: "Used Tailwind CSS and Framer Motion for fun animations that keep users engaged.", color: "text-yellow-400" },
+            { icon: Database, title: "3. Safe Storage", desc: "Secure Supabase Cloud storage that keeps all medical records backed up and always ready.", color: "text-green-400" },
+            { icon: Smartphone, title: "4. Phone Alerts", desc: "Sends automatic Twilio SMS reminders so patients never miss their daily medicine.", color: "text-red-400" },
+            { icon: Globe, title: "5. Smart Hosting", desc: "Hosted on Vercel to ensure the app loads quickly anywhere in Nigeria.", color: "text-cyan-400" },
+            { icon: Users, title: "6. Language Support", desc: "Built with Custom Localization in English, Hausa, Yoruba, Igbo, and Pidgin.", color: "text-purple-400" }
           ].map((pillar, i) => (
             <motion.div key={i} variants={childVariant} className="glass-panel p-5 rounded-2xl border border-white/10 bg-white/5 hover:bg-white/10 transition-all">
               <pillar.icon size={28} className={`${pillar.color} mb-3`} />
@@ -337,7 +337,7 @@ export default function Pitch() {
               <h4 className="font-bold text-white text-2xl uppercase tracking-[0.1em]">🏆 7. Works Without Internet</h4>
             </div>
             <p className="text-lg text-gray-200 leading-relaxed max-w-3xl font-light">
-              I built the app to be <span className="text-white font-bold">Offline-First</span>. Every main feature, including the 10,000+ drug database, works <span className="text-primary-light font-bold underline decoration-primary">100% without data</span>. This is vital for reaching every corner of Nigeria.
+              Built as a <span className="text-white font-bold">PWA (Progressive Web App)</span>. Every main feature, including the 10,000+ drug database, works <span className="text-primary-light font-bold underline decoration-primary">100% without data</span>. This is vital for reaching every corner of Nigeria.
             </p>
           </motion.div>
         </div>
