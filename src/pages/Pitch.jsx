@@ -289,18 +289,18 @@ export default function Pitch() {
     <div className="flex flex-col items-center justify-center h-full w-full py-2 text-center">
       <motion.div variants={staggerContainer} initial="hidden" animate="show" className="w-full max-w-5xl">
         <motion.div variants={childVariant} className="mb-6 inline-block px-4 py-1 rounded-full bg-primary/20 text-primary-light font-bold border border-primary/30 tracking-widest uppercase text-xs">
-          The Developer Persona 🛠️
+          MY PROCESS 🛠️
         </motion.div>
-        <motion.h2 variants={childVariant} className="text-6xl font-bold text-white mb-4">Engineering Velocity</motion.h2>
-        <motion.p variants={childVariant} className="text-2xl text-primary-light font-medium mb-12 italic">"Orchestrating Intelligence to Architect National Health Solutions"</motion.p>
+        <motion.h2 variants={childVariant} className="text-6xl font-bold text-white mb-4">Fast & Reliable Building</motion.h2>
+        <motion.p variants={childVariant} className="text-2xl text-primary-light font-medium mb-12 italic">"Using the Best AI Tools to Build a Safer Nigeria"</motion.p>
         
         <motion.div variants={childVariant} className="glass-panel p-12 rounded-3xl border border-primary/30 bg-primary/10 backdrop-blur-xl shadow-[0_20px_50px_rgba(34,197,94,0.1)]">
           <div className="flex items-center justify-center mb-8">
             <Zap size={48} className="text-primary-light mr-4 shadow-[0_0_20px_rgba(34,197,94,0.4)]" />
-            <h3 className="text-3xl font-bold text-white uppercase tracking-wider">Modern AI Orchestration</h3>
+            <h3 className="text-3xl font-bold text-white uppercase tracking-wider">How I Built This</h3>
           </div>
           <p className="text-2xl text-gray-200 leading-relaxed font-light max-w-4xl mx-auto">
-            I built MedWise Nigeria by leveraging the world's most advanced developer tools. By orchestrating <span className="text-white font-bold underline decoration-primary">Antigravity</span>, <span className="text-white font-bold underline decoration-blue-500">GitHub Copilot</span> and <span className="text-white font-bold">Visual Studio Code</span>, alongside chatbots like <span className="text-white font-bold underline decoration-yellow-500">ChatGPT</span> and <span className="text-white font-bold underline decoration-purple-500">Claude AI</span>, I was able to rapidly engineer a secure, national-scale healthcare ecosystem.
+            I built MedWise Nigeria by using the world's most advanced AI tools. By combining <span className="text-white font-bold underline decoration-primary">Antigravity</span>, <span className="text-white font-bold underline decoration-blue-500">GitHub Copilot</span>, <span className="text-white font-bold underline decoration-yellow-500">ChatGPT</span>, and <span className="text-white font-bold underline decoration-purple-500">Claude AI</span>, I was able to quickly create a safe and powerful system that works for our entire nation.
           </p>
         </motion.div>
       </motion.div>
@@ -312,21 +312,21 @@ export default function Pitch() {
     <div className="flex flex-col items-center justify-center h-full w-full py-4 text-center">
       <motion.div variants={staggerContainer} initial="hidden" animate="show" className="w-full max-w-6xl">
         <motion.h2 variants={childVariant} className="text-5xl font-bold text-white mb-2">The 7-Pillar Architecture</motion.h2>
-        <motion.p variants={childVariant} className="text-lg text-primary-light font-medium mb-8 uppercase tracking-[0.2em]">A Scalable Backbone for 200M+ Nigerians</motion.p>
+        <motion.p variants={childVariant} className="text-lg text-primary-light font-medium mb-8 uppercase tracking-[0.2em]">Building for Every Nigerian</motion.p>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-left">
           {[
-            { icon: Code, title: "1. Build Engine", desc: "High-performance React+Vite core for zero-latency module execution.", color: "text-blue-400" },
-            { icon: Activity, title: "2. Visual Innovation", desc: "Reactive Gamification and cinematic Framer Motion transitions.", color: "text-yellow-400" },
-            { icon: Database, title: "3. Enterprise Cloud", desc: "Redundant Supabase record synchronization with 99.9% uptime.", color: "text-green-400" },
-            { icon: Smartphone, title: "4. Messaging Logic", desc: "Automated Twilio SMS API orchestration for medication alerts.", color: "text-red-400" },
-            { icon: Globe, title: "5. Edge Deployment", desc: "Vercel Serverless hosting at the network edge for national speed.", color: "text-cyan-400" },
-            { icon: Users, title: "6. Cultural Access", desc: "Native support for English, Hausa, Yoruba, Igbo, and Pidgin.", color: "text-purple-400" }
+            { icon: Code, title: "1. Fast Core", desc: "Built with modern tools to make the app feel fast and smooth on any device.", color: "text-blue-400" },
+            { icon: Activity, title: "2. Visual Style", desc: "Fun animations and game-like features to keep users interested and engaged.", color: "text-yellow-400" },
+            { icon: Database, title: "3. Safe Storage", desc: "Secure cloud storage that keeps all medical records backed up and always ready.", color: "text-green-400" },
+            { icon: Smartphone, title: "4. Phone Alerts", desc: "Sends automatic SMS reminders so patients never miss their daily medicine.", color: "text-red-400" },
+            { icon: Globe, title: "5. Smart Hosting", desc: "The best servers were used to ensure the app loads quickly anywhere in Nigeria.", color: "text-cyan-400" },
+            { icon: Users, title: "6. Language Support", desc: "It works in English, Hausa, Yoruba, Igbo, and Pidgin so everyone can use it.", color: "text-purple-400" }
           ].map((pillar, i) => (
             <motion.div key={i} variants={childVariant} className="glass-panel p-5 rounded-2xl border border-white/10 bg-white/5 hover:bg-white/10 transition-all">
               <pillar.icon size={28} className={`${pillar.color} mb-3`} />
               <h4 className="font-bold text-white mb-2 text-lg"> {pillar.title}</h4>
-              <p className="text-sm text-gray-400 leading-relaxed italic">{pillar.desc}</p>
+              <p className="text-sm text-gray-300 leading-relaxed italic">{pillar.desc}</p>
             </motion.div>
           ))}
 
@@ -334,10 +334,10 @@ export default function Pitch() {
           <motion.div variants={childVariant} className="glass-panel p-6 rounded-3xl border-2 border-primary/40 bg-primary/10 hover:bg-primary/20 transition-all md:col-start-1 md:col-span-3 flex flex-col items-center text-center shadow-[0_0_30px_rgba(34,197,94,0.1)] mt-2">
             <div className="flex items-center space-x-3 mb-3">
               <Shield size={32} className="text-white animate-pulse" />
-              <h4 className="font-bold text-white text-2xl uppercase tracking-[0.1em]">🏆 7. Hybrid Offline-First Engine</h4>
+              <h4 className="font-bold text-white text-2xl uppercase tracking-[0.1em]">🏆 7. Works Without Internet</h4>
             </div>
             <p className="text-lg text-gray-200 leading-relaxed max-w-3xl font-light">
-              Built with a <span className="text-white font-bold">Hybrid Local-Cloud Engine</span>. Every core feature, including the 10,000+ drug database, works <span className="text-primary-light font-bold underline decoration-primary">100% offline</span>. Critical for network zones across Nigeria.
+              I built the app to be <span className="text-white font-bold">Offline-First</span>. Every main feature, including the 10,000+ drug database, works <span className="text-primary-light font-bold underline decoration-primary">100% without data</span>. This is vital for reaching every corner of Nigeria.
             </p>
           </motion.div>
         </div>
