@@ -406,10 +406,13 @@ export default function Pitch() {
             <p className="text-[12px] text-gray-400 leading-snug">Built a custom engine for <span className="text-purple-400">English, Hausa, Yoruba, Igbo, and Pidgin</span> support.</p>
           </motion.div>
 
-          <motion.div variants={childVariant} className="glass-panel p-3 rounded-xl border border-gray-500/20 bg-gray-900/5 hover:bg-gray-900/10 transition-all">
-            <Shield size={20} className="text-gray-400 mb-2" />
-            <h4 className="font-bold text-white mb-1 text-[15px]">7. Offline PWA</h4>
-            <p className="text-[12px] text-gray-400 leading-snug">Engineered as a <span className="text-gray-300">PWA</span> to ensure health data is accessible without internet.</p>
+          {/* Centered Flagship Pillar: Offline PWA */}
+          <motion.div variants={childVariant} className="glass-panel p-5 rounded-2xl border border-white/30 bg-white/10 hover:bg-white/20 transition-all md:col-start-2 md:col-span-2 flex flex-col items-center text-center shadow-[0_0_20px_rgba(255,255,255,0.05)]">
+            <Shield size={28} className="text-white mb-3" />
+            <h4 className="font-bold text-white mb-2 text-lg italic tracking-wide">🏆 7. Offline-First PWA Architecture</h4>
+            <p className="text-[13px] text-gray-300 leading-relaxed max-w-md">
+              I engineered MedWise Nigeria to be a <span className="text-white font-bold">Progressive Web App (PWA)</span>. This critical innovation ensures that all life-saving features—including the 10,000+ drug database and medical tracking—remain <span className="text-white font-bold underline decoration-primary">100% accessible even without an internet connection</span>.
+            </p>
           </motion.div>
         </div>
       </motion.div>
