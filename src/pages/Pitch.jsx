@@ -207,7 +207,7 @@ export default function Pitch() {
             <Activity size={40} className="text-blue-400 mr-6 group-hover:scale-110 transition-transform" />
             <div>
               <h3 className="text-3xl font-bold text-white mb-2">Adherence Tracking & Reminders</h3>
-              <p className="text-xl text-gray-400">Push notifications and exact dosage scheduling natively in-browser.</p>
+              <p className="text-xl text-gray-400">Push notifications and <span className="text-primary-light font-bold">Twilio SMS alerts</span> for exact dosage scheduling natively in-browser.</p>
             </div>
           </motion.div>
 
@@ -268,7 +268,7 @@ export default function Pitch() {
         <div className="grid md:grid-cols-3 gap-8 text-left">
           {[
             { icon: Database, title: "Supabase Cloud", desc: "Real-time data synchronization and secure cloud-record backups." },
-            { icon: Shield, title: "Twilio SMS OTP", desc: "Military-grade phone verification for secure account creation." },
+            { icon: Smartphone, title: "Twilio SMS Engine", desc: "Dual-purpose messaging for secure OTP verification and patient medication reminders." },
             { icon: Globe, title: "Offline-First", desc: "All core features work 100% without internet. Cloud sync is your safety net." }
           ].map((item, i) => (
             <motion.div key={i} variants={childVariant} whileHover={{ y: -10 }} className="glass-panel p-10 rounded-3xl border border-blue-500/20 bg-blue-900/5 flex flex-col items-center text-center">
@@ -335,7 +335,7 @@ export default function Pitch() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
           {[
             { label: "Supabase Cloud", desc: "Enterprise-grade real-time database and secure authentication.", icon: Database },
-            { label: "Twilio API", desc: "Native-reliable messaging stack for medical alerts and OTPs.", icon: Smartphone },
+            { label: "Twilio SMS API", desc: "Powerful messaging stack for both OTP phone verification and medication reminders.", icon: Smartphone },
             { label: "Framer Motion", desc: "GPU-accelerated native-feeling cinematic transitions.", icon: Activity },
             { label: "React + Vite", desc: "For lightning fast module reloading and execution.", icon: Code }
           ].map((item, i) => (
