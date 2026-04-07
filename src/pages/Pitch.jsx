@@ -7,7 +7,7 @@ import { useMedwise } from '../context/MedwiseContext'
 export default function Pitch() {
   const [currentSlide, setCurrentSlide] = useState(0)
   const { theme } = useMedwise()
-  const totalSlides = 9
+  const totalSlides = 10
 
   // Keyboard navigation
   useEffect(() => {
@@ -284,68 +284,60 @@ export default function Pitch() {
     </div>
   )
 
-  // SLIDE 8: My Development Journey (Claiming Ownership & Strategy)
-  const SlideJourney = () => (
-    <div className="flex flex-col items-center justify-center h-full w-full py-1 text-center">
+  // SLIDE 8: AI Orchestration & Development Workflow
+  const SlideOrchestration = () => (
+    <div className="flex flex-col items-center justify-center h-full w-full py-2 text-center">
       <motion.div variants={staggerContainer} initial="hidden" animate="show" className="w-full max-w-5xl">
-        <motion.h2 variants={childVariant} className="text-4xl font-bold text-white mb-1">My Development Strategy</motion.h2>
-        <motion.p variants={childVariant} className="text-lg text-primary-light font-medium mb-4 italic">"Engineering the Future of Health with AI-Augmented Strategy"</motion.p>
+        <motion.div variants={childVariant} className="mb-6 inline-block px-4 py-1 rounded-full bg-primary/20 text-primary-light font-bold border border-primary/30 tracking-widest uppercase text-xs">
+          The Developer Persona 🛠️
+        </motion.div>
+        <motion.h2 variants={childVariant} className="text-6xl font-bold text-white mb-4">Engineering Velocity</motion.h2>
+        <motion.p variants={childVariant} className="text-2xl text-primary-light font-medium mb-12 italic">"Orchestrating Intelligence to Architect National Health Solutions"</motion.p>
         
-        <div className="grid md:grid-cols-4 gap-3 text-left">
-          {/* Main Strategy Card */}
-          <motion.div variants={childVariant} className="glass-panel p-5 rounded-2xl border border-primary/30 bg-primary/10 hover:bg-primary/20 transition-all col-span-full md:col-span-2 flex flex-col justify-center">
-            <div className="flex items-center mb-3">
-              <Zap size={32} className="text-primary-light mr-3 shadow-[0_0_10px_rgba(34,197,94,0.4)]" />
-              <h3 className="text-xl font-bold text-white uppercase tracking-wider">Modern AI Orchestration</h3>
+        <motion.div variants={childVariant} className="glass-panel p-12 rounded-3xl border border-primary/30 bg-primary/10 backdrop-blur-xl shadow-[0_20px_50px_rgba(34,197,94,0.1)]">
+          <div className="flex items-center justify-center mb-8">
+            <Zap size={48} className="text-primary-light mr-4 shadow-[0_0_20px_rgba(34,197,94,0.4)]" />
+            <h3 className="text-3xl font-bold text-white uppercase tracking-wider">Modern AI Orchestration</h3>
+          </div>
+          <p className="text-2xl text-gray-200 leading-relaxed font-light max-w-4xl mx-auto">
+            I built MedWise Nigeria by leveraging the world's most advanced developer tools. By orchestrating <span className="text-white font-bold underline decoration-primary">Antigravity</span>, <span className="text-white font-bold underline decoration-blue-500">GitHub Copilot</span> and <span className="text-white font-bold">Visual Studio Code</span>, alongside chatbots like <span className="text-white font-bold underline decoration-yellow-500">ChatGPT</span> and <span className="text-white font-bold underline decoration-purple-500">Claude AI</span>, I was able to rapidly engineer a secure, national-scale healthcare ecosystem.
+          </p>
+        </motion.div>
+      </motion.div>
+    </div>
+  )
+
+  // SLIDE 9: 7 Architecture Pillars (The Deep Stack)
+  const SlidePillars = () => (
+    <div className="flex flex-col items-center justify-center h-full w-full py-4 text-center">
+      <motion.div variants={staggerContainer} initial="hidden" animate="show" className="w-full max-w-6xl">
+        <motion.h2 variants={childVariant} className="text-5xl font-bold text-white mb-2">The 7-Pillar Architecture</motion.h2>
+        <motion.p variants={childVariant} className="text-lg text-primary-light font-medium mb-8 uppercase tracking-[0.2em]">A Scalable Backbone for 200M+ Nigerians</motion.p>
+        
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-left">
+          {[
+            { icon: Code, title: "1. Build Engine", desc: "High-performance React+Vite core for zero-latency module execution.", color: "text-blue-400" },
+            { icon: Activity, title: "2. Visual Innovation", desc: "Reactive Gamification and cinematic Framer Motion transitions.", color: "text-yellow-400" },
+            { icon: Database, title: "3. Enterprise Cloud", desc: "Redundant Supabase record synchronization with 99.9% uptime.", color: "text-green-400" },
+            { icon: Smartphone, title: "4. Messaging Logic", desc: "Automated Twilio SMS API orchestration for medication alerts.", color: "text-red-400" },
+            { icon: Globe, title: "5. Edge Deployment", desc: "Vercel Serverless hosting at the network edge for national speed.", color: "text-cyan-400" },
+            { icon: Users, title: "6. Cultural Access", desc: "Native support for English, Hausa, Yoruba, Igbo, and Pidgin.", color: "text-purple-400" }
+          ].map((pillar, i) => (
+            <motion.div key={i} variants={childVariant} className="glass-panel p-5 rounded-2xl border border-white/10 bg-white/5 hover:bg-white/10 transition-all">
+              <pillar.icon size={28} className={`${pillar.color} mb-3`} />
+              <h4 className="font-bold text-white mb-2 text-lg"> {pillar.title}</h4>
+              <p className="text-sm text-gray-400 leading-relaxed italic">{pillar.desc}</p>
+            </motion.div>
+          ))}
+
+          {/* Expanded Flagship Pillar 7 */}
+          <motion.div variants={childVariant} className="glass-panel p-6 rounded-3xl border-2 border-primary/40 bg-primary/10 hover:bg-primary/20 transition-all md:col-start-1 md:col-span-3 flex flex-col items-center text-center shadow-[0_0_30px_rgba(34,197,94,0.1)] mt-2">
+            <div className="flex items-center space-x-3 mb-3">
+              <Shield size={32} className="text-white animate-pulse" />
+              <h4 className="font-bold text-white text-2xl uppercase tracking-[0.1em]">🏆 7. Hybrid Offline-First Engine</h4>
             </div>
-            <p className="text-[16px] text-gray-300 leading-relaxed font-light">
-              I built MedWise Nigeria by leveraging the world's most advanced developer tools. Such as <span className="text-white font-bold underline decoration-primary">Antigravity</span>, <span className="text-white font-bold underline decoration-blue-500">GitHub Copilot</span> and <span className="text-white font-bold">Visual Studio Code</span>. Then chatbots like <span className="text-white font-bold underline decoration-yellow-500">ChatGPT</span>, and <span className="text-white font-bold underline decoration-purple-500">Claude AI</span>. I was able to rapidly engineer a secure, national-scale healthcare ecosystem.
-            </p>
-          </motion.div>
-
-          {/* 7 Pillars */}
-          <motion.div variants={childVariant} className="glass-panel p-3 rounded-xl border border-blue-500/20 bg-blue-900/5 hover:bg-blue-900/10 transition-all">
-            <Code size={20} className="text-blue-400 mb-2" />
-            <h4 className="font-bold text-white mb-1 text-[13px]">1. Build Engine</h4>
-            <p className="text-[11px] text-gray-400 leading-tight">Architected with <span className="text-blue-400 font-bold">React+Vite</span> for high-speed module execution and performance.</p>
-          </motion.div>
-
-          <motion.div variants={childVariant} className="glass-panel p-3 rounded-xl border border-yellow-500/20 bg-yellow-900/5 hover:bg-yellow-900/10 transition-all">
-            <Activity size={20} className="text-yellow-400 mb-2" />
-            <h4 className="font-bold text-white mb-1 text-[13px]">2. Visual Innovation</h4>
-            <p className="text-[11px] text-gray-400 leading-tight">Using <span className="text-yellow-400 font-bold">Reactive Gamification</span> and Framer Motion for cinematic UI transitions.</p>
-          </motion.div>
-
-          <motion.div variants={childVariant} className="glass-panel p-3 rounded-xl border border-green-500/20 bg-green-900/5 hover:bg-green-900/10 transition-all">
-            <Database size={20} className="text-green-400 mb-2" />
-            <h4 className="font-bold text-white mb-1 text-[13px]">3. Cloud Database</h4>
-            <p className="text-[11px] text-gray-400 leading-tight">Integrated <span className="text-green-400 font-bold">Supabase</span> for enterprise-grade, real-time cloud record synchronization.</p>
-          </motion.div>
-
-          <motion.div variants={childVariant} className="glass-panel p-3 rounded-xl border border-red-500/20 bg-red-900/5 hover:bg-red-900/10 transition-all">
-            <Smartphone size={20} className="text-red-400 mb-2" />
-            <h4 className="font-bold text-white mb-1 text-[13px]">4. Messaging Logic</h4>
-            <p className="text-[11px] text-gray-400 leading-tight">Secure <span className="text-red-400 font-bold">Twilio SMS API</span> orchestration for OTP and critical medication alerts.</p>
-          </motion.div>
-
-          <motion.div variants={childVariant} className="glass-panel p-3 rounded-xl border border-cyan-500/20 bg-cyan-900/5 hover:bg-cyan-900/10 transition-all">
-            <Globe size={20} className="text-cyan-400 mb-2" />
-            <h4 className="font-bold text-white mb-1 text-[13px]">5. Edge Deployment</h4>
-            <p className="text-[11px] text-gray-400 leading-tight">National hosting on <span className="text-cyan-400 font-bold">Vercel</span> using high-performance Serverless Edge functions.</p>
-          </motion.div>
-
-          <motion.div variants={childVariant} className="glass-panel p-3 rounded-xl border border-purple-500/20 bg-purple-900/5 hover:bg-purple-900/10 transition-all">
-            <Users size={20} className="text-purple-400 mb-2" />
-            <h4 className="font-bold text-white mb-1 text-[13px]">6. Localization</h4>
-            <p className="text-[11px] text-gray-400 leading-tight">Custom English, Hausa, Yoruba, Igbo, and Pidgin support for national reach.</p>
-          </motion.div>
-
-          {/* Centered Flagship Pillar: Offline PWA */}
-          <motion.div variants={childVariant} className="glass-panel p-4 rounded-xl border border-white/20 bg-white/5 hover:bg-white/10 transition-all md:col-start-2 md:col-span-2 flex flex-col items-center text-center">
-            <Shield size={24} className="text-white mb-2" />
-            <h4 className="font-bold text-white mb-1 text-[14px] italic">🏆 7. Hybrid Offline-First Engine</h4>
-            <p className="text-[11px] text-gray-300 leading-relaxed max-w-sm">
-              I engineered a <span className="text-white font-bold">Hybrid Data Engine</span> as a PWA, ensuring 10,000+ NAFDAC drugs are 100% accessible even in zero-data zones.
+            <p className="text-lg text-gray-200 leading-relaxed max-w-3xl font-light">
+              Built with a <span className="text-white font-bold">Hybrid Local-Cloud Engine</span>. Every core feature, including the 10,000+ drug database, works <span className="text-primary-light font-bold underline decoration-primary">100% offline</span>. Critical for network zones across Nigeria.
             </p>
           </motion.div>
         </div>
@@ -385,7 +377,7 @@ export default function Pitch() {
     </div>
   )
 
-  const slides = [<Slide1 />, <Slide2 />, <Slide3 />, <Slide4 />, <Slide5 />, <SlideLanguage />, <SlideCloud />, <SlideJourney />, <Slide8 />]
+  const slides = [<Slide1 />, <Slide2 />, <Slide3 />, <Slide4 />, <Slide5 />, <SlideLanguage />, <SlideCloud />, <SlideOrchestration />, <SlidePillars />, <Slide8 />]
 
   return (
     // We override global theme background here to enforce the Deep Forest theme for the presentation exclusively
