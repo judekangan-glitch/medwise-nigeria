@@ -43,7 +43,10 @@ Built for the **3MTT Knowledge Showcase 2026** under the **Education** pillar.
 *Interactive symptom checker: Evidence-based guidance*
 
 ![Verification](Screenshots%20for%20organisation/verify.png)
-*Medication verification: NAFDAC code and fake drug alerts*
+*Medication verification: NAFDAC code checking*
+
+![Reminders](Screenshots%20for%20organisation/reminders.png)
+*Smart Reminders: Medication adherence with SMS & Push alerts*
 
 ## 🚀 Features
 
@@ -60,34 +63,45 @@ Built for the **3MTT Knowledge Showcase 2026** under the **Education** pillar.
 - **Counterfeit Detection**: Database of verified medications
 - **Community Reporting**: Report suspected fakes
 
-### 3. TRACK Module
-- **Medication Adherence Tracker**: Never miss a dose
-- **Progress Monitoring**: Visual progress bars
-- **Course Completion Rewards**: Gamified adherence
+### 3. TRACK & REMIND Module
+- **Medication Adherence Tracker**: Never miss a dose with smart alerts
+- **Browser Notifications**: Native push alerts for desktop and mobile
+- **Twilio SMS Integration**: Automated text reminders for medication schedules
+- **Gamified Adherence**: Earn points and XP for completing courses
 
 
-### 4. MULTILINGUAL Core (New!)
-- **Native Localization**: The entire platform translates instantly between 5 dominant Nigerian languages.
-- **Supported Languages**: English, Pidgin, Hausa, Yoruba, and Igbo.
+### 4. MULTILINGUAL Core
+- **Native Localization**: The entire platform translates instantly between 5 Nigerian languages (English, Pidgin, Hausa, Yoruba, and Igbo).
 - **Deep Translation**: Database models, Symptom definitions, and UI alerts are fully mapped.
+
+## 🏗️ 7-Pillar Architecture
+MedWise Nigeria is built on seven core technical and functional pillars:
+1. **Education**: Evidence-based learning modules and quizzes.
+2. **Verification**: Instant NAFDAC code checking for drug authenticity.
+3. **Adherence**: Smart reminders and tracking to ensure full treatment courses.
+4. **Localization**: Breaking language barriers with 5-language native support.
+5. **Persistence**: Robust cloud sync via Supabase (Anonymous + Authenticated).
+6. **Notification**: Multi-channel alerts (Browser Push + Twilio SMS).
+7. **Accessibility**: Offline-first PWA design for inclusive healthcare access.
 
 ## ♿ Accessibility & Inclusion
 - **Bridging Linguistic Divides**: First healthcare app to prioritize and ship native Pidgin, Hausa, Yoruba, and Igbo translations.
 - **Offline-First PWA**: Installs natively to any Android or iOS device. Core features handle offline conditions gracefully.
-- **Mobile Hardware Integration**: 
-  - Exact-match rear camera algorithms for barcode scanning on any device.
-  - Native Android Push Notifications via integrated Service Workers.
+- **Cloud Infrastructure**: 
+  - **Supabase Backend**: Real-time data persistence and secure user management.
+  - **Twilio Communications**: Automated SMS delivery for medication adherence.
 - Dark mode support and highly responsive mobile-first UI.
-- All features work without login for privacy and inclusion.
+- All features work with or without login, with seamless data merging on authentication.
 
 ## 🛠️ Tech Stack
 
-- **Frontend**: React 18
-- **Build Tool**: Vite
+- **Frontend**: React 18 + Vite
+- **Backend/Auth**: Supabase
+- **SMS Service**: Twilio API
 - **Styling**: Tailwind CSS
 - **Routing**: React Router v6
 - **Icons**: Lucide React
-- **Deployment**: Vercel (FREE)
+- **Deployment**: Vercel
 
 ## 📦 Installation
 
@@ -174,29 +188,9 @@ medwise-nigeria/
 └── postcss.config.js            # PostCSS configuration
 ```
 
-## 🎬 Demo Video Script (2-4 Minutes)
+## 📄 Solution Brief
 
-### Act 1: The Problem (0:00-0:45)
-"I'm a Medical Laboratory Science student at University of Jos. In my research on antibiotic resistance, I discovered two silent killers threatening Nigerian healthcare..."
-
-**Show stats**: 70% inappropriate use, 30-40% fake drugs
-
-### Act 2: The Solution (0:45-2:30)
-**Demo each module**:
-1. LEARN: Show symptom checker workflow
-2. VERIFY: Demonstrate NAFDAC code checking
-3. TRACK: Walk through medication adherence
-
-### Act 3: Impact (2:30-3:30)
-"For every 100 users: X fewer resistance cases, Y fake drugs detected"
-
-### Closing (3:30-4:00)
-"This isn't just education. It's protection. It's the future of medication safety in Nigeria."
-
-
-## 📄 Solution Brief (1 Page)
-
-**JUDE KANGAN DANGWAM**  
+**JUDE KANGAN DANKWAM**  
 3MTT Fellow ID: FE/23/77283616
 
 ### Problem
@@ -208,11 +202,12 @@ Nigeria faces a dual healthcare crisis: rampant antibiotic resistance—driven b
 
 ### Build
 - **Modern Frontend:** React + Vite for blazing-fast, seamless user experience.
+- **Backend Sync**: Supabase cloud persistence for points, progress, and schedules.
+- **Messaging**: Integrated Twilio SMS for automated adherence reminders.
 - **Responsive Design:** Tailwind CSS ensures accessibility on any device.
 - **Medical Intelligence:** Evidence-based decision trees and expert content.
 - **Inclusive Architecture:** Native multi-language support (English, Pidgin, Hausa, Yoruba, Igbo) bridging the digital divide.
-- **Privacy-First:** 100% local data storage—no login, no tracking.
-- **PWA-Ready:** Installs like an app, features native mobile push notifications, offline databases, and targeted camera WebView hooks.
+- **PWA-Ready:** Installs like an app, features native mobile push notifications and offline support.
 
 ### Impact
 - **Empowers Smarter Choices:** Transforms how Nigerians learn about, use, and verify medications.
@@ -231,17 +226,9 @@ Built by Jude Kangan Dangwam, 500-level Medical Laboratory Science student, Univ
 
 This platform applies real medical research to solve real healthcare problems.
 
-## 📊 Competitive Advantages
-
-1. **Unique Integration**: Only platform combining education + verification
-2. **Medical Expertise**: Built by someone studying the exact problem
-3. **Real-World Grounded**: Based on actual field experience (Block Malaria, medical outreach)
-4. **Sustainable**: No ongoing API costs, fully functional MVP
-5. **Scalable**: Clear path from university pilot to national deployment
-
 ## 🚨 Important Notes
 
-- NAFDAC verification uses demo data for MVP purposes
+- Currently verifying 10,076 nafdac registered drugs
 - For official verification, users directed to contact NAFDAC
 - Symptom checker provides general guidance only, not medical diagnosis
 - Platform encourages professional medical consultation
