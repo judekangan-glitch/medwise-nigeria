@@ -30,9 +30,9 @@ export default function Track() {
       total: total,
       nextDose: 'Not set'
     }
-    
+
     updateMedications([...medications, medication])
-    
+
     if (reminders.length < 1 && 'Notification' in window && Notification.permission === 'granted') {
       const newReminder = {
         id: Date.now().toString(),
@@ -44,14 +44,14 @@ export default function Track() {
       }
       updateReminders([...reminders, newReminder])
     }
-    
+
     setNewMed({ name: '', dosage: '', frequency: '', duration: '' })
     setShowAddForm(false)
-    showToast(lang({en:'Medication added! Set up reminders in the Reminders tab.',pidgin:'Medicine don add! Set up alarm for Reminders tab.',ha:'An ƙara magani! Shirya tunatarwa a shafin Tunatarwa.',yo:'A ṣàfikún egbogi! Ṣètò àwọn ìránlọ́wọ́ ní ìdásílẹ̀ Olùránnilétí.',ig:'Agbakwunyere ọgwụ! Tọọ ihe ncheta na taabụ Ihe Ncheta.'}), 'success')
+    showToast(lang({ en: 'Medication added! Set up reminders in the Reminders tab.', pidgin: 'Medicine don add! Set up alarm for Reminders tab.', ha: 'An ƙara magani! Shirya tunatarwa a shafin Tunatarwa.', yo: 'A ṣàfikún egbogi! Ṣètò àwọn ìránlọ́wọ́ ní ìdásílẹ̀ Olùránnilétí.', ig: 'Agbakwunyere ọgwụ! Tọọ ihe ncheta na taabụ Ihe Ncheta.' }), 'success')
   }
 
   const deleteMedication = (medId) => {
-    if (confirm(lang({en:'Remove this medication?',pidgin:'You wan remove this medicine?',ha:'Cire wannan magani?',yo:'Yọ egbogi yii kuro?',ig:'Wepụ ọgwụ a?'}))) {
+    if (confirm(lang({ en: 'Remove this medication?', pidgin: 'You wan remove this medicine?', ha: 'Cire wannan magani?', yo: 'Yọ egbogi yii kuro?', ig: 'Wepụ ọgwụ a?' }))) {
       updateMedications(medications.filter(m => m.id !== medId))
     }
   }
@@ -61,19 +61,19 @@ export default function Track() {
       if (med.id === medId) {
         const newCompleted = Math.min(med.completed + 1, med.total)
         const reward = awardPoints('dose_taken')
-        
+
         if (newCompleted === med.total) {
           checkAchievement('COURSE_COMPLETER')
-          showToast(`🎉 ${lang({en:'Course Complete',pidgin:'You don finish am',ha:'An kammala koryar',yo:'Parí kóọsì',ig:'Mechaa usoro'})}! +${reward.pointsAdded} points\n${med.name} finished!`, 'success')
+          showToast(`🎉 ${lang({ en: 'Course Complete', pidgin: 'You don finish am', ha: 'An kammala koryar', yo: 'Parí kóọsì', ig: 'Mechaa usoro' })}! +${reward.pointsAdded} points\n${med.name} finished!`, 'success')
         } else {
-          showToast(`✓ ${lang({en:'Dose taken',pidgin:'I don take dose',ha:'An shan allura',yo:'A mu oògùn',ig:'Ọ nwetara ọgwụ'})}! +${reward.pointsAdded} points`, 'success')
+          showToast(`✓ ${lang({ en: 'Dose taken', pidgin: 'I don take dose', ha: 'An shan allura', yo: 'A mu oògùn', ig: 'Ọ nwetara ọgwụ' })}! +${reward.pointsAdded} points`, 'success')
         }
-        
+
         return { ...med, completed: newCompleted }
       }
       return med
     })
-    
+
     updateMedications(updatedMeds)
     updateStreak(updatedMeds)
   }
@@ -93,10 +93,10 @@ export default function Track() {
       <div className="container mx-auto max-w-4xl">
         <div className="text-center mb-12">
           <h1 className="font-display font-bold text-4xl md:text-5xl mb-4 text-gray-900">
-            {lang({en:'Track Your Medications',pidgin:'Follow Your Medicine',ha:'Bi Magungunanka',yo:'Tọpinpin Egbogi Rẹ',ig:'Soro Ọgwụ Gị'})}
+            {lang({ en: 'Track Your Medications', pidgin: 'Follow Your Medicine', ha: 'Bi Magungunanka', yo: 'Tọpinpin Egbogi Rẹ', ig: 'Soro Ọgwụ Gị' })}
           </h1>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            {lang({en:'Never miss a dose. Complete your antibiotic course. Fight resistance.',pidgin:'No forget to take your drug. Finish the full course make sickness no strong pass you.',ha:'Kada ka rasa allura. Kammala koryar maganin kashe ƙwayoyin cuta. Yaƙar juriya.',yo:'Má ṣe gbàgbé oògùn. Parí kóọsì antibiotics. Ja ìjà j̈úrúsí.',ig:'Ghara ifu ọgwụ. Mechaa usoro antibiotics gị. Lụọ mgbochi ọgụ.'})}
+            {lang({ en: 'Never miss a dose. Complete your antibiotic course. Fight resistance.', pidgin: 'No forget to take your drug. Finish the full course make sickness no strong pass you.', ha: 'Kada ka rasa allura. Kammala koryar maganin kashe ƙwayoyin cuta. Yaƙar juriya.', yo: 'Má ṣe gbàgbé oògùn. Parí kóọsì antibiotics. Ja ìjà j̈úrúsí.', ig: 'Ghara ifu ọgwụ. Mechaa usoro antibiotics gị. Lụọ mgbochi ọgụ.' })}
           </p>
         </div>
 
@@ -105,15 +105,15 @@ export default function Track() {
             <AlertCircle className="text-blue-600 mr-3 flex-shrink-0 mt-1" size={24} />
             <div>
               <h3 className="font-bold text-lg mb-2 text-gray-900">
-                {lang({en:'Why Complete Your Course?',pidgin:'Why You Suppose Finish Your Drug?',ha:'Me Ya Sa Kuke Buƙatar Kammala Koryar?',yo:'Kí Nìdí Tí O Fi Yẹ Kí O Parí Kóọsì?',ig:'Gịnị mere o ji dị mkpa ime usoro?'})}
+                {lang({ en: 'Why Complete Your Course?', pidgin: 'Why You Suppose Finish Your Drug?', ha: 'Me Ya Sa Kuke Buƙatar Kammala Koryar?', yo: 'Kí Nìdí Tí O Fi Yẹ Kí O Parí Kóọsì?', ig: 'Gịnị mere o ji dị mkpa ime usoro?' })}
               </h3>
               <p className="text-gray-700">
                 {lang({
-                  en:'Stopping antibiotics early—even when you feel better—allows resistant bacteria to survive and multiply. Completing the full course ensures all bacteria are eliminated.',
-                  pidgin:'If you stop to take your antibiotic before your time reach—even if you don feel better—those germs wey remain go survive and come back strong pass before. Den fit even grow "strong-head" (resistance) wey medicine no go fit kill again. Finish all your medicine complete!',
-                  ha:'Daina shan antibiotics da wuri—ko da kana jin daɗi—yana barin ƙwayoyin cuta masu juriya suyi raye suyi yawa. Idan ka kammala shan maganin gaba daya, hakan zai tabbatar da cewa dukkan kwayoyin cutar sun mutu.',
-                  yo:'Dádúró mu antibiotics ní kánkán—àní nígbà tí o bá ti fẹ́ lára díná—n jẹ́ kí àwọn bakitéríà arínifẹ̀ tó kù yè kó sì pọ̀ sí i. Píparí gbogbo oògùn rẹ nìkan ló lè ríjú pọ̀ tí gbogbo bakitéríà yóò parẹ́ pátápátá.',
-                  ig:'Ikwụsị antibiotics n\'oge—ọbụna ma ọ bụrụ na ọ dị gị mma—na-enye ohere ka nje bacteria na-eguzogide ndụ ma mụbaa. Mmecha nke usoro ọgwụ niile na-ahụ na e gburu nje bacteria niile.'
+                  en: 'Stopping antibiotics early—even when you feel better—allows resistant bacteria to survive and multiply. Completing the full course ensures all bacteria are eliminated.',
+                  pidgin: 'If you stop to take your antibiotic before your time reach—even if you don feel better—those germs wey remain go survive and come back strong pass before. Den fit even grow "strong-head" (resistance) wey medicine no go fit kill again. Finish all your medicine complete!',
+                  ha: 'Daina shan antibiotics da wuri—ko da kana jin daɗi—yana barin ƙwayoyin cuta masu juriya suyi raye suyi yawa. Idan ka kammala shan maganin gaba daya, hakan zai tabbatar da cewa dukkan kwayoyin cutar sun mutu.',
+                  yo: 'Dádúró mu antibiotics ní kánkán—àní nígbà tí o bá ti fẹ́ lára díná—n jẹ́ kí àwọn bakitéríà arínifẹ̀ tó kù yè kó sì pọ̀ sí i. Píparí gbogbo oògùn rẹ nìkan ló lè ríjú pọ̀ tí gbogbo bakitéríà yóò parẹ́ pátápátá.',
+                  ig: 'Ikwụsị antibiotics n\'oge—ọbụna ma ọ bụrụ na ọ dị gị mma—na-enye ohere ka nje bacteria na-eguzogide ndụ ma mụbaa. Mmecha nke usoro ọgwụ niile na-ahụ na e gburu nje bacteria niile.'
                 })}
               </p>
             </div>
@@ -126,19 +126,19 @@ export default function Track() {
             className="btn-primary w-full md:w-auto"
           >
             <Plus size={20} className="inline mr-2" />
-            {lang({en:'Add Medication to Track',pidgin:'Add New Medicine',ha:'Ƙara Magani don Bi',yo:'Fikún Egbogi Láti Tọpinpin',ig:'Tinye Ọgwụ iji Soro'})}
+            {lang({ en: 'Add Medication to Track', pidgin: 'Add New Medicine', ha: 'Ƙara Magani don Bi', yo: 'Fikún Egbogi Láti Tọpinpin', ig: 'Tinye Ọgwụ iji Soro' })}
           </button>
         </div>
 
         {showAddForm && (
           <div className="card mb-8">
             <h3 className="font-bold text-xl mb-4 text-gray-900">
-              {lang({en:'Add New Medication',pidgin:'Add New Medicine',ha:'Ƙara Sabon Magani',yo:'Fikún Egbogi Tuntun',ig:'Tinye Ọgwụ Ọhụrụ'})}
+              {lang({ en: 'Add New Medication', pidgin: 'Add New Medicine', ha: 'Ƙara Sabon Magani', yo: 'Fikún Egbogi Tuntun', ig: 'Tinye Ọgwụ Ọhụrụ' })}
             </h3>
             <form onSubmit={handleAddMedication} className="space-y-4">
               <div>
                 <label className="block text-sm font-semibold mb-2 text-gray-700">
-                  {lang({en:'Medication Name',pidgin:'Name of Medicine',ha:'Sunan Magani',yo:'Orúkọ Egbogi',ig:'Aha Ọgwụ'})}
+                  {lang({ en: 'Medication Name', pidgin: 'Name of Medicine', ha: 'Sunan Magani', yo: 'Orúkọ Egbogi', ig: 'Aha Ọgwụ' })}
                 </label>
                 <input
                   type="text"
@@ -152,7 +152,7 @@ export default function Track() {
 
               <div>
                 <label className="block text-sm font-semibold mb-2 text-gray-700">
-                  {lang({en:'Dosage per intake',pidgin:'How much to take at once',ha:'Yawan magani a kowane lokaci',yo:'Iye Egbogi Lẹ̀yẹ̀yẹ̀',ig:'Ọgwụ kwa oge'})}
+                  {lang({ en: 'Dosage per intake', pidgin: 'How much to take at once', ha: 'Yawan magani a kowane lokaci', yo: 'Iye Egbogi Lẹ̀yẹ̀yẹ̀', ig: 'Ọgwụ kwa oge' })}
                 </label>
                 <input
                   type="text"
@@ -166,7 +166,7 @@ export default function Track() {
 
               <div>
                 <label className="block text-sm font-semibold mb-2 text-gray-700">
-                  {lang({en:'Frequency (times per day)',pidgin:'How many times per day',ha:'Sau nawa a rana',yo:'Iye Ìgbà Lójójúmọ́',ig:'Ole oge n\'ụbọchị'})}
+                  {lang({ en: 'Frequency (times per day)', pidgin: 'How many times per day', ha: 'Sau nawa a rana', yo: 'Iye Ìgbà Lójójúmọ́', ig: 'Ole oge n\'ụbọchị' })}
                 </label>
                 <input
                   type="number"
@@ -182,7 +182,7 @@ export default function Track() {
 
               <div>
                 <label className="block text-sm font-semibold mb-2 text-gray-700">
-                  {lang({en:'Duration (days)',pidgin:'How many days',ha:'Kwanaki nawa',yo:'Iye Ọjọ́',ig:'Ogologo oge (ụbọchị)'})}
+                  {lang({ en: 'Duration (days)', pidgin: 'How many days', ha: 'Kwanaki nawa', yo: 'Iye Ọjọ́', ig: 'Ogologo oge (ụbọchị)' })}
                 </label>
                 <input
                   type="number"
@@ -198,10 +198,10 @@ export default function Track() {
 
               <div className="flex space-x-3">
                 <button type="submit" className="btn-primary flex-1">
-                  {lang({en:'Add Medication',pidgin:'Add Medicine',ha:'Ƙara Magani',yo:'Fikún Egbogi',ig:'Tinye Ọgwụ'})}
+                  {lang({ en: 'Add Medication', pidgin: 'Add Medicine', ha: 'Ƙara Magani', yo: 'Fikún Egbogi', ig: 'Tinye Ọgwụ' })}
                 </button>
                 <button type="button" onClick={() => setShowAddForm(false)} className="btn-secondary flex-1">
-                  {lang({en:'Cancel',pidgin:'Cancel',ha:'Soke',yo:'Fagilé',ig:'Kagbuo'})}
+                  {lang({ en: 'Cancel', pidgin: 'Cancel', ha: 'Soke', yo: 'Fagilé', ig: 'Kagbuo' })}
                 </button>
               </div>
             </form>
@@ -212,13 +212,13 @@ export default function Track() {
           <div className="card text-center py-12">
             <Pill size={48} className="text-gray-400 mx-auto mb-4" />
             <h3 className="font-bold text-xl mb-2 text-gray-900">
-              {lang({en:'No Medications Tracked',pidgin:'You never add any medicine',ha:'Babu magungunan da ake bin su',yo:'Kò sí Egbogi Tí A Tọpinpin',ig:'Ọ dịghị ọgwụ a na-asoro'})}
+              {lang({ en: 'No Medications Tracked', pidgin: 'You never add any medicine', ha: 'Babu magungunan da ake bin su', yo: 'Kò sí Egbogi Tí A Tọpinpin', ig: 'Ọ dịghị ọgwụ a na-asoro' })}
             </h3>
             <p className="text-gray-600 mb-6">
-              {lang({en:'Add your first medication to start tracking adherence',pidgin:'Add your first medicine make we start to follow you',ha:'Ƙara magani naka na farko don fara bin ta',yo:'Fikún egbogi àkọ́kọ́ rẹ láti bẹ̀rẹ̀ títọpinpin',ig:'Tinye ọgwụ nke mbụ gị iji bido ịsoro'})}
+              {lang({ en: 'Add your first medication to start tracking adherence', pidgin: 'Add your first medicine make we start to follow you', ha: 'Ƙara magani naka na farko don fara bin ta', yo: 'Fikún egbogi àkọ́kọ́ rẹ láti bẹ̀rẹ̀ títọpinpin', ig: 'Tinye ọgwụ nke mbụ gị iji bido ịsoro' })}
             </p>
             <button onClick={() => setShowAddForm(true)} className="btn-primary">
-              {lang({en:'Add Medication',pidgin:'Add Medicine',ha:'Ƙara Magani',yo:'Fikún Egbogi',ig:'Tinye Ọgwụ'})}
+              {lang({ en: 'Add Medication', pidgin: 'Add Medicine', ha: 'Ƙara Magani', yo: 'Fikún Egbogi', ig: 'Tinye Ọgwụ' })}
             </button>
           </div>
         ) : (
@@ -233,9 +233,9 @@ export default function Track() {
                     <div className="flex-1">
                       <h3 className="font-bold text-xl mb-2 text-gray-900">{med.name}</h3>
                       <div className="text-sm text-gray-600 space-y-1">
-                        <p>{lang({en:'Dosage',pidgin:'Dose',ha:'Yawan allura',yo:'Iye Oògùn',ig:'Ọnụọgụ ọgwụ'})}: {med.dosage}</p>
-                        <p>{lang({en:'Frequency',pidgin:'How many times',ha:'Sau',yo:'Ìgbà',ig:'Ole oge'})}: {med.frequency} {lang({en:'times daily',pidgin:'times per day',ha:'sau a rana',yo:'ìgbà lójoojúmọ́',ig:'oge n\'ụbọchị'})}</p>
-                        <p>{lang({en:'Started',pidgin:'E start',ha:'An fara',yo:'Bẹ̀rẹ̀ ní',ig:'Bidoro'})}: {new Date(med.startDate).toLocaleDateString()}</p>
+                        <p>{lang({ en: 'Dosage', pidgin: 'Dose', ha: 'Yawan allura', yo: 'Iye Oògùn', ig: 'Ọnụọgụ ọgwụ' })}: {med.dosage}</p>
+                        <p>{lang({ en: 'Frequency', pidgin: 'How many times', ha: 'Sau', yo: 'Ìgbà', ig: 'Ole oge' })}: {med.frequency} {lang({ en: 'times daily', pidgin: 'times per day', ha: 'sau a rana', yo: 'ìgbà lójoojúmọ́', ig: 'oge n\'ụbọchị' })}</p>
+                        <p>{lang({ en: 'Started', pidgin: 'E start', ha: 'An fara', yo: 'Bẹ̀rẹ̀ ní', ig: 'Bidoro' })}: {new Date(med.startDate).toLocaleDateString()}</p>
                       </div>
                     </div>
                     <div className="flex items-center space-x-2">
@@ -249,7 +249,7 @@ export default function Track() {
                   <div className="mb-4">
                     <div className="flex items-center justify-between mb-2">
                       <span className="text-sm font-semibold text-gray-700">
-                        {lang({en:'Progress',pidgin:'How far',ha:'Ci gaba',yo:'Ìlọsíwájú',ig:'Ọganiihu'})}: {med.completed} / {med.total} {lang({en:'doses',pidgin:'doses',ha:'allurai',yo:'oògùn',ig:'ọgwụ'})}
+                        {lang({ en: 'Progress', pidgin: 'How far', ha: 'Ci gaba', yo: 'Ìlọsíwájú', ig: 'Ọganiihu' })}: {med.completed} / {med.total} {lang({ en: 'doses', pidgin: 'doses', ha: 'allurai', yo: 'oògùn', ig: 'ọgwụ' })}
                       </span>
                       <span className="text-sm font-semibold text-gray-700">{progress}%</span>
                     </div>
@@ -263,10 +263,10 @@ export default function Track() {
                       <CheckCircle size={24} className="text-green-600 mr-3" />
                       <div>
                         <p className="font-semibold text-green-900">
-                          {lang({en:'Course Completed!',pidgin:'You Don Finish Am!',ha:'An kammala koryar!',yo:'Parí Kóọsì!',ig:'Mechara usoro!'})}
+                          {lang({ en: 'Course Completed!', pidgin: 'You Don Finish Am!', ha: 'An kammala koryar!', yo: 'Parí Kóọsì!', ig: 'Mechara usoro!' })}
                         </p>
                         <p className="text-sm text-green-700">
-                          {lang({en:'Great job completing your full antibiotic course',pidgin:'Well done as you finish all your antibiotic pills',ha:'Kyakkyawan aiki don kammala dukan koryar maganin kashe ƙwayoyin cuta',yo:'Ìṣẹ́ rere fún píparí gbogbo kóọsì antibiotics rẹ',ig:'Ọrụ ọma imecha usoro antibiotics gị nke ọma'})}
+                          {lang({ en: 'Great job completing your full antibiotic course', pidgin: 'Well done as you finish all your antibiotic pills', ha: 'Kyakkyawan aiki don kammala dukan koryar maganin kashe ƙwayoyin cuta', yo: 'Ìṣẹ́ rere fún píparí gbogbo kóọsì antibiotics rẹ', ig: 'Ọrụ ọma imecha usoro antibiotics gị nke ọma' })}
                         </p>
                       </div>
                     </div>
@@ -276,13 +276,13 @@ export default function Track() {
                         <div className="flex items-center">
                           <Clock size={20} className="text-blue-600 mr-2" />
                           <span className="text-blue-900 font-semibold">
-                            {lang({en:'Next dose',pidgin:'Dose wey follow',ha:'Allura ta gaba',yo:'Oògùn Tí Ó Kàn',ig:'Ọgwụ ọzọ'})}: {med.nextDose}
+                            {lang({ en: 'Next dose', pidgin: 'Dose wey follow', ha: 'Allura ta gaba', yo: 'Oògùn Tí Ó Kàn', ig: 'Ọgwụ ọzọ' })}: {med.nextDose}
                           </span>
                         </div>
                       </div>
                       <button onClick={() => markDoseTaken(med.id)} className="btn-primary w-full" disabled={isCompleted}>
                         <CheckCircle size={20} className="inline mr-2" />
-                        {lang({en:'Mark Dose as Taken',pidgin:'I don take this dose',ha:'Lura da shan allura',yo:'Ṣàmì Oògùn Gẹ́gẹ́ Bí A Ti Mu',ig:'Kọwapụta ọgwụ ka o wepụtara'})}
+                        {lang({ en: 'Mark Dose as Taken', pidgin: 'I don take this dose', ha: 'Lura da shan allura', yo: 'Ṣàmì Oògùn Gẹ́gẹ́ Bí A Ti Mu', ig: 'Kọwapụta ọgwụ ka o wepụtara' })}
                       </button>
                     </div>
                   )}
@@ -294,13 +294,13 @@ export default function Track() {
 
         <div className="mt-12 card bg-green-50">
           <h3 className="font-bold text-xl mb-4 text-gray-900">
-            {lang({en:'Adherence Tips',pidgin:'Helpful Advice',ha:'Shawarwari na Bi Ta',yo:'Àwọn Ìmọ̀ràn Ìgbọràn',ig:'Ndụmọdụ Ilo Oge'})}
+            {lang({ en: 'Adherence Tips', pidgin: 'Helpful Advice', ha: 'Shawarwari na Bi Ta', yo: 'Àwọn Ìmọ̀ràn Ìgbọràn', ig: 'Ndụmọdụ Ilo Oge' })}
           </h3>
           <div className="space-y-3 text-gray-700">
-            <div className="flex items-start"><CheckCircle size={20} className="text-green-600 mr-3 flex-shrink-0 mt-0.5" /><p>{lang({en:'Set alarms or reminders for each dose time',pidgin:'Set alarm/reminder for your phone for every time way you suppose take drug',ha:'Ka saita kararrawar (Alarm) tunatarwa a wayar ka ga kowane lokacin shan magani',yo:'Ṣètò aago tàbí Olùránnilétí fún gbogbo ìgbà tí o fẹ́ mu oògùn',ig:'Tọọ igwe ịdọ aka ná ntị (Alarm) maka oge ọgwụ ọ bụla ị ga-anụ'})}</p></div>
-            <div className="flex items-start"><CheckCircle size={20} className="text-green-600 mr-3 flex-shrink-0 mt-0.5" /><p>{lang({en:"Keep medications in a visible place (but out of children's reach)",pidgin:'Keep your medicine where your eye go dey see am quick (but keep am far from pikin)',ha:'Ajiye magungunan a wuri mai sauƙin gani (amma nesa da inda yara za su iya kaiwa)',yo:'Ṣọ egbogi sínú ibi tí ojú rẹ yóò ti máa tètè rí i (ṣùgbọ́n jìnnà sí ọwọ́ àwọn ọmọdé)',ig:'Dobe ọgwụ gị n\'ebe ị ga-ahụ ya anya ngwa ngwa (mana debe ya n\'ebe ụmụaka na-agaghị erute)'})}</p></div>
-            <div className="flex items-start"><CheckCircle size={20} className="text-green-600 mr-3 flex-shrink-0 mt-0.5" /><p>{lang({en:'Take doses at the same times each day',pidgin:'Make you dey take your medicine for di same time every day',ha:'Ka riƙa shan maganin a lokaci ɗaya/daya a kowace rana',yo:'Mu oògùn ní àkókò kan náà lójúmọ́ láti rí i pé ó ṣiṣẹ́ dáadáa',ig:'Na-anụ ọgwụ gị n\'otu oge ahụ kwa ụbọchị'})}</p></div>
-            <div className="flex items-start"><CheckCircle size={20} className="text-green-600 mr-3 flex-shrink-0 mt-0.5" /><p>{lang({en:'Never stop early, even if you feel better',pidgin:'No ever stop take your medicine before time reach, even if you don feel better',ha:'Kada ka daina shan magani har sai ka gama koryar, ko da kana jin cewa ka warke',yo:'Máṣe dádúró pímu oògùn rẹ ní ìjẹ̀jẹ̀, kódà bí o bá ti lẹ́mí pé ara tì ẹ́ dá',ig:'Atọghị ikwụsị n\'ime usoro ọgwụ gị, ọbụna ma ọ bụrụ na ọ dị gị mma'})}</p></div>
+            <div className="flex items-start"><CheckCircle size={20} className="text-green-600 mr-3 flex-shrink-0 mt-0.5" /><p>{lang({ en: 'Set alarms or reminders for each dose time', pidgin: 'Set alarm/reminder for your phone for every time way you suppose take drug', ha: 'Ka saita kararrawar (Alarm) tunatarwa a wayar ka ga kowane lokacin shan magani', yo: 'Ṣètò aago tàbí Olùránnilétí fún gbogbo ìgbà tí o fẹ́ mu oògùn', ig: 'Tọọ igwe ịdọ aka ná ntị (Alarm) maka oge ọgwụ ọ bụla ị ga-anụ' })}</p></div>
+            <div className="flex items-start"><CheckCircle size={20} className="text-green-600 mr-3 flex-shrink-0 mt-0.5" /><p>{lang({ en: "Keep medications in a visible place (but out of children's reach)", pidgin: 'Keep your medicine where your eye go dey see am quick (but keep am far from pikin)', ha: 'Ajiye magungunan a wuri mai sauƙin gani (amma nesa da inda yara za su iya kaiwa)', yo: 'Ṣọ egbogi sínú ibi tí ojú rẹ yóò ti máa tètè rí i (ṣùgbọ́n jìnnà sí ọwọ́ àwọn ọmọdé)', ig: 'Dobe ọgwụ gị n\'ebe ị ga-ahụ ya anya ngwa ngwa (mana debe ya n\'ebe ụmụaka na-agaghị erute)' })}</p></div>
+            <div className="flex items-start"><CheckCircle size={20} className="text-green-600 mr-3 flex-shrink-0 mt-0.5" /><p>{lang({ en: 'Take doses at the same times each day', pidgin: 'Make you dey take your medicine for di same time every day', ha: 'Ka riƙa shan maganin a lokaci ɗaya/daya a kowace rana', yo: 'Mu oògùn ní àkókò kan náà lójúmọ́ láti rí i pé ó ṣiṣẹ́ dáadáa', ig: 'Na-anụ ọgwụ gị n\'otu oge ahụ kwa ụbọchị' })}</p></div>
+            <div className="flex items-start"><CheckCircle size={20} className="text-green-600 mr-3 flex-shrink-0 mt-0.5" /><p>{lang({ en: 'Never stop early, even if you feel better', pidgin: 'No ever stop take your medicine before time reach, even if you don feel better', ha: 'Kada ka daina shan magani har sai ka gama koryar, ko da kana jin cewa ka warke', yo: 'Máṣe dádúró pímu oògùn rẹ ní ìjẹ̀jẹ̀, kódà bí o bá ti lẹ́mí pé ara tì ẹ́ dá', ig: 'Atọghị ikwụsị n\'ime usoro ọgwụ gị, ọbụna ma ọ bụrụ na ọ dị gị mma' })}</p></div>
           </div>
         </div>
       </div>

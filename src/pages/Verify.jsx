@@ -1,7 +1,7 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { Search, AlertTriangle, CheckCircle, FileText } from 'lucide-react'
 import FakeDrugAlerts from '../components/FakeDrugAlerts'
-import { verifyNafdac } from '../utils/verifyNafdac'
+import { verifyNafdac, searchDrugs, NAFDAC_DRUG_COUNT } from '../utils/verifyNafdac'
 import PageWrapper from '../components/PageWrapper'
 import { useMedwise } from '../context/MedwiseContext'
 import { lang } from '../utils/translations'
@@ -11,8 +11,13 @@ export default function Verify() {
   const [nafdacCode, setNafdacCode] = useState('')
   const [verificationResult, setVerificationResult] = useState(null)
   const [isVerifying, setIsVerifying] = useState(false)
+  const [suggestions, setSuggestions] = useState([])
+  const [showSuggestions, setShowSuggestions] = useState(false)
+  const inputRef = useRef(null)
 
   const processVerification = (code) => {
+    setSuggestions([])
+    setShowSuggestions(false)
     setIsVerifying(true)
     
     setTimeout(() => {
@@ -22,7 +27,10 @@ export default function Verify() {
           status: 'verified',
           name: found.name,
           nafdacNumber: found.nrn,
-          manufacturer: found.manufacturer || 'N/A',
+          category: found.category || '',
+          dosageForm: found.dosageForm || '',
+          activeIngredient: found.activeIngredient || '',
+          strength: found.strength || '',
           expiryCheck: lang({en:'Check expiry date on package',pidgin:'Check the expiry date wey dey the medicine body',ha:'Duba ranar ƙarewa a akwatin',yo:'Ṣàyẹ̀wò ọjọ́ ìpárí ní apoti egbogi',ig:'Lelee ụbọchị njedebe n\'ọpọmọ'})
         })
         showToast(lang({en:'Medication Verified ✓',pidgin:'We don confirm am ✓',ha:'An tabbatar da magani ✓',yo:'A ti ṣàyẹ̀wò egbogi ✓',ig:'Anwachara ọgwụ ✓'}), 'success')
@@ -34,7 +42,27 @@ export default function Verify() {
         showToast(lang({en:'Verification Failed!',pidgin:'E no match o!',ha:'Tabbatarwa ta gaza!',yo:'Ìmójútó Kùnà!',ig:'Nnyocha enwebeghị ire!'}), 'error')
       }
       setIsVerifying(false)
-    }, 1000)
+    }, 800)
+  }
+
+  const handleInputChange = (e) => {
+    const val = e.target.value
+    setNafdacCode(val)
+    if (val.length >= 2) {
+      const s = searchDrugs(val, 8)
+      setSuggestions(s)
+      setShowSuggestions(s.length > 0)
+    } else {
+      setSuggestions([])
+      setShowSuggestions(false)
+    }
+  }
+
+  const handleSuggestionClick = (drug) => {
+    setNafdacCode(drug.nrn)
+    setSuggestions([])
+    setShowSuggestions(false)
+    processVerification(drug.nrn)
   }
 
   const handleVerify = (e) => {
@@ -62,15 +90,15 @@ export default function Verify() {
           </p>
           <div className="mt-4">
             <span className="inline-block bg-blue-100 text-blue-800 text-sm font-semibold px-4 py-2 rounded-full">
-              <strong>{lang({en:'Currently verifying:',pidgin:'We dey check:',ha:'Ana tabbatarwa:',yo:'A ń ṣàyẹ̀wò:',ig:'A na-enyocha ugbu a:'})}</strong> 10,076 {lang({en:'NAFDAC-registered drugs',pidgin:'different medicines for Naija',ha:'magunguna da NAFDAC ta yi rajista',yo:'egbogi tí NAFDAC fọwọ́ sí',ig:'ọgwụ ndị NAFDAC deresara'})}
+              <strong>{lang({en:'Currently verifying:',pidgin:'We dey check:',ha:'Ana tabbatarwa:',yo:'A ń ṣàyẹ̀wò:',ig:'A na-enyocha ugbu a:'})}</strong> {NAFDAC_DRUG_COUNT.toLocaleString()} {lang({en:'NAFDAC-registered products',pidgin:'different medicines/products for Naija',ha:'kayayyakin da NAFDAC ta yi rajista',yo:'àwọn ọjà tí NAFDAC fọwọ́ sí',ig:'ngwaahịa ndị NAFDAC deresara'})}
             </span>
             <p className="text-xs text-gray-500 mt-2 max-w-xl mx-auto">
-              <strong>Note:</strong> {lang({
-                en:'This tool does not cover every drug registered by NAFDAC. Only drugs with public records are included.',
-                pidgin:'This tool no cover all drug wey NAFDAC register o. We only put the ones wey record dey open. If you no see am, e fit still be real, but always double-check.',
-                ha:'Wannan kayan aiki baya rufe kowane magani da NAFDAC ta yi rajista ba. Mun sanya wadanda muke da bayanan su kawai.',
-                yo:'Ètò yìí kò bo gbogbo egbogi tí NAFDAC forúkọsilẹ. Àwọn egbogi tí a ní àlàyẹ gbangba rẹ̀ nìkan ni a pẹ̀lú.',
-                ig:'Ngwá ọrụ a adọrọghị ọgwụ niile ndị NAFDAC deresara. Naanị ọgwụ ndị anyị nwere data ha ka anyị tinyere.'
+              {lang({
+                en:'Data sourced directly from the official NAFDAC Greenbook — Nigeria\'s authoritative register of approved products.',
+                pidgin:'We carry this data from NAFDAC Greenbook directly — that na the official list of all approved medicines for Naija.',
+                ha:'Bayanan sun fito kai tsaye daga NAFDAC Greenbook — rajista ta hukuma ta kayayyakin da aka amince da su a Najeriya.',
+                yo:'A mú àlàyẹ yìí láti ọwọ́ NAFDAC Greenbook tààrà — ìkójọpọ̀ alaye ìjọba ti àwọn ọjà tí a fọwọ́ sí ní Nàìjíríà.',
+                ig:'Anyị wepụtara data a site na NAFDAC Greenbook ozugbo — ndekọ gọọmentị nke ngwaahịa ndị NAFDAC kwadoro na Naịjịrịa.'
               })}
             </p>
           </div>
@@ -118,17 +146,40 @@ export default function Verify() {
           <form onSubmit={handleVerify} className="mb-6">
               <div className="mb-4">
                 <label className="block text-sm font-semibold mb-2 text-gray-700">
-                  {lang({en:'Enter NAFDAC Number (e.g., A7-1234)',pidgin:'Type the NAFDAC Number (e.g., A7-1234)',ha:'Shigar da Lambar NAFDAC (misali, A7-1234)',yo:'Tẹ Nọmbà NAFDAC (fun apẹẹrẹ, A7-1234)',ig:'Tinye Nọmba NAFDAC (dịka, A7-1234)'})}
+                  {lang({en:'Search by drug name or NAFDAC number',pidgin:'Type the drug name or NAFDAC number',ha:'Shigar da sunan magani ko lambar NAFDAC',yo:'Tẹ orúkọ egbogi tàbí nọ́mbà NAFDAC',ig:'Tinye aha ọgwụ ma ọ bụ nọmba NAFDAC'})}
                 </label>
-                <div className="flex space-x-3">
-                  <input
-                    type="text"
-                    value={nafdacCode}
-                    onChange={(e) => setNafdacCode(e.target.value.toUpperCase())}
-                    placeholder="A7-XXXX"
-                    className="flex-1 px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-primary focus:outline-none"
-                    required
-                  />
+                <div className="flex space-x-3 relative">
+                  <div className="flex-1 relative">
+                    <input
+                      ref={inputRef}
+                      type="text"
+                      id="nafdac-search-input"
+                      value={nafdacCode}
+                      onChange={handleInputChange}
+                      onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
+                      onFocus={() => suggestions.length > 0 && setShowSuggestions(true)}
+                      placeholder={lang({en:'e.g. Amoxicillin or A4-1234',pidgin:'e.g. Amoxicillin or A4-1234',ha:'misali: Amoxicillin ko A4-1234',yo:'fun apẹẹrẹ: Amoxicillin tàbí A4-1234',ig:'dịka: Amoxicillin ma ọ bụ A4-1234'})}
+                      className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-primary focus:outline-none"
+                      autoComplete="off"
+                      required
+                    />
+                    {showSuggestions && suggestions.length > 0 && (
+                      <ul className="absolute z-50 left-0 right-0 top-full mt-1 bg-white border border-gray-200 rounded-lg shadow-lg max-h-64 overflow-y-auto">
+                        {suggestions.map(drug => (
+                          <li
+                            key={drug.id}
+                            onMouseDown={() => handleSuggestionClick(drug)}
+                            className="px-4 py-2 hover:bg-blue-50 cursor-pointer border-b border-gray-100 last:border-0"
+                          >
+                            <div className="font-medium text-gray-900 text-sm">{drug.name}</div>
+                            <div className="text-xs text-gray-500">
+                              {drug.nrn}{drug.activeIngredient ? ` · ${drug.activeIngredient}` : ''}{drug.dosageForm ? ` · ${drug.dosageForm}` : ''}
+                            </div>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
                   <button
                     type="submit"
                     disabled={isVerifying || !nafdacCode}
@@ -145,7 +196,7 @@ export default function Verify() {
                   </button>
                 </div>
                 <p className="text-sm text-gray-500 mt-2">
-                  {lang({en:'Find the NAFDAC number printed on your medication package (not the serial number)',pidgin:'Check the NAFDAC number wey dem write the medicine body',ha:'Nemo lambar NAFDAC da aka buga a jikin akwatin magani',yo:'Wá nọ́mbà NAFDAC tí a kọ sí apoti egbogi rẹ',ig:'Chọta nọmba NAFDAC nke a pịnta na ọpọmọ ọgwụ gị'})}
+                  {lang({en:'Type a drug name for suggestions, or enter NAFDAC number directly (e.g., A4-1234)',pidgin:'Type drug name for suggestions, or enter NAFDAC number directly',ha:'Rubuta sunan magani don shawarwari, ko shigar da lambar NAFDAC kai tsaye',yo:'Tẹ orúkọ egbogi fún àwọn ìmọ̀ràn, tàbí tẹ nọ́mbà NAFDAC tààrà',ig:'Pịnye aha ọgwụ maka ndụmọdụ, ma ọ bụ tinye nọmba NAFDAC ozugbo'})}
                 </p>
               </div>
             </form>
@@ -179,9 +230,21 @@ export default function Verify() {
                       <p className="text-gray-700 mb-2">
                         <strong>{lang({en:'Product',pidgin:'Product',ha:'Kaya',yo:'Ọjà',ig:'Ọrụ'})}: </strong>{verificationResult.name}
                       </p>
-                      <p className="text-gray-700 mb-2">
-                        <strong>{lang({en:'Manufacturer',pidgin:'Who make am',ha:'Mai kera',yo:'Olùṣe',ig:'Onye mere ya'})}: </strong>{verificationResult.manufacturer}
-                      </p>
+                      {verificationResult.dosageForm && (
+                        <p className="text-gray-700 mb-2">
+                          <strong>{lang({en:'Dosage Form',pidgin:'Form',ha:'Nau\'i',yo:'Àpẹẹrẹ',ig:'Ụdị'})}: </strong>{verificationResult.dosageForm}
+                        </p>
+                      )}
+                      {verificationResult.activeIngredient && (
+                        <p className="text-gray-700 mb-2">
+                          <strong>{lang({en:'Active Ingredient',pidgin:'Active Ingredient',ha:'Sinadarin',yo:'Àkópọ̀',ig:'Ihe dị n\'ime'})}: </strong>{verificationResult.activeIngredient}{verificationResult.strength ? ` (${verificationResult.strength})` : ''}
+                        </p>
+                      )}
+                      {verificationResult.category && (
+                        <p className="text-gray-700 mb-2">
+                          <strong>{lang({en:'Category',pidgin:'Category',ha:'Nau\'i',yo:'Ẹ̀ka',ig:'Ụdị'})}: </strong>{verificationResult.category}
+                        </p>
+                      )}
                       <p className="text-gray-700 mb-4">
                         <strong>NAFDAC {lang({en:'Number',pidgin:'Number',ha:'Lamba',yo:'Nọ́mbà',ig:'Nọmba'})}: </strong>{verificationResult.nafdacNumber}
                       </p>
@@ -266,7 +329,13 @@ export default function Verify() {
         <div className="mt-8 bg-yellow-50 p-4 rounded-lg border-l-4 border-yellow-500">
           <p className="text-sm text-gray-700">
             <strong>{lang({en:'Disclaimer',pidgin:'Please Note',ha:'Faɗakarwa',yo:'Ìkìlọ̀',ig:'Ọkwa'})}: </strong>
-            {lang({en:'This verification tool uses a limited database of 10,076 drugs. For official and complete verification, contact NAFDAC directly or visit a licensed pharmacy. We do not have access to the full NAFDAC registry or API.',pidgin:'This tool na only 10,076 drugs dey inside. For complete check, go meet NAFDAC direct or proper pharmacy. We no get their full system access.',ha:'Wannan kayan aiki na tabbatarwa yana amfani da ɗakunan bayanai masu iyaka na magunguna 10,076. Don hukuma da cikakken tabbatarwa, tuntuɓi NAFDAC kai tsaye ko ziyarci wani kantin magani mai lasisi.',yo:'Ètò ìmójútó yìí ń lo ìkójọpọ̀ alaye ìyàsọtọ ti àwọn egbogi 10,076. Fún ìmójútó ìjọba àti pipe, kan sí NAFDAC tàbí ṣèbẹ̀wò sí ile egbogi tí wọ́n fi fọwọ́ sí.',ig:'Ngwá ọrụ nyocha a na-eji nkwekọrịta data nwere 10,076 ọgwụ. Maka nyocha ọffịs na zuru oke, kpọtụrụ NAFDAC ozugbo ma ọ bụ gaa ụlọ ahịa ọgwụ nwere ikikere.'})}
+            {lang({
+              en:`This verification tool covers ${NAFDAC_DRUG_COUNT.toLocaleString()} NAFDAC-registered products sourced from the official NAFDAC Greenbook (greenbook.nafdac.gov.ng). For official confirmation, contact NAFDAC directly or visit a licensed pharmacy.`,
+              pidgin:`This tool cover ${NAFDAC_DRUG_COUNT.toLocaleString()} products from NAFDAC Greenbook. For complete check, go meet NAFDAC direct or proper pharmacy.`,
+              ha:`Wannan kayan aiki na tabbatarwa yana rufe kayayyaki ${NAFDAC_DRUG_COUNT.toLocaleString()} daga NAFDAC Greenbook. Don tabbatarwa ta hukuma, tuntuɓi NAFDAC kai tsaye.`,
+              yo:`Ètò ìmójútó yìí bo àwọn ọjà ${NAFDAC_DRUG_COUNT.toLocaleString()} láti NAFDAC Greenbook. Fún ìmójútó ìjọba, kan sí NAFDAC tààrà.`,
+              ig:`Ngwá ọrụ nyocha a na-ekpuchie ngwaahịa ${NAFDAC_DRUG_COUNT.toLocaleString()} sitere na NAFDAC Greenbook. Maka nyocha ọffịs, kpọtụrụ NAFDAC ozugbo.`
+            })}
           </p>
         </div>
       </div>
